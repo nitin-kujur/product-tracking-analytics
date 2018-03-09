@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shop_name: MyString
+  shop_domain: MyString
+  shop_private_api_keys: MyString
+  shop_private_api_secret: MyString
+  shop_private_api_password: MyString
+
+two:
+  shop_name: MyString
+  shop_domain: MyString
+  shop_private_api_keys: MyString
+  shop_private_api_secret: MyString
+  shop_private_api_password: MyString

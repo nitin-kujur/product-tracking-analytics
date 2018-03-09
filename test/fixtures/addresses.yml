@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_id: 1
+  first_name: MyString
+  last_name: MyString
+  company: MyString
+  address1: MyString
+  address2: MyText
+  city: MyString
+  province: MyString
+  country: MyString
+  country_name: MyString
+  zip: MyString
+  phone: MyString
+  name: MyString
+  province_code: MyString
+  country_code: MyString
+  default: false
+
+two:
+  order_id: 1
+  first_name: MyString
+  last_name: MyString
+  company: MyString
+  address1: MyString
+  address2: MyText
+  city: MyString
+  province: MyString
+  country: MyString
+  country_name: MyString
+  zip: MyString
+  phone: MyString
+  name: MyString
+  province_code: MyString
+  country_code: MyString
+  default: false

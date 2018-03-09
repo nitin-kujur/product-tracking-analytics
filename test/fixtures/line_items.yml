@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_id: 1
+  product_id: 1
+  shopify_vaiant_id: 1
+  order_id: 1
+  shopify_line_item_id: 1
+  variant_id: 1
+  title: MyText
+  quantity: 1
+  price: 9.99
+  sku: MyString
+  fulfillment_service: MyString
+  shopify_product_id: 1
+  requires_shipping: false
+  properties: 
+  fulfillable_quantity: 1
+  total_discount: 9.99
+  fulfillment_status: MyString
+  origin_location: 
+  destination_location: 
+
+two:
+  order_id: 1
+  product_id: 1
+  shopify_vaiant_id: 1
+  order_id: 1
+  shopify_line_item_id: 1
+  variant_id: 1
+  title: MyText
+  quantity: 1
+  price: 9.99
+  sku: MyString
+  fulfillment_service: MyString
+  shopify_product_id: 1
+  requires_shipping: false
+  properties: 
+  fulfillable_quantity: 1
+  total_discount: 9.99
+  fulfillment_status: MyString
+  origin_location: 
+  destination_location: 

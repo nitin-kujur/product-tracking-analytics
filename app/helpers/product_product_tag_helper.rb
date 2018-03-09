@@ -1,0 +1,2 @@
+module ProductProductTagHelper
+end

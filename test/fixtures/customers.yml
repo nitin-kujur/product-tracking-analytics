@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shop_id: 
+  first_name: MyString
+  last_name: MyString
+  shopify_customer_id: 1
+  email: MyString
+  total_spent: 1.5
+  orders_count: 1
+
+two:
+  shop_id: 
+  first_name: MyString
+  last_name: MyString
+  shopify_customer_id: 1
+  email: MyString
+  total_spent: 1.5
+  orders_count: 1

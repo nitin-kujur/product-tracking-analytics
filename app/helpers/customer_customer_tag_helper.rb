@@ -1,0 +1,2 @@
+module CustomerCustomerTagHelper
+end
