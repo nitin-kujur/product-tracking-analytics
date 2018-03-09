@@ -18,7 +18,7 @@ production:
   ups_key: 'ACD8A71E16D5BA35'
   app_url: 'https://shopify-bulk-order.com/'
   pre_fix_url: '/apps'
-  SECRET_KEY_BASE: "8a2ff74119cb2b8f14a85dd6e213fa24d8540fc34dcaa7ef8a35c246ae452bfa8702767d19086461ac911e1435481c22663fbd65c97f21f6a91b3fce7687ce63"
+  SECRET_KEY_BASE: "d93afdd7018eead46b910313236a606bc64dcd0e0c47fdce01aefff80eaa767c3f9b37d130e2c46c2c1277a5f9df2d44a7701b1f008a4ee75385b296ee68d25b"
   shopify_private_api_key: "eea4bf9b40015e895c46e0dbf76ffd57"
   shopify_private_secret: "d26c3eb8f0b58a7007e69c1a207a5f65"
   shopify_private_password: "f9b0e579e616757f3875c7ec3b039fad"
