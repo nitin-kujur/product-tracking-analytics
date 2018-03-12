@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
+  get 'home/index', as: :login
+  get 'landing/index'
+
   mount ShopifyApp::Engine, at: '/'
+
+  namespace :app_proxy do
+    root action: 'index'
+    # simple routes without a specified controller will go to AppProxyController
+    
+    # more complex routes will go to controllers in the AppProxy namespace
+    # 	resources :reviews
+    # GET /app_proxy/reviews will now be routed to
+    # AppProxy::ReviewsController#index, for example
+  end
   get 'order_order_tag/index'
 
   get 'product_product_tag/index'
@@ -19,8 +32,6 @@ Rails.application.routes.draw do
   get 'order/index'
 
   get 'product/index'
-
-  get 'home/index'
 
   get 'customer/index'
 
