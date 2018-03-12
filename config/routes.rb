@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ShopifyApp::Engine, at: '/'
   get 'order_order_tag/index'
 
   get 'product_product_tag/index'
