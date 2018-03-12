@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309070817) do
+ActiveRecord::Schema.define(version: 20180312113800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,12 +181,13 @@ ActiveRecord::Schema.define(version: 20180309070817) do
 
   create_table "shops", force: :cascade do |t|
     t.string "shop_name"
-    t.string "shop_domain"
+    t.string "shopify_domain"
     t.string "shop_private_api_keys"
     t.string "shop_private_api_secret"
     t.string "shop_private_api_password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "shopify_token"
   end
 
   create_table "users", force: :cascade do |t|

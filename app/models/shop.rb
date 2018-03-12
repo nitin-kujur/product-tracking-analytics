@@ -6,7 +6,7 @@ class Shop < ActiveRecord::Base
 
   def self.set_session(shop)
       ShopifyAPI::Base.clear_session
-      ShopifyAPI::Base.site = "https://#{shop.shop_private_api_keys}:#{shop.shop_private_api_password}@#{shop.shop_domain}/admin"
+      ShopifyAPI::Base.site = "https://#{shop.shop_private_api_keys}:#{shop.shop_private_api_password}@#{shop.shopify_domain}/admin"
       ShopifyAPI::Session.setup({ api_key: shop.shop_private_api_keys, secret: shop.shop_private_api_secret })
     end
 
