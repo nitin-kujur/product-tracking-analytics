@@ -1,5 +1,7 @@
 class Shop < ApplicationRecord
-	has_many :orders
+	include ShopifyApp::Shop
+  include ShopifyApp::SessionStorage
+  has_many :orders
 	has_many :products
 	has_many :customers
 
