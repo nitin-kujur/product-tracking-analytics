@@ -17,5 +17,5 @@ end
 
 Rails.application.configure do
   config.api_key = "15a617046caa88187fcc5f70f18284a8"
-  config.api_secret = "ed0b5f6d7bce201bcc5cc29020796e6e"
+  config.api_secret = "ed0b5  f6d7bce201bcc5cc29020796e6e"
 end
