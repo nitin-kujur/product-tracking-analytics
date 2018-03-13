@@ -4,7 +4,7 @@ class Order < ApplicationRecord
 	has_many :order_products
 	has_many :products, through: :order_products, dependent: :destroy
 	has_many :order_order_tags
-	has_many :order_tags, through: :order_order_tags, dependent: :destroy
+	has_many :order_tags, through: :order_order_tags, source: :order, dependent: :destroy
 	belongs_to :billing_address, :class_name => 'Address', :foreign_key => "billing_address_id", dependent: :destroy
   belongs_to :shipping_address, :class_name => 'Address', :foreign_key => "shipping_address_id", dependent: :destroy
   # belongs_to :parent_order, :class_name => 'Order', primary_key: :parent_order_id
@@ -228,7 +228,7 @@ class Order < ApplicationRecord
     	@order.shipping_address_id = shipping_address.try(:id) if shopify_obj.try(:shipping_address).present? 
     	existing_order_numbers = Order.where("shopify_order_id = ? and deleted_at IS NULL",@order.shopify_order_id)
     	unless existing_order_numbers.nil?
-      		existing_order_numbers.destroy_all   
+      	existing_order_numbers.destroy_all   
     	end 
       
       puts "+++++++++++++++++++++++++++++++++++++++++++"

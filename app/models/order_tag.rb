@@ -1,6 +1,6 @@
 class OrderTag < ApplicationRecord
 	has_many :order_order_tags
-	has_many :orders, through: :order_order_tags, dependent: :destroy
+	has_many :orders, through: :order_order_tags, source: :order, dependent: :destroy
 
 	def self.to_csv(options = {})
       CSV.generate(options) do |csv|
