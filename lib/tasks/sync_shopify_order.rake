@@ -8,7 +8,7 @@ namespace :order do
     1.upto(nb_pages) do |page|
     Shop.all.each do |shop|
       Shop.set_session(shop)      
-        shopify_order = ShopifyAPI::Order.all(params: {limit: 5, cancelled_at: nil})
+        shopify_order = ShopifyAPI::Order.all(params: {limit: 5})
         # shopify_order = ShopifyAPI::Order.all(params: {limit: 20})
   		  shopify_order.each do |order|
           puts "=============================================="
