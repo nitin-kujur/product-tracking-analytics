@@ -5,10 +5,10 @@ namespace :order do
     # shopify_orders_count = ShopifyAPI::Order.count
     Shop.all.each do |shop|
       Shop.set_session(shop)
-      shopify_orders_count = ShopifyAPI::Order.count
-      nb_pages      = (shopify_orders_count / 250.0).ceil
-      start_time = Time.now
-      1.upto(nb_pages) do |page|      
+      # shopify_orders_count = ShopifyAPI::Order.count
+      # nb_pages      = (shopify_orders_count / 250.0).ceil
+      # start_time = Time.now
+      # 1.upto(nb_pages) do |page|      
         shopify_order = ShopifyAPI::Order.all(params: {limit: 5})
         # shopify_order = ShopifyAPI::Order.all(params: {limit: 20})
   		  shopify_order.each do |order|
@@ -18,7 +18,7 @@ namespace :order do
           puts "=============================================="
   			  Order.save_shopify_order(shop, order)
         end 
-      end
+      # end
   	end
   end
 end
