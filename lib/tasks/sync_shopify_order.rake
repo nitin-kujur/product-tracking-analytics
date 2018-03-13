@@ -7,7 +7,6 @@ namespace :order do
     start_time = Time.now
     1.upto(nb_pages) do |page|
   	  Shop.all.each do |shop|
-        1.upto(nb_pages) do |page|
           Shop.set_session(shop)
   		    shopify_order = ShopifyAPI::Order.all(params: {limit: 5, cancelled_at: nil})
           shopify_order.each do |order|
@@ -17,7 +16,7 @@ namespace :order do
             puts "=============================================="
   			     Order.save_shopify_order(shop, order)
           end 
-        end
+        
   	  end
     end
   end
