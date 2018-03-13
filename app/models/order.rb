@@ -17,16 +17,17 @@ class Order < ApplicationRecord
   	end
 
     def self.save_shopify_order(shop, shopify_obj)
-    	@customer = Customer.where(:email => shopify_obj.customer.email).first
+    	@customer = Customer.where(:email => shopify_obj.try(:customer).try(:email)).first
     	puts @customer.nil?
     	puts @customer.inspect
     	if @customer.nil?
-    		@customer = Customer.new(:shop_id => shop.id, :first_name => shopify_obj.customer.first_name, :last_name => shopify_obj.customer.last_name, :shopify_customer_id => shopify_obj.customer.id, :email => shopify_obj.customer.email)
+    		@customer = Customer.new(:shop_id => shop.id, :first_name => shopify_obj.try(:customer).try(:first_name), :last_name => shopify_obj.try(:customer).try(:last_name), :shopify_customer_id => shopify_obj.try(:customer).try(:id), :email => shopify_obj.try(:customer).try(:email))
     		@customer.save
     		puts @customer.inspect
     	end
-    	shopify_obj.customer.tags.split(",").each do |c_t|
-    		customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
+      unless shopify_obj.try(:customer).nil?
+    	 shopify_obj.customer.tags.split(",").each do |c_t|
+    	 	customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
     		if customer_tag.nil?
     			customer_t = CustomerTag.new(
     				:name => c_t.split(":")[0].try(:strip),
@@ -42,8 +43,8 @@ class Order < ApplicationRecord
   					:customer_tag_id => customer_tag.id
   				)
     		end
-    		
     	end
+      end
     	@order = Order.new
     	order_tags = Order.collect_customer_region(shopify_obj.tags)
     	order_tags = order_tags.select{|x| /ParentId:/ =~ x}
@@ -53,7 +54,7 @@ class Order < ApplicationRecord
     	@order.shop_id = shop.id
   		@order.customer_id = @customer.id
   		@order.shopify_order_id = shopify_obj.id
-  		@order.email = shopify_obj.customer.email
+  		@order.email = shopify_obj.try(:customer).try(:email)
   		@order.closed_at = shopify_obj.closed_at
   		@order.shopify_created_at = shopify_obj.processed_at
   		@order.shopify_updated_at = shopify_obj.updated_at
@@ -71,8 +72,8 @@ class Order < ApplicationRecord
   		@order.order_number = shopify_obj.name
   		@order.fulfillment_status = shopify_obj.fulfillment_status
   		@order.contact_email = shopify_obj.contact_email
-  		@order.shopify_customer_id = shopify_obj.customer.id
-  		@order.customer_email = shopify_obj.customer.email
+  		@order.shopify_customer_id = shopify_obj.try(:customer).try(:id)
+  		@order.customer_email = shopify_obj.try(:customer).try(:email)
   		@order.order_region = shopify_obj.tags.split(",").select{|x| /Region/ =~ x}
   		# @order.deleted_at = shopify_obj.deleted_at
   		@order.discount_codes = shopify_obj.discount_codes
@@ -107,8 +108,15 @@ class Order < ApplicationRecord
         	shopify_obj.line_items.each do |l|
         		product = Product.where(:shopify_product_id => l.product_id).last
         		if product.nil?
-        			shopify_product = ShopifyAPI::Product.find(l.product_id)
-        			product = Product.new(
+              if l.product_id.nil?
+               shopify_product = nil 
+              else
+        			 shopify_product = ShopifyAPI::Product.find(l.product_id)
+              end
+
+        		unless shopify_product.nil?	
+
+              product = Product.new(
         				:shopify_product_id => shopify_product.id,
         				:shop_id => shop.id, 
         				# :number_of_orders => shopify_product.number_of_orders, 
@@ -152,6 +160,7 @@ class Order < ApplicationRecord
         						:product_tag_id => product_tag.id
         					)
 						end	
+            end
 					end
 
         		end
@@ -162,7 +171,7 @@ class Order < ApplicationRecord
           			:price => l.price,
           			:sku => l.sku,
           			:fulfillment_service => l.fulfillment_service,
-          			:product_id => product.id,
+          			:product_id => product.try(:id),
           			:requires_shipping => l.requires_shipping,
           			:properties => l.properties.map(&:attributes),
           			:fulfillable_quantity => l.fulfillable_quantity,
