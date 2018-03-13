@@ -29,19 +29,11 @@ class Order < ApplicationRecord
     	 shopify_obj.customer.tags.split(",").each do |c_t|
     	 	customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
     		if customer_tag.nil?
-    			customer_t = CustomerTag.new(
-    				:name => c_t.split(":")[0].try(:strip),
-        		:value => c_t.split(":")[1].try(:strip)
-    				)
-    			customer_t.customer_customer_tags.build(
-  					:customer_id => @customer.id
-  				)
+    			customer_t = CustomerTag.new(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip))
+    			customer_t.customer_customer_tags.build(:customer_id => @customer.id)
   				customer_t.save
     		else
-    			customer_tag.customer_customer_tags.build(
-  					:customer_id => @customer.id,
-  					:customer_tag_id => customer_tag.id
-  				)
+    			customer_tag.customer_customer_tags.build(:customer_id => @customer.id, :customer_tag_id => customer_tag.id)
     		end
     	end
       end
@@ -183,9 +175,12 @@ class Order < ApplicationRecord
         	end
       	end  
       	if shopify_obj.try(:billing_address).present?  
-      		billing_address = Address.where(:first_name => shopify_obj.try(:billing_address).try(:first_name), :last_name => shopify_obj.try(:billing_address).try(:last_name), :address1 => shopify_obj.try(:billing_address).try(:address1), :phone => shopify_obj.try(:billing_address).try(:phone), :city => shopify_obj.try(:billing_address).try(:city), :zip => shopify_obj.try(:billing_address).try(:zip), :province => shopify_obj.try(:billing_address).try(:province), :country => shopify_obj.try(:billing_address).try(:country), :address2 => shopify_obj.try(:billing_address).try(:address2), :company => shopify_obj.try(:billing_address).try(:company), :name => shopify_obj.try(:billing_address).try(:name), :country_code => shopify_obj.try(:billing_address).try(:country_code), :province_code => shopify_obj.try(:billing_address).try(:province_code), :address_type => "Billing")
-			unless billing_address.present?	
-        		billing_address = Address.create(:first_name => shopify_obj.billing_address.first_name,
+      		billing_address = Address.where(:first_name => shopify_obj.try(:billing_address).try(:first_name), :last_name => shopify_obj.try(:billing_address).try(:last_name), :address1 => shopify_obj.try(:billing_address).try(:address1), :phone => shopify_obj.try(:billing_address).try(:phone), :city => shopify_obj.try(:billing_address).try(:city), :zip => shopify_obj.try(:billing_address).try(:zip), :province => shopify_obj.try(:billing_address).try(:province), :country => shopify_obj.try(:billing_address).try(:country), :address2 => shopify_obj.try(:billing_address).try(:address2), :company => shopify_obj.try(:billing_address).try(:company), :name => shopify_obj.try(:billing_address).try(:name), :country_code => shopify_obj.try(:billing_address).try(:country_code), :province_code => shopify_obj.try(:billing_address).try(:province_code), :address_type => "Billing").first
+          puts "-----------------------------------------------"
+          puts billing_address
+          puts "-----------------------------------------------"
+			    if billing_address.nil?	
+        		billing_address = Address.new(:first_name => shopify_obj.billing_address.first_name,
         		:last_name => shopify_obj.billing_address.last_name,
         		:address1 => shopify_obj.billing_address.address1,
         		:phone => shopify_obj.billing_address.phone,
@@ -200,12 +195,16 @@ class Order < ApplicationRecord
         		:province_code => shopify_obj.billing_address.province_code,
         		:address_type => "Billing"
         		)
+            billing_address.save
+            puts "-----------------------------------------------"
+            puts billing_address.errors.full_messages
+            puts "-----------------------------------------------"
         	end
       	end  
 
       	if shopify_obj.try(:shipping_address).present? 
-      		shipping_address = Address.where(:first_name => shopify_obj.try(:shipping_address).try(:first_name), :last_name => shopify_obj.try(:shipping_address).try(:last_name), :address1 => shopify_obj.try(:shipping_address).try(:address1), :phone => shopify_obj.try(:shipping_address).try(:phone), :city => shopify_obj.try(:shipping_address).try(:city), :zip => shopify_obj.try(:shipping_address).try(:zip), :province => shopify_obj.try(:shipping_address).try(:province), :country => shopify_obj.try(:shipping_address).try(:country), :address2 => shopify_obj.try(:shipping_address).try(:address2), :company => shopify_obj.try(:shipping_address).try(:company), :name => shopify_obj.try(:shipping_address).try(:name), :country_code => shopify_obj.try(:shipping_address).try(:country_code), :province_code => shopify_obj.try(:shipping_address).try(:province_code), :address_type => "Shipping")
-      		unless shipping_address.present?
+      		shipping_address = Address.where(:first_name => shopify_obj.try(:shipping_address).try(:first_name), :last_name => shopify_obj.try(:shipping_address).try(:last_name), :address1 => shopify_obj.try(:shipping_address).try(:address1), :phone => shopify_obj.try(:shipping_address).try(:phone), :city => shopify_obj.try(:shipping_address).try(:city), :zip => shopify_obj.try(:shipping_address).try(:zip), :province => shopify_obj.try(:shipping_address).try(:province), :country => shopify_obj.try(:shipping_address).try(:country), :address2 => shopify_obj.try(:shipping_address).try(:address2), :company => shopify_obj.try(:shipping_address).try(:company), :name => shopify_obj.try(:shipping_address).try(:name), :country_code => shopify_obj.try(:shipping_address).try(:country_code), :province_code => shopify_obj.try(:shipping_address).try(:province_code), :address_type => "Shipping").first
+      		if shipping_address.nil?
       			shipping_address = Address.create(
         		:first_name => shopify_obj.shipping_address.first_name,
         		:last_name => shopify_obj.shipping_address.last_name,
@@ -224,6 +223,9 @@ class Order < ApplicationRecord
         		)
         	end
       	end  
+        puts "************************** Billing Address ***********************"
+        puts billing_address.try(:id)
+        puts "************************** Billing Address ***********************"
     	@order.billing_address_id = billing_address.try(:id) if shopify_obj.try(:billing_address).present? 
     	@order.shipping_address_id = shipping_address.try(:id) if shopify_obj.try(:shipping_address).present? 
     	existing_order_numbers = Order.where("shopify_order_id = ? and deleted_at IS NULL",@order.shopify_order_id)
