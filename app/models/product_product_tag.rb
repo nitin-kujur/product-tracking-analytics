@@ -1,4 +1,6 @@
 class ProductProductTag < ApplicationRecord
+	belongs_to :product
+	belongs_to :product_tag
 	def self.to_csv(options = {})
   		CSV.generate(options) do |csv|
     		csv << column_names

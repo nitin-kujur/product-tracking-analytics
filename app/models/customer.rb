@@ -1,7 +1,7 @@
 class Customer < ApplicationRecord
 	belongs_to :shop
 	has_many :customer_customer_tags
-	has_many :customer_tags, through: :customer_customer_tags, dependent: :destroy
+	has_many :customer_tags, through: :customer_customer_tags, source: :customer_tag, dependent: :destroy
 
 	def self.to_csv(options = {})
   		CSV.generate(options) do |csv|

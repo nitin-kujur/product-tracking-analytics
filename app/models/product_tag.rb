@@ -1,6 +1,6 @@
 class ProductTag < ApplicationRecord
 	has_many :product_product_tags
-	has_many :products, through: :customer_customer_tags, dependent: :destroy
+	has_many :products, through: :customer_customer_tags, source: :product, dependent: :destroy
 
 	def self.to_csv(options = {})
       CSV.generate(options) do |csv|
