@@ -3,7 +3,7 @@ namespace :order do
   task sync_shopify_order: :environment do
   	Shop.all.each do |shop|
       Shop.set_session(shop)
-  		shopify_order = ShopifyAPI::Order.all(params: {limit: 50})
+  		shopify_order = ShopifyAPI::Order.all(params: {limit: 20})
       # shopify_order = ShopifyAPI::Order.all(params: {limit: 20})
   		shopify_order.each do |order|
         puts "=============================================="
