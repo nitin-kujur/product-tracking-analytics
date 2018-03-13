@@ -2,7 +2,7 @@ namespace :order do
   desc 'Shopify sync missing orders'
   task sync_shopify_order: :environment do
     CYCLE = 0.5     # You can average 2 calls per second
-    shopify_orders_count = ShopifyAPI::Order.count
+    # shopify_orders_count = ShopifyAPI::Order.count
     nb_pages      = (50 / 250.0).ceil
     start_time = Time.now
     1.upto(nb_pages) do |page|
