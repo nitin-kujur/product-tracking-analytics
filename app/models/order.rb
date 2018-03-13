@@ -237,10 +237,11 @@ class Order < ApplicationRecord
       puts @order.order_number
       puts "+++++++++++++++++++++++++++++++++++++++++++"
     	if @order.save
-      		puts "========================== I am at shopify save if part"
-      	else
-      		puts @order.errors.full_messages
-      	end
+      	puts "========================== I am at shopify save if part"
+      else
+        puts "I in not save shopify order block"
+      	puts @order.errors.full_messages
+      end
   	end
 
     def self.to_csv(options = {})
