@@ -15,7 +15,7 @@
 # shop.shop_private_api_password = "f9b0e579e616757f3875c7ec3b039fad"
 # shop.save
 
-Shop.create(:shop_name => "pepsigenerations.myshopify.com", :shopify_domain => "pepsigenerations.myshopify.com", :shop_private_api_keys => "858fa0a3b3504e86b83933b05f225ff1", :shop_private_api_secret => "6883e6bd065aa32ee38edc2202a827f2", :shop_private_api_password => "5d32706666a580899ed64b5d42948531", :shopify_token => 1)
+# Shop.create(:shop_name => "pepsigenerations.myshopify.com", :shopify_domain => "pepsigenerations.myshopify.com", :shop_private_api_keys => "858fa0a3b3504e86b83933b05f225ff1", :shop_private_api_secret => "6883e6bd065aa32ee38edc2202a827f2", :shop_private_api_password => "5d32706666a580899ed64b5d42948531", :shopify_token => 1)
 # shop = Shop.where(shopify_domain: "pepsigenerations.myshopify.com").first
 # shop.shop_private_api_keys = "858fa0a3b3504e86b83933b05f225ff1"
 # shop.shop_private_api_password ="5d32706666a580899ed64b5d42948531"
