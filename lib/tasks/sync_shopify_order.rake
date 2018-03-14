@@ -50,18 +50,14 @@ namespace :order do
   task sync_shopify_order: :environment do
     Shop.all.each do |shop|
       Shop.set_session(shop)
-      count = ShopifyAPI::Order.count
-      pages = count % 50
-      order = nil 
-      1.upto(pages) do |page|
-        shopify_order = ShopifyAPI::Order.find(:all, params: {limit: 50, page: page, status: "any"})
-        shopify_order.each do |order|
-          puts "=============================================="
-          puts order.name
-          puts shop.shopify_domain
-          puts "=============================================="
-          Order.save_shopify_order(shop, order)
-        end
+      order_count = ShopifyAPI::Order.count
+      pages = order_count / 250 + (order_count % 250 == 0 ? 0 : 1)
+      orders = []
+      (1..pages).each { |page| orders << ShopifyAPI::Order.find(:all, params: { page: page, status: 'any', limit: 250}) }
+      orders.flatten!
+      orders.each do |order|
+        puts order.name
+        Order.save_shopify_order(shop, order)
       end
     end
   end

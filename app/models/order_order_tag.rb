@@ -1,5 +1,5 @@
 class OrderOrderTag < ApplicationRecord
-	belongs_to :Order
+	belongs_to :order
 	belongs_to :order_tag
 	def self.to_csv(options = {})
   		CSV.generate(options) do |csv|

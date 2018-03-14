@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   belongs_to :shipping_address, :class_name => 'Address', :foreign_key => "shipping_address_id", dependent: :destroy
   # belongs_to :parent_order, :class_name => 'Order', primary_key: :parent_order_id
   # has_many :child_orders, :class_name => 'Order', primary_key: :child_order_id, foreign_key: :parent_order_id
+  # accepts_nested_attributes_for :line_items, :billing_address, :shipping_address, :order_products, :order_order_tags, :order_tags
 
   def self.collect_customer_region(tags_str)
     customer_tags = tags_str.split(",")
@@ -77,7 +78,11 @@ class Order < ApplicationRecord
         
     shopify_obj.tags.split(",").each do |order_tag|
       order_t = OrderTag.where(:name => order_tag.split(":")[0].try(:strip), :value => order_tag.split(":")[1].try(:strip)).first
-      order_t = @order.order_tags.build(:name => order_tag.split(":")[0].try(:strip),:value => order_tag.split(":")[1].try(:strip)) if order_t.nil?
+      if order_t.nil?
+         @order.order_tags.build(:name => order_tag.split(":")[0].try(:strip),:value => order_tag.split(":")[1].try(:strip))
+      else
+        @order.order_tags << order_t
+      end
     end
 
     if shopify_obj.line_items.present?
@@ -91,14 +96,17 @@ class Order < ApplicationRecord
           end
 
           unless shopify_product.nil? 
-            product = Product.new(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
-            shopify_product.variants.each do |variant|
-              shopify_variant = ShopifyAPI::Variant.find(variant.id)
-              variant = Variant.where(:shopify_variant_id => variant.id).first
-              product.variants.build(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id) if variant.nil?
+            if product.nil?
+              product = Product.create(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
+              shopify_product.variants.each do |variant|
+                shopify_variant = ShopifyAPI::Variant.find(variant.id)
+                variant = Variant.where(:shopify_variant_id => variant.id).first
+                product.variants.build(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id) if variant.nil?
+              end
+              @order.products << product
+            else
+              @order.products << product
             end
-            product.save
-            @order.order_products.build(:product_id => product.id)
             shopify_product.tags.split(",").each do |p_t|
               product_tag = ProductTag.where(:name => p_t.split(":")[0].try(:strip), :value => p_t.split(":")[1].try(:strip)).first
               if product_tag.nil?
@@ -133,18 +141,14 @@ class Order < ApplicationRecord
     existing_order_numbers = Order.where("shopify_order_id = ? and deleted_at IS NULL",@order.shopify_order_id)
     existing_order_numbers.destroy_all unless existing_order_numbers.nil?
     if @order.save
-      puts "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
-      puts @order.customer.inspect
-      puts "--------------------------------------"
-      puts @order.billing_address.inspect
-      puts "--------------------------------------"
-      puts @order.shipping_address.inspect
-      puts "--------------------------------------"
-      puts @order.errors.inspect
-      puts "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+      puts "Order save successfully.........."
     else
       puts "I in not save shopify order block"
+      puts @order.order_tags.inspect
+      puts "============================"
+      puts @order.order_number
       puts @order.errors.inspect
+      puts "============================"
     end
   end
 
