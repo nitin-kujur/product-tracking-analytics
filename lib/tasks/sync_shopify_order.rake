@@ -49,9 +49,9 @@ namespace :order do
   desc 'Shopify sync missing orders'
   task sync_shopify_order: :environment do
     Shop.all.each do |shop|
-      if shop.shopify_domain == "charterschools.myshopify.com"
+      if shop.shopify_domain == "fissler-b2b.myshopify.com"
         Shop.set_session(shop)
-        order_count = 850
+        order_count = 2200
         pages = order_count / 250 + (order_count % 250 == 0 ? 0 : 1)
         orders = []
         (1..pages).each { |page| orders << ShopifyAPI::Order.find(:all, params: { page: page, status: 'any', limit: 250}) }
