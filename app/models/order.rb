@@ -43,7 +43,7 @@ class Order < ApplicationRecord
     parent_id_arr = parent_id_tag.split(":") if parent_id_tag
     parent_id = parent_id_arr[1] if parent_id_arr
     @order.shop_id = shop.id
-    @order.customer_id = @customer.id
+    @order.customer_id = @customer.try(:id)
     @order.shopify_order_id = shopify_obj.id
     @order.email = shopify_obj.try(:customer).try(:email)
     @order.closed_at = shopify_obj.closed_at
