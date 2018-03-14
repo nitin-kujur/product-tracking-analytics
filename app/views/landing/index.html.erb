@@ -153,13 +153,13 @@
                             <% @address.each_with_index do |address, index| %>
                                 <tr class="odd gradeX">
                                     <td class="text-right"><%= index + 1%></td>
-                                    <td><%= address.billing_orders.order_number %></td>
-                                    <td><%= address.billing_orders.fulfillment_status %></td>
-                                    <td><%= address.billing_orders.billing_address.city %></td>
-                                    <td class="center"><%= address.billing_orders.shipping_address.city %></td>
-                                    <td class="text-right"><%= address.billing_orders.shopify_tracking_id %></td>
-                                    <td class="text-right"><%= address.billing_orders.line_items.sum(:quantity) %></td>
-                                    <td class="text-right"><%= number_to_currency( address.billing_orders.amount.to_f.round(2), :unit => "$") %></td>
+                                    <td><%= address.try(:billing_orders).try(:order_number) %></td>
+                                    <td><%= address.try(:billing_orders).try(:fulfillment_status) %></td>
+                                    <td><%= address.try(:billing_orders).try(:billing_address).try(:city) %></td>
+                                    <td class="center"><%= address.try(:billing_orders).try(:shipping_address).try(:city) %></td>
+                                    <td class="text-right"><%= address.try(:billing_orders).try(:shopify_tracking_id) %></td>
+                                    <td class="text-right"><%= address.try(:billing_orders).try(:line_items.sum(:quantity)) %></td>
+                                    <td class="text-right"><%= number_to_currency(address.try(:billing_orders).try(:amount.to_f.round(2)), :unit => "$") %></td>
                                     <td class="center"></td>
                                 </tr>
                             <% end %>
@@ -167,13 +167,13 @@
                             <% @address.each_with_index do |address, index| %>
                                 <tr class="odd gradeX">
                                     <td class="text-right"><%= index + 1%></td>
-                                    <td><%= address.shipping_orders.order_number %></td>
-                                    <td><%= address.shipping_orders.fulfillment_status %></td>
-                                    <td><%= address.shipping_orders.billing_address.city %></td>
-                                    <td class="center"><%= address.shipping_orders.shipping_address.city %></td>
-                                    <td class="text-right"><%= address.shipping_orders.shopify_tracking_id %></td>
-                                    <td class="text-right"><%= address.shipping_orders.line_items.sum(:quantity) %></td>
-                                    <td class="text-right"><%= number_to_currency(address.shipping_orders.amount.to_f.round(2), :unit => "$") %></td>
+                                    <td><%= address.try(:shipping_orders).try(:order_number) %></td>
+                                    <td><%= address.try(:shipping_orders).try(:fulfillment_status) %></td>
+                                    <td><%= address.try(:shipping_orders).try(:billing_address).try(:city) %></td>
+                                    <td class="center"><%= address.try(:shipping_orders).try(:shipping_address).try(:city) %></td>
+                                    <td class="text-right"><%= address.try(:shipping_orders).try(:shopify_tracking_id) %></td>
+                                    <td class="text-right"><%= address.try(:shipping_orders).try(:line_items.sum(:quantity)) %></td>
+                                    <td class="text-right"><%= number_to_currency(address.try(:shipping_orders).try(:amount.to_f.round(2)), :unit => "$") %></td>
                                     <td class="text-right"></td>
                                 </tr>
                             <% end %>
@@ -181,11 +181,11 @@
                             <% @orders.each_with_index do |order, index| %>
                             <tr class="odd gradeX">
                                 <td class="text-right"><%= index + 1%></td>
-                                <td><%= order.order_number %></td>
-                                <td><%= order.fulfillment_status %></td>
+                                <td><%= order.try(:order_number) %></td>
+                                <td><%= order.try(:fulfillment_status) %></td>
                                 <td><%= order.try(:billing_address).try(:city) %></td>
-                                <td class="center"><%= order.shipping_address.city %></td>
-                                <td class="text-right"><%= order.shopify_tracking_id %></td>
+                                <td class="center"><%= order.try(:shipping_address).try(:city) %></td>
+                                <td class="text-right"><%= order.try(:shopify_tracking_id) %></td>
                                 <td class="text-right"><%= order.line_items.sum(:quantity) %></td>
                                 <td class="text-right"><%= number_to_currency(order.amount.to_f.round(2), :unit => "$") %></td>
                                 <td class="text-right"></td>
