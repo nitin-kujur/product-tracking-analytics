@@ -48,30 +48,22 @@
 namespace :order do
   desc 'Shopify sync missing orders'
   task sync_shopify_order: :environment do
-    shopify_order = []
     Shop.all.each do |shop|
       Shop.set_session(shop)
       count = ShopifyAPI::Order.count
-      pages = count % 250
+      pages = count % 20
       order = nil 
       1.upto(pages) do |page|
-        shopify_order << ShopifyAPI::Order.find(:all, params: {limit: 250, page: page})
-        # shopify_order.each do |order|
-        #   puts "=============================================="
-        #   puts order.name
-        #   puts shop.shopify_domain
-        #   puts "=============================================="
-        #   Order.save_shopify_order(shop, order)
-        # end
-        break if order
-      end
-      shopify_order.each do |sp_orders|
-        sp_orders.each |order|
+        shopify_order = ShopifyAPI::Order.find(:all, params: {limit: 20, page: page})
+        shopify_order.each do |order|
+          puts "=============================================="
           puts order.name
+          puts shop.shopify_domain
+          puts "=============================================="
           Order.save_shopify_order(shop, order)
         end
+        break if order
       end
-      shopify_order = []
     end
   end
 end
