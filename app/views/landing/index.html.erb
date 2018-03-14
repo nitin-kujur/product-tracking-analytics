@@ -183,7 +183,7 @@
                                 <td class="text-right"><%= index + 1%></td>
                                 <td><%= order.order_number %></td>
                                 <td><%= order.fulfillment_status %></td>
-                                <td><%= order.billing_address.city %></td>
+                                <td><%= order.try(:billing_address).try(:city) %></td>
                                 <td class="center"><%= order.shipping_address.city %></td>
                                 <td class="text-right"><%= order.shopify_tracking_id %></td>
                                 <td class="text-right"><%= order.line_items.sum(:quantity) %></td>
