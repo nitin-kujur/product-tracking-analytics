@@ -65,12 +65,11 @@ namespace :order do
         # end
         break if order
       end
-      shopify_order.each do |order|
-        puts "=============================================="
-        puts order.inspect
-        puts shop.shopify_domain
-        puts "=============================================="
-        Order.save_shopify_order(shop, order)
+      shopify_order.each do |sp_orders|
+        sp_orders.each |order|
+          puts order.name
+          Order.save_shopify_order(shop, order)
+        end
       end
       shopify_order = []
     end
