@@ -9,7 +9,7 @@ class Order < ApplicationRecord
   belongs_to :shipping_address, :class_name => 'Address', :foreign_key => "shipping_address_id", dependent: :destroy
   # belongs_to :parent_order, :class_name => 'Order', primary_key: :parent_order_id
   # has_many :child_orders, :class_name => 'Order', primary_key: :child_order_id, foreign_key: :parent_order_id
-  # accepts_nested_attributes_for :line_items, :billing_address, :shipping_address, :order_products, :order_order_tags, :order_tags
+  accepts_nested_attributes_for :line_items, :billing_address, :shipping_address, :order_products, :order_order_tags, :order_tags
 
   def self.collect_customer_region(tags_str)
     customer_tags = tags_str.split(",")
@@ -140,7 +140,7 @@ class Order < ApplicationRecord
     @order.shipping_address_id = shipping_address.try(:id) if shopify_obj.try(:shipping_address).present? 
     existing_order_numbers = Order.where("shopify_order_id = ? and deleted_at IS NULL",@order.shopify_order_id)
     existing_order_numbers.destroy_all unless existing_order_numbers.nil?
-    if @order.save
+    if @order.save(:validate => false)
       puts "Order save successfully.........."
     else
       puts "I in not save shopify order block"
