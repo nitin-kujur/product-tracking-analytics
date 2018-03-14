@@ -51,10 +51,10 @@ namespace :order do
     Shop.all.each do |shop|
       Shop.set_session(shop)
       count = ShopifyAPI::Order.count
-      pages = count % 20
+      pages = count % 50
       order = nil 
       1.upto(pages) do |page|
-        shopify_order = ShopifyAPI::Order.find(:all, params: {limit: 20, page: page})
+        shopify_order = ShopifyAPI::Order.find(:all, params: {limit: 50, page: page, status: "any"})
         shopify_order.each do |order|
           puts "=============================================="
           puts order.name
@@ -62,7 +62,6 @@ namespace :order do
           puts "=============================================="
           Order.save_shopify_order(shop, order)
         end
-        break if order
       end
     end
   end
