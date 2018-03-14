@@ -144,10 +144,10 @@ class Order < ApplicationRecord
       puts "Order save successfully.........."
     else
       puts "I in not save shopify order block"
-      puts @order.order_tags.inspect
       puts "============================"
       puts @order.order_number
-      puts @order.errors.inspect
+      puts @order.line_items.inspect
+      puts @order.errors.full_messages
       puts "============================"
     end
   end
