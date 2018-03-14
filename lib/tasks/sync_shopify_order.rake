@@ -65,7 +65,7 @@ namespace :order do
         # end
         break if order
       end
-      puts shopify_order.first
+      puts shopify_order.first.inspect
       # shopify_order.each do |order|
       #   puts "=============================================="
       #   puts order.name
