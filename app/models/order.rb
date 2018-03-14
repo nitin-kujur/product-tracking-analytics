@@ -67,6 +67,7 @@ class Order < ApplicationRecord
     @order.order_region = shopify_obj.tags.split(",").select{|x| /Region/ =~ x}
     @order.discount_codes = shopify_obj.discount_codes
     @order.parent_order_id = parent_id
+    @order.cancelled_at = shopify_obj.try(:cancelled_at)
     sum = 0
     shopify_obj.line_items.each do |item|
       sum = sum + ( item.price.to_f + item.quantity)
