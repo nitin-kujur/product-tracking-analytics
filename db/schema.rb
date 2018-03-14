@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312113800) do
+ActiveRecord::Schema.define(version: 20180314183515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20180312113800) do
     t.decimal "total_line_items_price"
     t.datetime "cancelled_at"
     t.text "cancel_reason"
-    t.integer "user_id"
+    t.string "user_id"
     t.datetime "processed_at"
     t.string "order_number"
     t.string "fulfillment_status"
