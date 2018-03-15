@@ -100,7 +100,7 @@
                 <div class="col-lg-3 col-md-6">
                     <p>
                         <%= link_to "All", landing_index_path %> | 
-                        <%= select_tag "shop_id", options_for_select(Shop.all.collect{|x| [x.shopify_domain, x.id]}) %>
+                        <%= select_tag "shop_id", options_for_select(Shop.all.collect{|x| [x.shopify_domain, x.id]}, {:prompt => "--Select Shop--"}) %>
                     </p>
                 </div>
                 <%= submit_tag "Search", :name => nil %>
