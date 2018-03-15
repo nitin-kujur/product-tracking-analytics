@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
 	has_many :line_items, dependent: :destroy
 	belongs_to :customer, dependent: :destroy
+  belongs_to :shop
 	has_many :order_products
 	has_many :products, through: :order_products, dependent: :destroy
 	has_many :order_order_tags
