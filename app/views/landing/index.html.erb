@@ -155,7 +155,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% @orders.each_with_index do |order, index| %>
+                        <% cache @orders.each do |order| %>
                             <tr class="odd gradeX">
                                 <td><%= order.try(:order_number) %></td>
                                 <td class="text-right"><%= order.try(:shop).try(:shopify_domain) %></td>
