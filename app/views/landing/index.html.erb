@@ -156,7 +156,7 @@
                     </thead>
                     <tbody>
                         <% @orders.each do |order| %>
-                            <% cache order do %>
+                            
                                 <tr class="odd gradeX">
                                     <td><%= order.try(:order_number) %></td>
                                     <td class="text-right"><%= order.try(:shop).try(:shopify_domain) %></td>
@@ -168,7 +168,7 @@
                                     <td class="text-right"><%= number_to_currency(order.try(:amount).to_f.round(2), :unit => "$") %></td>
                                     <td class="text-right"></td>
                                 </tr>
-                            <% end %>
+                            
                         <% end %>
                         
                     </tbody>
