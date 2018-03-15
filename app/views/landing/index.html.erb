@@ -10,17 +10,16 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-shopping-cart fa-5x"></i>
+                        <i class="fa fa-shopping-cart fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"> <%= @orders_count %></div>
-                        <div>Total Orders</div>
                     </div>
                 </div>
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left"><%#= link_to "View Details", customers_path %></span>
+                    <span class="pull-left">Total Orders</span>
                     <span class="pull-right"></span>
                     <div class="clearfix"></div>
                 </div>
@@ -33,17 +32,16 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-stack-overflow fa-5x"></i>
+                        <i class="fa fa-stack-overflow fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><%= @orders_quantity %></div>
-                        <div>Total Quantity</div>
                     </div>
                 </div>
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left"><%#= link_to "View Details", hotels_path %></span>
+                    <span class="pull-left">Total Quantity</span>
                     <span class="pull-right"></span>
                     <div class="clearfix"></div>
                 </div>
@@ -56,17 +54,16 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-dollar fa-5x"></i>
+                        <i class="fa fa-dollar fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><%= number_to_currency(@sales.to_f.round(2), :unit => "$") %></div>
-                        <div>Total Sales</div>
                     </div>
                 </div>
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left"><%#= link_to "View Details", bands_path %></span>
+                    <span class="pull-left">Total Sales</span>
                     <span class="pull-right"></span>
                     <div class="clearfix"></div>
                 </div>
@@ -79,17 +76,16 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-home fa-5x"></i>
+                        <i class="fa fa-home fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><%= @shops.count %> </div>
-                        <div>Total Shops</div>
                     </div>
                 </div>
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left"><%#= link_to "View Details", artists_path %></span>
+                    <span class="pull-left">Total Shops</span>
                     <span class="pull-right"></span>
                     <div class="clearfix"></div>
                 </div>
