@@ -61,9 +61,9 @@
             </li>
             <li class="divider"></li>
             <li><% if user_signed_in? %>
-            	<%= link_to "<i class='fa fa-sign-out fa-fw'></i> Logout".html_safe, analytics_destroy_user_session_path, :method=>'delete' %>
+            	<%= link_to "<i class='fa fa-sign-out fa-fw'></i> Logout".html_safe, destroy_user_session_path, :method=>'delete' %>
             	<% else %>
-            		<%= link_to "<i class='fa fa-sign-out fa-fw'></i> Login".html_safe, analytics_new_user_session_path %>
+            		<%= link_to "<i class='fa fa-sign-out fa-fw'></i> Login".html_safe, new_user_session_path %>
             	<% end %>
             </li>
         </ul>
