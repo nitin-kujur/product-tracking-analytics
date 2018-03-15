@@ -100,7 +100,7 @@
                 <div class="col-lg-3 col-md-6">
                     <% text_field_tag :fulfilled, params[:fulfilled], placeholder: "Billed To" %>
                     <%= submit_tag 'Fulfilled', :class => "hidden", :id => 'form_submit_button' %>
-                    <%= content_tag(:a, 'Submit', :name => 'submit', :id => 'submit_link') %>
+                    <%= content_tag(:a, 'Fulfilled', :name => 'submit', :id => 'submit_link') %>
                     
                 </div>
                 <%= submit_tag "Search", :name => nil %>
@@ -110,7 +110,7 @@
                 <div class="col-lg-3 col-md-6">
                     <% text_field_tag :unfulfilled, params[:unfulfilled], placeholder: "Billed To" %>
                     <%= submit_tag 'Unfulfilled', :class => "hidden", :id => 'form_submit_button' %>
-                    <%= content_tag(:a, 'Submit', :name => 'submit', :id => 'submit_link') %>
+                    <%= content_tag(:a, 'Unfulfilled', :name => 'submit', :id => 'submit_link') %>
                     
                 </div>
                 <%= submit_tag "Search", :name => nil %>
@@ -120,7 +120,7 @@
                 <div class="col-lg-3 col-md-6">
                     <% text_field_tag :cancelled, params[:cancelled], placeholder: "Billed To" %>
                     <%= submit_tag 'Cancelled', :class => "hidden", :id => 'form_submit_button' %>
-                    <%= content_tag(:a, 'Submit', :name => 'submit', :id => 'submit_link') %>
+                    <%= content_tag(:a, 'Cancelled', :name => 'submit', :id => 'submit_link') %>
                     
                 </div>
                 <%= submit_tag "Search", :name => nil %>
@@ -130,7 +130,7 @@
                 <div class="col-lg-3 col-md-6">
                     <% text_field_tag :archived, params[:archived], placeholder: "Billed To" %>
                     <%= submit_tag 'Archived', :class => "hidden", :id => 'form_submit_button' %>
-                    <%= content_tag(:a, 'Submit', :name => 'submit', :id => 'submit_link') %>
+                    <%= content_tag(:a, 'Archived', :name => 'submit', :id => 'submit_link') %>
                     
                 </div>
                 <%= submit_tag "Search", :name => nil %>
