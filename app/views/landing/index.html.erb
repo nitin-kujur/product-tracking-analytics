@@ -98,7 +98,7 @@
         <div class="panel-body">
             <%= form_tag landing_index_path, :method => 'get' do %>
                 <div class="col-lg-3 col-md-6">
-                    <% hidden_field_tag(Fulfilled, value ="Fulfilled" , options = {}) %>
+                    <% hidden_field_tag("Fulfilled", value ="Fulfilled" , options = {}) %>
                     <%= submit '', :class => "hidden", :id => 'form_submit_button' %>
                     content_tag(:a, 'Submit', :name => 'submit', :id => 'submit_link')
                     
