@@ -28,8 +28,6 @@
 # shop.shop_private_api_secret = "a6ac6aaf6a4d38d523d0d34ddf99517d"
 # shop.save
 
-# shop = Shop.where( shopify_domain: "pepsinba.myshopify.com").first
-# shop.shop_private_api_keys = "f4215b4a890001c2a90b7a7b117f8097"
 # shop.shop_private_api_password = "94c5141c853a5cb460073e0900477a83"
 # shop.shop_private_api_secret = "46c6303f2ff865e4d926f6b52bf2cc1e"
 # shop.save
@@ -103,3 +101,6 @@
 # shop.save
 
 # # ["pepsiprint.myshopify.com", "lapineteststore.myshopify.com", "kipp-dev.myshopify.com", "shophydration.myshopify.com", "weberprint.myshopify.com", "gatoradeplus.myshopify.com", "pepsinfl.myshopify.com", "gatoradecoaches.myshopify.com", "fissler-b2b.myshopify.com", "charterschools.myshopify.com", "pepsiholiday.myshopify.com", "pepsidewmixology.myshopify.com", "dewice.myshopify.com", "pepsigenerations.myshopify.com"]
+# premum shops: Pepsigen,  bajablast, mntbeatthebuzzer, mntdewice, shophydration, dewmixology, pepsinfl, pepsinba
+
+
