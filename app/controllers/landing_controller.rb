@@ -1,5 +1,6 @@
 class LandingController < ApplicationController
-  	def index
+  caches_action :index
+  def index
   	if params[:billed_to_search].present?
       @orders = Order.joins(:billing_address).where(addresses: {city: "#{params[:billed_to_search]}"})
   	elsif params[:shipped_to_search].present?
