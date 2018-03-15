@@ -96,14 +96,11 @@
 <div class="row">
     <div class="panel panel-default">
         <div class="panel-body">
-            <div class="col-lg-1 col-md-1">
-                <%= link_to "All", landing_index_path %> |
-            </div>
             <%= form_tag landing_index_path, :method => 'get' do %>
                 <div class="col-lg-1 col-md-1">
-                    <p>
-                        <%= select_tag "shop_id", options_for_select(Shop.all.collect{|x| [x.shopify_domain, x.id]}, {:prompt => "--Select Shop--"}) %>
-                    </p>
+                    <%= link_to "All", landing_index_path %> |
+                    <%= select_tag "shop_id", options_for_select(Shop.all.collect{|x| [x.shopify_domain, x.id]}, {:prompt => "--Select Shop--"}) %>
+                    
                 </div>
                 <%= submit_tag "Search", :name => nil %>
             <% end %>
