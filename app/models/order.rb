@@ -123,6 +123,9 @@ class Order < ApplicationRecord
 
         end
         @order.line_items.build(:shopify_line_item_id => l.id, :variant_title => l.variant_title, :variant_id => l.variant_id, :title => l.title,:quantity => l.quantity, :price => l.price, :sku => l.sku, :fulfillment_service => l.fulfillment_service, :product_id => product.try(:id), :requires_shipping => l.requires_shipping, :properties => l.properties.map(&:attributes), :fulfillable_quantity => l.fulfillable_quantity, :total_discount => l.total_discount, :fulfillment_status => l.fulfillment_status, :destination_location => l.try(:destination_location).try(:attributes), :origin_location => l.try(:origin_location).try(:attributes))
+        if shop.shop_type == "premium" && shopify_obj.financial_status == "pending" || "paid"
+          @order.parent_order_flag = l.properties[0]["value"]
+        end
       end
     end  
           

@@ -3,10 +3,9 @@ namespace :order do
   task premium_parent_child_mapping: :environment do
     Shop.where(:shop_type => "premium") do |shop|
       child_orders = shop.orders.joins(:line_items).where("line_items.varaint_title like", "%Parent ID%")
-      parent_orders = shop.orders.joins(:line_items).where("line_items.varaint_title = ?", nil)
+      parent_orders = shop.orders.where(:financial_status => "paid" || :financial_status => "pending")
       child_orders.each do |order|
-        variant_title = shop.orders.joins(:line_items).first.varaint_title
-        local_parent_id = variant_title
+        local_parent_id = shop.orders.joins(:line_items).first.variant_title.split(":")[1].strip
         parent_orders.each do |parent_order|
           parent_order.properties.each do |prop|
             if prop.value == variant_title
