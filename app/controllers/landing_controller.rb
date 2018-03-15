@@ -1,5 +1,8 @@
 class LandingController < ApplicationController
   def index
+    puts "++++++++++++++++++++++++++++++++++++++"
+    puts params
+    puts "++++++++++++++++++++++++++++++++++++++"
   	if params[:billed_to_search].present?
       @orders = Order.joins(:billing_address).where("addresses.city like ?", "%#{params[:billed_to_search]}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
   	elsif params[:shipped_to_search].present?
