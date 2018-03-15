@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   mount ShopifyApp::Engine, at: '/'
 
-  namespace :app_proxy do
+  namespace :analytics do
     get 'order_order_tag/index'
 
     get 'product_product_tag/index'
