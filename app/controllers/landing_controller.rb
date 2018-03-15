@@ -1,5 +1,4 @@
 class LandingController < ApplicationController
-  caches_page :index
   def index
   	if params[:billed_to_search].present?
       @orders = Order.joins(:billing_address).where(addresses: {city: "#{params[:billed_to_search]}"})
@@ -14,7 +13,7 @@ class LandingController < ApplicationController
       @orders << Order.joins(:billing_address).where("addresses.city || addresses.first_name || addresses.last_name || addresses.address1 || addresses.zip || addresses.name like ?", "%sadasd%")  
       @orders << Order.joins(:shipping_address).where("addresses.city || addresses.first_name || addresses.last_name || addresses.address1 || addresses.zip || addresses.name like ?", "%sadasd%")
     else 
-      @orders = Order.all
+      @orders = Order.paginate(:per_page => 50)
   	end
     @orders_count = Order.all.count
   	@orders_quantity = LineItem.sum(:quantity)

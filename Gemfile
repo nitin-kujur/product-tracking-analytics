@@ -26,6 +26,8 @@ gem 'shopify_app'
 gem 'devise'
 gem 'bootstrap_sb_admin_base_v2'
 gem 'jquery-rails'
+gem 'will_paginate', '~> 3.1.0'
+
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
