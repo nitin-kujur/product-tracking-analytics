@@ -1,13 +1,13 @@
 class LandingController < ApplicationController
   def index
   	if params[:billed_to_search].present?
-      @orders = Order.joins(:billing_address).where(addresses: {city: "#{params[:billed_to_search]}"}).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      @orders = Order.joins(:billing_address).where("addresses.city like ?" "%#{params[:billed_to_search]}%"}).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
   	elsif params[:shipped_to_search].present?
-      @orders = Order.joins(:shipping_address).where(addresses: {city: "#{params[:shipped_to_search]}"}).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      @orders = Order.joins(:shipping_address).where("addresses.city like ?", "%#{params[:shipped_to_search]}%"}).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
   	elsif params[:item_search].present?
       @orders = Order.joins(:line_items).where("line_items.title like ?", "#{params[:item_search]}").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
   	elsif params[:tracking_number].present?
-      @orders = Order.where(:shopify_tracking_id => params[:tracking_number]).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      @orders = Order.where("shopify_tracking_id like ?", "%#{params[:tracking_number]}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
   	elsif params[:free_text_search].present?
       @orders = Order.where("email || total_price || subtotal_price || total_weight || total_tax || financial_status || total_line_items_price || cancelled_at || cancel_reason || order_number || fulfillment_status || contact_email || customer_email || order_region || discount_codes || shopify_tracking_id like ?", "%#{params[:free_text_search]}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       @orders = Order.joins(:billing_address).where("addresses.city || addresses.first_name || addresses.last_name || addresses.address1 || addresses.zip || addresses.name like ?", "%#{params[:free_text_search]}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50) if @orders.empty?
