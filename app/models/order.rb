@@ -126,11 +126,11 @@ class Order < ApplicationRecord
         if shop.shop_type == "premium" && shopify_obj.financial_status == ("pending" || "paid")
           puts "================"
           puts shopify_obj.financial_status
-          puts l.properties.inspect
+          puts l.properties.map(&:attributes)
           puts l.properties.nil?
           puts "================"
           unless l.properties.nil?
-            @order.parent_order_flag = l.properties[0]["value"]
+            @order.parent_order_flag = l.properties.map(&:attributes)[0]["value"]
           end
         end
       end
