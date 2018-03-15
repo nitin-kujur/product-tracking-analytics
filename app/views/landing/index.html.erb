@@ -98,6 +98,21 @@
         <div class="panel-body">
             <%= form_tag landing_index_path, :method => 'get' do %>
                 <div class="col-lg-3 col-md-6">
+                    <p>
+                        <%= link_to "All", landing_index_path %> | 
+                        <%= select_tag "shop_id", options_for_select(Shop.all.collect{|x| [x.shopify_domain, x.id]}) %>
+                    </p>
+                </div>
+                <%= submit_tag "Search", :name => nil %>
+            <% end %>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <%= form_tag landing_index_path, :method => 'get' do %>
+                <div class="col-lg-3 col-md-6">
                     <p>     
                         <%= text_field_tag :billed_to_search, params[:billed_to_search], placeholder: "Billed To" %>
                     </p>
