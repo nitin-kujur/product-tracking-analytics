@@ -100,7 +100,7 @@
                 <div class="col-lg-3 col-md-6">
                     <% hidden_field_tag("Fulfilled", value ="Fulfilled" , options = {}) %>
                     <%= submit_tag '', :class => "hidden", :id => 'form_submit_button' %>
-                    content_tag(:a, 'Submit', :name => 'submit', :id => 'submit_link')
+                    <%= content_tag(:a, 'Submit', :name => 'submit', :id => 'submit_link') %>
                     
                 </div>
                 <%= submit_tag "Search", :name => nil %>
