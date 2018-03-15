@@ -126,7 +126,7 @@ class Order < ApplicationRecord
         if shop.shop_type == "premium" && shopify_obj.financial_status == ("pending" || "paid")
           puts "================"
           puts shopify_obj.financial_status
-          puts l.properties
+          puts l.properties.inspect
           puts l.properties.nil?
           puts "================"
           unless l.properties.nil?
