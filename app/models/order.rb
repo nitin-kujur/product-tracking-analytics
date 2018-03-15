@@ -127,9 +127,9 @@ class Order < ApplicationRecord
           puts "================"
           puts shopify_obj.financial_status
           puts l.properties.map(&:attributes)
-          puts l.properties.nil?
+          puts l.properties.empty?
           puts "================"
-          unless l.properties.nil?
+          unless l.properties.empty?
             @order.parent_order_flag = l.properties.map(&:attributes)[0]["value"]
           end
         end
