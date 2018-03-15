@@ -7,7 +7,7 @@
                     </div>
         <div class="panel-body">
   <div class="authform">
-    <%= form_for(resource, :as => resource_name, :url => new_user_session_path(resource_name), :html => { :role => 'form'}) do |f| %>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
       <%= devise_error_messages! %>
       <div class="form-group">
         <%= f.label :email %>
