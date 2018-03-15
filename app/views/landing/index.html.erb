@@ -160,11 +160,11 @@
                         <% @orders.each do |order| %>
                             <tr class="odd gradeX">
                                 <td><%= order.try(:order_number) %></td>
-                                <td class="text-right"><%= order.try(:shop).try(:shopify_domain) %></td>
+                                <td class="text-right"><%= order.try(:shop).try(:shopify_domain).truncate(5) %></td>
                                 <td><%= order.try(:fulfillment_status) %></td>
                                 <td><%= order.try(:billing_address).try(:city) %></td>
                                 <td class="center"><%= order.try(:shipping_address).try(:city) %></td>
-                                <td class="text-right"><%= order.try(:shopify_tracking_id) %></td>
+                                <td class="text-right"><%= order.try(:shopify_tracking_id).truncate(5) %></td>
                                 <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
                                 <td class="text-right"><%= number_to_currency(order.try(:amount).to_f.round(2), :unit => "$") %></td>
                             </tr>
