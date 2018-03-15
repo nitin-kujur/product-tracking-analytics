@@ -8,10 +8,22 @@ class LandingController < ApplicationController
       @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     elsif params["fulfilled"].present?
       @orders = Order.where(:fulfillment_status => "fulfilled").paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      @orders_count = @orders.count
+      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
+      @shops = Shop.all
+      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     elsif params["unfulfilled"].present?
       @orders = Order.where(:fulfillment_status => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      @orders_count = @orders.count
+      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
+      @shops = Shop.all
+      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     elsif params["cancelled"].present?
       @orders = Order.where.not(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      @orders_count = @orders.count
+      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
+      @shops = Shop.all
+      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     else
       if params[:billed_to_search].present?
         @orders = Order.joins(:billing_address).where("addresses.city like ?", "%#{params[:billed_to_search]}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
