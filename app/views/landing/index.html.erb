@@ -129,6 +129,12 @@
 
                 <div class="col-lg-3 col-md-6">
                     <p>
+                        <%= text_field_tag :order_name_search, params[:order_name_search], placeholder: "Order Name" %>
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <p>
                         <%= text_field_tag :free_text_search, params[:free_text_search], placeholder: "Free Text Search" %>
                     </p>
                 </div>
