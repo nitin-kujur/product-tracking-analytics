@@ -180,11 +180,4 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
-<%= will_paginate @orders %>
-<script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-</script>
+<%= will_paginate @orders, renderer: BootstrapPagination::Rails %>

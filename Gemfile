@@ -27,6 +27,7 @@ gem 'devise'
 gem 'bootstrap_sb_admin_base_v2'
 gem 'jquery-rails'
 gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap'
 
 
 # Use CoffeeScript for .coffee assets and views
