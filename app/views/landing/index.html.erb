@@ -97,16 +97,15 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <%= form_tag landing_index_path, :method => 'get' do %>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-1 col-md-1">
                     <%= hidden_field_tag 'fulfilled', "fulfilled" %>
                     <%= submit_tag 'Fulfilled', :class => "hidden", :id => 'form_submit_button' %>
                     <%= content_tag(:a, 'Fulfilled', :name => 'submit', :id => 'submit_link') %>
-                    
                 </div>
             <% end %>
 
             <%= form_tag landing_index_path, :method => 'get' do %>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-1 col-md-1">
                     <%= hidden_field_tag 'unfulfilled', "unfulfilled" %>
                     <%= submit_tag 'Unfulfilled', :class => "hidden", :id => 'form_submit_button' %>
                     <%= content_tag(:a, 'Unfulfilled', :name => 'submit', :id => 'submit_link') %>
@@ -115,7 +114,7 @@
             <% end %>
 
             <%= form_tag landing_index_path, :method => 'get' do %>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-1 col-md-1">
                     <%= hidden_field_tag 'cancelled', "cancelled" %>
                     <%= submit_tag 'Cancelled', :class => "hidden", :id => 'form_submit_button' %>
                     <%= content_tag(:a, 'Cancelled', :name => 'submit', :id => 'submit_link') %>
@@ -124,7 +123,7 @@
             <% end %>
 
             <%= form_tag landing_index_path, :method => 'get' do %>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-1 col-md-1">
                     <%= hidden_field_tag 'archived', "archived" %>
                     <%= submit_tag 'Archived', :class => "hidden", :id => 'form_submit_button' %>
                     <%= content_tag(:a, 'Archived', :name => 'submit', :id => 'submit_link') %>
