@@ -55,15 +55,15 @@
             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">
-            <li><%= link_to "<i class='fa fa-user fa-fw'></i> User Profile".html_safe, edit_analytics_user_registration_path %>
+            <li><%= link_to "<i class='fa fa-user fa-fw'></i> User Profile".html_safe, edit_user_registration_path %>
             </li>
             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
             </li>
             <li class="divider"></li>
             <li><% if user_signed_in? %>
-            	<%= link_to "<i class='fa fa-sign-out fa-fw'></i> Logout".html_safe, destroy_analytics_user_session_path, :method=>'delete' %>
+            	<%= link_to "<i class='fa fa-sign-out fa-fw'></i> Logout".html_safe, destroy_user_session_path, :method=>'delete' %>
             	<% else %>
-            		<%= link_to "<i class='fa fa-sign-out fa-fw'></i> Login".html_safe, new_analytics_user_session_path %>
+            		<%= link_to "<i class='fa fa-sign-out fa-fw'></i> Login".html_safe, new_user_session_path %>
             	<% end %>
             </li>
         </ul>
