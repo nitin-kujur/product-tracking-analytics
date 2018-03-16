@@ -8,7 +8,7 @@ class Order < ApplicationRecord
 	has_many :order_tags, through: :order_order_tags, source: :order_tag, dependent: :destroy
 	belongs_to :billing_address, :class_name => 'Address', :foreign_key => "billing_address_id", dependent: :destroy
   belongs_to :shipping_address, :class_name => 'Address', :foreign_key => "shipping_address_id", dependent: :destroy
-  belongs_to :parent_order, :class_name => 'Order', primary_key: :parent_order_id
+  belongs_to :parent_order, :class_name => 'Order', primary_key: :shopify_order_id
   # has_many :child_orders, :class_name => 'Order', primary_key: :child_order_id, foreign_key: :parent_order_id
   accepts_nested_attributes_for :line_items, :billing_address, :shipping_address, :order_products, :order_order_tags, :order_tags
 
