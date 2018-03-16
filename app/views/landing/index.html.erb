@@ -102,26 +102,32 @@
                         From:
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy" %>
+                        <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date %>
                     </div>
                     <div class="col-lg-1 col-md-1">
                         To:
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input", placeholder: "mm-dd-yy" %>
+                        <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @to_date %>
                     </div>
                     <div class="col-lg-2 col-md-4">
                         <%= submit_tag 'Submit', class: "btn btn-primary", id: "sbt-report"%>
                     </div>
                 </div>
-
-                <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
                     <div class="col-lg-1 col-md-1">
                         <%= link_to "All", landing_index_path, class:"btn btn-primary" %>
                     </div>
                     <div class="col-lg-8 col-md-12">
                         <%= select_tag :shop_id, options_from_collection_for_select(@shop, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
                     </div>
+                    <div class="col-lg-8 col-md-12">
+                        <%= form_tag(landing_index_path,{method: 'get'}) do %>
+                            <%= hidden_field_tag :reset, params[:reset] %>
+                        <% end %>
+                    </div>
+                </div>
                 </div>
             <% end %>
         </div>

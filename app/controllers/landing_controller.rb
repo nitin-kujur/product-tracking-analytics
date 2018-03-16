@@ -3,14 +3,26 @@ class LandingController < ApplicationController
     puts "+++++++++++++++++++++++++++++++++++++++++"
     puts params
     puts "+++++++++++++++++++++++++++++++++++++++++"
-    @shop = Shop.all
-    if params[:shop_id].present?
-      @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-      @orders_count = @orders.count
-      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-      @shops = Shop.all
-      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
-    elsif params["fulfilled"].present?
+    @form_date = params[:form_date]
+    @to_date = params[:to_date]
+    @shop = params[:shop_id]
+    if params[:form_date].present? && params[:to_date].present?
+      if params[:shop_id].present?
+        @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+        @orders_count = @orders.count
+        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
+        @shops = Shop.all
+        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
+      else
+        @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+        @orders_count = @orders.count
+        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
+        @shops = Shop.all
+        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
+      end
+    end
+    if params["fulfilled"].present?
       @orders = Order.where(:fulfillment_status => "fulfilled").paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
       @orders_count = @orders.count
       @orders_quantity = @orders.joins(:line_items).sum(:quantity)
@@ -52,9 +64,16 @@ class LandingController < ApplicationController
         @shops = Shop.all
         @sales = LineItem.sum(:price) * LineItem.sum(:quantity)
   	  end
+      @orders_count = @orders.count
+      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
+      @shops = Shop.all
+      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     end
-    if params[:form_date].present? && params[:to_date].present?
-      @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+
+    if params[:reset].present?
+      @form_date = nil
+      @to_date = nil
+      @shop = nil
     end
   end
 end
