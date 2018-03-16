@@ -6,7 +6,7 @@ class LandingController < ApplicationController
     @form_date = params[:form_date]
     @to_date = params[:to_date]
     @shop = params[:shop_id]
-    if params[:form_date].present? && params[:to_date].present? && params[:shop_id].present?
+    if params[:form_date].present? && params[:to_date].present? || params[:shop_id].present?
       puts "---------Paramter present-----------"
       if !params[:form_date].empty? && !params[:to_date].empty? && !params[:shop_id].empty?
         puts "++++++++ All parameter not empty ++++++++++"
