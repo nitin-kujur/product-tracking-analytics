@@ -97,14 +97,16 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <%= form_tag landing_index_path, :method => 'get' do %>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-md-6">
+                    From :
                     <%= text_field_tag 'form_date', value="", class: "form-control", type: "input" %>
+                    To:
                     <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input" %>
                     <%= submit_tag 'Submit', class: "btn btn-primary", id: "sbt-report"%>
                 </div>
             <% end %>
             <%= form_tag(landing_index_path, { method: 'get' , id: 'select_type_form'}) do %>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-md-6">
                     <%= link_to "All-Shops", landing_index_path %> |
                     <%= select_tag :shop_id, options_from_collection_for_select(@shop, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
                 </div>
