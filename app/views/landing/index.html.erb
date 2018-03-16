@@ -252,13 +252,6 @@
         $('#loading').html('Loading');
     });
 
-     $("#form_date").datetimepicker({ 
-            format: 'DD-MM-YYYY'
-        });
-        $("#to_date").datetimepicker({ 
-            format: 'DD-MM-YYYY'
-        });
-        
     $(document).ready(function() {
         $(document).on("click","#fullfilled_submit_link",function() {
             $('#form_submit_button_fullfilled').click();
@@ -271,6 +264,13 @@
         });
         $(document).on("click","#archived_submit_link",function() {
             $('#form_submit_button_archived').click();
+        });
+
+        $("#form_date").datetimepicker({ 
+            format: 'DD-MM-YYYY'
+        });
+        $("#to_date").datetimepicker({ 
+            format: 'DD-MM-YYYY'
         });
 });
 </script>
