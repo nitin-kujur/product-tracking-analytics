@@ -1,5 +1,6 @@
 class LandingController < ApplicationController
   def index
+    @shop = Shop.all
     if params[:shop_id].present?
       @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
       @orders_count = @orders.count
