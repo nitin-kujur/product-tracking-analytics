@@ -7,7 +7,9 @@ class LandingController < ApplicationController
     @to_date = params[:to_date]
     @shop = params[:shop_id]
     if params[:form_date].present? && params[:to_date].present? && params[:shop_id].present?
+      puts "---------Paramter present-----------"
       if !params[:form_date].empty? && !params[:to_date].empty? && !params[:shop_id].empty?
+        puts "++++++++ All parameter not empty ++++++++++"
         @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         @orders_count = @orders.count
@@ -15,12 +17,14 @@ class LandingController < ApplicationController
         @shops = Shop.all
         @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       elsif params[:form_date].empty? && params[:to_date].empty? && !params[:shop_id].empty?
+        puts "++++++++ Shop parameter not empty ++++++++++"
         @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         @orders_count = @orders.count
         @orders_quantity = @orders.joins(:line_items).sum(:quantity)
         @shops = Shop.all
         @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       else
+        puts "++++++++ from to not empty ++++++++++"
         @orders = Order.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         @orders_count = @orders.count
         @orders_quantity = @orders.joins(:line_items).sum(:quantity)
@@ -28,6 +32,7 @@ class LandingController < ApplicationController
         @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       end
     else
+      puts "---------Paramter not present-----------"
       @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
     end
     if params["fulfilled"].present?
