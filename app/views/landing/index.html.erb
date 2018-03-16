@@ -13,7 +13,7 @@
                         <i class="fa fa-shopping-cart fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"> <%= number_to_currency(@orders_count) %></div>
+                        <div class="huge"> <%= number_with_delimiter(@orders_count, :delimiter => ',')%></div>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                         <i class="fa fa-stack-overflow fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><%= number_to_currency(@orders_quantity) %></div>
+                        <div class="huge"><%= number_with_delimiter(@orders_quantity, :delimiter => ',')%></div>
                     </div>
                 </div>
             </div>
