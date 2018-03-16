@@ -3,6 +3,11 @@ class LandingController < ApplicationController
     puts "+++++++++++++++++++++++++++++++++++++++++"
     puts params
     puts "+++++++++++++++++++++++++++++++++++++++++"
+    if params[:reset].present?
+      @form_date = nil
+      @to_date = nil
+      @shop = nil
+    end
     @form_date = params[:form_date]
     @to_date = params[:to_date]
     @shop = params[:shop_id]
@@ -81,12 +86,6 @@ class LandingController < ApplicationController
       @orders_quantity = @orders.joins(:line_items).sum(:quantity)
       @shops = Shop.all
       @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
-    end
-
-    if params[:reset].present?
-      @form_date = nil
-      @to_date = nil
-      @shop = nil
     end
   end
 end
