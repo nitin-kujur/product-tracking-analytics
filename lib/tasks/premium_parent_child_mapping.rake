@@ -4,7 +4,7 @@ namespace :order do
     # Shop.where(:shop_type => "premium") do |shop|
       shop = Shop.where(:shopify_domain => "pepsinba.myshopify.com").first
       puts "I am entered into shop"
-      child_orders = Order.where(:shop_id => shop.id).joins(:line_items).where("line_items.varaint_title like ?", "%Parent ID%")
+      child_orders = Order.where(:shop_id => shop.id).joins(:line_items).where("line_items.variant_title like ?", "%Parent ID%")
       puts child_orders.count
       child_orders.each do |order|
         local_parent_id = shop.orders.joins(:line_items).first.variant_title.split(":")[1].strip
