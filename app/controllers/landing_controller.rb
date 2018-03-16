@@ -49,5 +49,8 @@ class LandingController < ApplicationController
         @sales = LineItem.sum(:price) * LineItem.sum(:quantity)
   	  end
     end
+    if params[:form_date].present? && params[:to_date].present?
+      @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+    end
   end
 end
