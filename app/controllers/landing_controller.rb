@@ -15,7 +15,7 @@ class LandingController < ApplicationController
         @shops = Shop.all
         @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       else
-        @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+        @orders = Order.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         @orders_count = @orders.count
         @orders_quantity = @orders.joins(:line_items).sum(:quantity)
         @shops = Shop.all
