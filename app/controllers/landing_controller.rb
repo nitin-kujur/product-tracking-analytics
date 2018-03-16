@@ -73,7 +73,7 @@ class LandingController < ApplicationController
       else 
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         @orders_count = @orders.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders.joins(:line_ittems).sum(:quantity)
+        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
         @shops = Shop.all
         @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
   	  end
