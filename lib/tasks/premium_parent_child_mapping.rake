@@ -7,7 +7,7 @@ namespace :order do
       child_orders = Order.where(:shop_id => shop.id).joins(:line_items).where("line_items.variant_title like ?", "%Parent ID%")
       puts child_orders.count
       child_orders.each do |order|
-        local_parent_id = shop.orders.joins(:line_items).first.variant_title.split(":")[1].strip
+        local_parent_id = order.line_items.first.variant_title.split(":")[1].strip
         puts local_parent_id
         parent_order = Order.where(:parent_order_flag => local_parent_id).first.shopify_order_id
         puts parent_order
