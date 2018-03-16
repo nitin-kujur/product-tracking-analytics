@@ -71,11 +71,11 @@ class LandingController < ApplicationController
       elsif params[:order_name_search].present?
         @orders = Order.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       else 
-        @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_count = Order.all.where(:cancelled_at => nil).count
-        @orders_quantity = LineItem.sum(:quantity)
+        @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        @orders_count = @orders.all.where(:cancelled_at => nil).count
+        @orders_quantity = @orders.joins(:line_ittems).sum(:quantity)
         @shops = Shop.all
-        @sales = LineItem.sum(:price) * LineItem.sum(:quantity)
+        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
   	  end
       @orders_count = @orders.count
       @orders_quantity = @orders.joins(:line_items).sum(:quantity)
