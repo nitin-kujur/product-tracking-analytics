@@ -183,37 +183,34 @@
                     <%= submit_tag "Search", :name => nil, class: "btn btn-primary"%>
                 </div>
             <% end %>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6 col-md-12">
-        <%= form_tag landing_index_path, :method => 'get' do %>
+            <%= form_tag landing_index_path, :method => 'get' do %>
             <%= hidden_field_tag 'fulfilled', "fulfilled" %>
             <%= submit_tag 'Fulfilled', :class => "hidden", :id => 'form_submit_button_fullfilled' %>
             <%= content_tag(:a, 'Fulfilled', :name => 'submit', :id => 'fullfilled_submit_link') %>
-        <% end %>|
+            <% end %>|
 
-        <%= form_tag landing_index_path, :method => 'get' do %>
+            <%= form_tag landing_index_path, :method => 'get' do %>
             <%= hidden_field_tag 'unfulfilled', "unfulfilled" %>
             <%= submit_tag 'Unfulfilled', :class => "hidden", :id => 'form_submit_button_unfullfilled' %>
             <%= content_tag(:a, 'Unfulfilled', :name => 'submit', :id => 'unfullfilled_submit_link') %>
-        <% end %>|
+            <% end %>|
 
-        <%= form_tag landing_index_path, :method => 'get' do %>
+            <%= form_tag landing_index_path, :method => 'get' do %>
             <%= hidden_field_tag 'cancelled', "cancelled" %>
             <%= submit_tag 'Cancelled', :class => "hidden", :id => 'form_submit_button_cancelled' %>
             <%= content_tag(:a, 'Cancelled', :name => 'submit', :id => 'cancelled_submit_link') %>
                     
-        <% end %>|
+            <% end %>|
 
-        <%= form_tag landing_index_path, :method => 'get' do %>
+            <%= form_tag landing_index_path, :method => 'get' do %>
             <%= hidden_field_tag 'archived', "archived" %>
             <%= submit_tag 'Archived', :class => "hidden", :id => 'form_submit_button_archived' %>
             <%= content_tag(:a, 'Archived', :name => 'submit', :id => 'archived_submit_link') %>
-        <% end %>|
+            <% end %>|
+        </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
