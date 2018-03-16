@@ -99,11 +99,15 @@
             <%= form_tag landing_index_path, :method => 'get' do %>
                 <div class="col-md-12">
                     <div class="col-lg-3 col-md-6">
-                        From :
+                        From:
+                    </div>
+                    <div class="col-lg-3 col-md-6">
                         <%= text_field_tag 'form_date', value="", class: "form-control", type: "input" %>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         To:
+                    </div>
+                    <div class="col-lg-3 col-md-6">
                         <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input" %>
                     </div>
                     <div class="col-lg-3 col-md-6">
