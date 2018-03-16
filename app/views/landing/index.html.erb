@@ -126,7 +126,7 @@
                     <div class="col-lg-1 col-md-1">
                         <%= link_to "All", landing_index_path, class:"btn btn-primary" %>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-8 col-md-12">
                         <%= select_tag :shop_id, options_from_collection_for_select(@shop, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
                     </div>
                 </div>
