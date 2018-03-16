@@ -105,6 +105,12 @@
                     <%= submit_tag 'Submit', class: "btn btn-primary", id: "sbt-report"%>
                 </div>
             <% end %>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
             <%= form_tag(landing_index_path, { method: 'get' , id: 'select_type_form'}) do %>
                 <div class="col-md-6">
                     <%= link_to "All-Shops", landing_index_path %> |
