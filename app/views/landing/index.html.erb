@@ -179,7 +179,9 @@
                         <%= text_field_tag :free_text_search, params[:free_text_search], placeholder: "Free Text Search" %>
                     </p>
                 </div>
-                <%= submit_tag "Search", :name => nil %>
+                <div class="col-lg-3 col-md-6">
+                    <%= submit_tag "Search", :name => nil, class: "btn btn-primary"%>
+                </div>
             <% end %>
 
 
