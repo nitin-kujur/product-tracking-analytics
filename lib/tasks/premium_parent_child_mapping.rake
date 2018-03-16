@@ -1,7 +1,7 @@
 namespace :order do
   desc 'Shopify sync missing orders'
   task premium_parent_child_mapping: :environment do
-    Shop.where(:shop_type => "premium") do |shop|
+    Shop.where(:shop_type => "premium").each do |shop|
       puts "I am entered into shop"
       child_orders = Order.where(:shop_id => shop.id).joins(:line_items).where("line_items.variant_title like ?", "%Parent ID%")
       puts child_orders.count
