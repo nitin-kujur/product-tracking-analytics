@@ -9,7 +9,7 @@ namespace :order do
       child_orders.each do |order|
         local_parent_id = order.line_items.first.variant_title.split(":")[1].strip
         puts local_parent_id
-        parent_order = Order.where(:parent_order_flag => local_parent_id).first.shopify_order_id
+        parent_order = Order.where(:parent_order_flag => local_parent_id).try(:first).try(:shopify_order_id)
         puts parent_order
         order.parent_order_id = parent_order
         if order.save(:validate => false)
