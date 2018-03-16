@@ -245,8 +245,6 @@
     <!-- /.col-lg-12 -->
 </div>
 <%= will_paginate @orders, renderer: BootstrapPagination::Rails %>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script type="text/javascript">
     $('#will_paginate_id').bind('click', function(event){
         window.scrollTo(0,0);
@@ -267,14 +265,17 @@
         $(document).on("click","#archived_submit_link",function() {
             $('#form_submit_button_archived').click();
         });
+    });
 
+    $(document).on('ready page:load', function () {
+        // $('#datetimepicker1').datetimepicker();
         $("#form_date").datetimepicker({ 
             format: 'DD-MM-YYYY'
         });
         $("#to_date").datetimepicker({ 
             format: 'DD-MM-YYYY'
         });
-});
+    });
 </script>
 
 <style type="text/css">
