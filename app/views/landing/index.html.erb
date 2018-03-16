@@ -107,7 +107,7 @@
                 <div class="col-lg-3 col-md-6">
                     <%= link_to "All-Shops", landing_index_path %> |
                     <%= select_tag 'company_type',
-                        options_from_collection_for_select(Shop.all.collect{|x| [x.shopify_domain, x.id]}), onchange: "$('#select_type_form').submit();" %>
+                        options_from_collection_for_select(Shop.all, "shopify_domain", "id"]}), onchange: "$('#select_type_form').submit();" %>
                 </div>
             <% end %>
         </div>
