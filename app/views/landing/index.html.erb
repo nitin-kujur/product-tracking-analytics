@@ -201,6 +201,7 @@
                         <tr>
                             <th>Order Name</th>
                             <th>Parent Order</th>
+                            <th>Shop</th>
                             <th>Status</th>
                             <th>Billed To</th>
                             <th>Shipped To</th>
@@ -214,6 +215,7 @@
                         <% @orders.each do |order| %>
                             <tr class="odd gradeX">
                                 <td><%= order.try(:order_number) %></td>
+                                <td><%= order.try(:parent_order).try(:order_number) %></td>
                                 <td class="text-right"><%= order.try(:shop).try(:shopify_domain).truncate(20) %></td>
                                 <td><%= order.try(:fulfillment_status) %></td>
                                 <td><%= order.try(:billing_address).try(:city) %></td>
