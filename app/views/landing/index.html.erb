@@ -122,14 +122,14 @@
                     <div class="col-lg-8 col-md-12">
                         <%= select_tag :shop_id, options_from_collection_for_select(Shop.all, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
                     </div>
-                    <div class="col-lg-8 col-md-12">
-                        <%= form_tag(landing_index_path,{method: 'get'}) do %>
-                            <%= hidden_field_tag :reset, params[:reset] %>
-                        <% end %>
-                    </div>
                 </div>
                 </div>
             <% end %>
+            <div class="col-lg-8 col-md-12">
+                <%= form_tag(landing_index_path,{method: 'get'}) do %>
+                    <%= hidden_field_tag :reset, params[:reset] %>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>
