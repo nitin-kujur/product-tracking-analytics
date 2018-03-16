@@ -2,7 +2,7 @@ namespace :order do
   desc 'Shopify sync missing orders'
   task sync_shopify_order: :environment do
     Shop.all.each do |shop|
-      if shop.shopify_domain == "shophydration.myshopify.com"
+      if shop.shopify_domain == "pepsidewmixology.myshopify.com"
         Shop.set_session(shop)
         order_count = 500
         pages = order_count / 250 + (order_count % 250 == 0 ? 0 : 1)
