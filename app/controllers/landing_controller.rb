@@ -15,7 +15,11 @@ class LandingController < ApplicationController
       puts "---------Paramter present-----------"
       if !params[:form_date].empty? && !params[:to_date].empty? && !params[:shop_id].empty?
         puts "++++++++ All parameter not empty ++++++++++"
-        @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        if params[:shop_id] == "all"
+          @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        else
+          @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        end  
         @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         @orders_count = @orders.count
         @orders_quantity = @orders.joins(:line_items).sum(:quantity)
@@ -23,7 +27,11 @@ class LandingController < ApplicationController
         @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       elsif params[:form_date].empty? && params[:to_date].empty? && !params[:shop_id].empty?
         puts "++++++++ Shop parameter not empty ++++++++++"
-        @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        if params[:shop_id] == "all"
+          @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        else
+          @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        end  
         @orders_count = @orders.count
         @orders_quantity = @orders.joins(:line_items).sum(:quantity)
         @shops = Shop.all
