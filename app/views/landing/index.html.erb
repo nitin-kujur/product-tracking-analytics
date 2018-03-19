@@ -275,8 +275,8 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+    <%= will_paginate @orders, renderer: BootstrapPagination::Rails %>
 <% end %>
-<%= will_paginate @orders, renderer: BootstrapPagination::Rails %>
 <script type="text/javascript">
     $('#will_paginate_id').bind('click', function(event){
         window.scrollTo(0,0);
