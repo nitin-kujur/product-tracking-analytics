@@ -133,7 +133,7 @@
             <%= form_tag landing_index_path, :method => 'get' do %>
                 <div class="col-lg-3 col-md-6">
                     <p>     
-                        <%= text_field_tag :billed_to_search, params[:billed_to_search], placeholder: "Billed To" %>
+                        <%= text_field_tag :billed_to_search, params[:billed_to_search], placeholder: "Billed To", class: "form-control" %>
                         <%= hidden_field_tag :shop_id, @shop_id %>
                         <%= hidden_field_tag :from_date, @from_date %>
                         <%= hidden_field_tag :to_date, @to_date %>
@@ -142,37 +142,37 @@
 
                 <div class="col-lg-3 col-md-6">
                     <p>
-                        <%= text_field_tag :shipped_to_search, params[:shipped_to_search], placeholder: "Shipped To" %>
+                        <%= text_field_tag :shipped_to_search, params[:shipped_to_search], placeholder: "Shipped To", class: "form-control" %>
                     </p>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
                     <p>
-                        <%= text_field_tag :item_search, params[:item_search], placeholder: "Item Name" %>
+                        <%= text_field_tag :item_search, params[:item_search], placeholder: "Item Name", class: "form-control" %>
                     </p>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
                     <p>
-                        <%= text_field_tag :tracking_number, params[:tracking_number], placeholder: "Tracking Number" %>
+                        <%= text_field_tag :tracking_number, params[:tracking_number], placeholder: "Tracking Number", class: "form-control" %>
                     </p>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
                     <p>
-                        <%= text_field_tag :sku_search, params[:sku_search], placeholder: "SKU" %>
+                        <%= text_field_tag :sku_search, params[:sku_search], placeholder: "SKU", class: "form-control" %>
                     </p>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
                     <p>
-                        <%= text_field_tag :order_name_search, params[:order_name_search], placeholder: "Order Name" %>
+                        <%= text_field_tag :order_name_search, params[:order_name_search], placeholder: "Order Name", class: "form-control" %>
                     </p>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
                     <p>
-                        <%= text_field_tag :free_text_search, params[:free_text_search], placeholder: "Free Text Search" %>
+                        <%= text_field_tag :free_text_search, params[:free_text_search], placeholder: "Free Text Search", class: "form-control"%>
                     </p>
                 </div>
                 
