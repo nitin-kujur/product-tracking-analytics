@@ -98,19 +98,15 @@
         <div class="panel-body">
             <%= form_tag(landing_index_path, { method: 'get' , id: 'select_type_form'}) do %>
                 <div class="col-md-12">
-                    <div class="col-lg-8 col-md-12">
+                    <div class="col-lg-3 col-md-6">
                         <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
                     </div>
-                    <div class="col-lg-1 col-md-1">
-                        From:
-                    </div>
                     <div class="col-lg-3 col-md-6">
+                        From:
                         <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date %>
                     </div>
-                    <div class="col-lg-1 col-md-1">
-                        To:
-                    </div>
                     <div class="col-lg-3 col-md-6">
+                        To:
                         <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @to_date %>
                     </div>
 
