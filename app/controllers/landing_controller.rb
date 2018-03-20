@@ -19,12 +19,7 @@ class LandingController < ApplicationController
           @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         else
           @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        end  
-        @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
-        @orders_count = @orders.count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
+        end
       elsif params[:form_date].empty? && params[:to_date].empty? && !params[:shop_id].empty?
         puts "++++++++ Shop parameter not empty ++++++++++"
         if params[:shop_id] == "all"
@@ -32,26 +27,9 @@ class LandingController < ApplicationController
         else
           @orders = Order.all.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         end  
-        @orders_count = @orders.count
-        puts "+++++++++++++++++++++++"
-        puts @orders_count.inspect
-        puts "+++++++++++++++++++++++"
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        puts "+++++++++++++++++++++++"
-        puts @orders_quantity.inspect
-        puts "+++++++++++++++++++++++"
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
-        puts "+++++++++++++++++++++++"
-        puts @sales.inspect
-        puts "+++++++++++++++++++++++"
       else
         puts "++++++++ from to not empty ++++++++++"
         @orders = Order.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
-        @orders_count = @orders.count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       end
     else
       puts "---------Paramter not present-----------"
@@ -59,87 +37,62 @@ class LandingController < ApplicationController
     end
     if params["fulfilled"].present?
       @orders = Order.where(:fulfillment_status => "fulfilled").paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-      @orders_count = @orders.count
-      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-      @shops = Shop.all
-      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     elsif params["unfulfilled"].present?
       @orders = Order.where(:fulfillment_status => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-      @orders_count = @orders.count
-      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-      @shops = Shop.all
-      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     elsif params["cancelled"].present?
       @orders = Order.where.not(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
-      @orders_count = @orders.count
-      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-      @shops = Shop.all
-      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     else
       if params[:billed_to_search].present?
         @orders = @orders.joins(:billing_address).where("lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_count = @orders.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       elsif params[:shipped_to_search].present?
         @orders = @orders.joins(:shipping_address).where("lower(addresses.city) like ?", "%#{params[:shipped_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_count = @orders.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
   	  elsif params[:item_search].present?
         @orders = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].downcase}").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_count = @orders.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
   	  elsif params[:tracking_number].present?
         @orders = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_count = @orders.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
   	  elsif params[:free_text_search].present?
         @orders = @orders.where("lower(email) || total_price || subtotal_price || total_weight || total_tax || lower(financial_status) || total_line_items_price || cancelled_at || lower(cancel_reason) || lower(order_number) || lower(fulfillment_status) || lower(contact_email) || lower(customer_email) || lower(order_region) || lower(discount_codes) || lower(shopify_tracking_id) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         @orders = @orders.joins(:billing_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50) if @orders.empty?
         @orders << @orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)  if @orders.empty?
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_count = @orders.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       elsif params[:sku_search].present?
         @orders = @orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_count = @orders.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       elsif params[:order_name_search].present?
         @orders = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_count = @orders.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
       else 
         if params.present?
-          @orders_for_orders_count = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+          @orders_for_orders_count = Orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         else
           @orders_for_orders_count = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         end  
   	  end
-      if params.present?
-        @orders_count = @orders_for_orders_count.all.where(:cancelled_at => nil).count
-        @orders_quantity = @orders_for_orders_count.joins(:line_items).sum(:quantity)
-        @shops = Shop.all
-        @sales = @orders_for_orders_count.joins(:line_items).sum(:price) * @orders_quantity
-      end
     end
+    if params.present?
+      puts "-------------------------------"
+      puts "params not present"
+      puts "-------------------------------"
+      @orders = Order.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+      @orders_count = @orders.count
+      @orders_quantity = @orders.joins(:line_items).sum(:quantity)
+      @shops = Shop.all
+      @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
+    else
+      puts "-------------------------------"
+      puts "params present"
+      puts "-------------------------------"
+        @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+        @orders_count = @orders.count
+        @orders_quantity = @orders.joins(:line_items).sum(:quantity)
+        @shops = Shop.all
+        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
+    end
+
+
   end
 end
