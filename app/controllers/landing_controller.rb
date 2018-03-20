@@ -75,6 +75,9 @@ class LandingController < ApplicationController
       puts "-------------------------------"
       @orders = Order.all.where(:cancelled_at => nil)
       @orders_count = @orders.count
+      puts "====================="
+      puts @orders_count
+      puts "====================="
       @orders_quantity = @orders.joins(:line_items).sum(:quantity)
       @shops = Shop.all
       @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
