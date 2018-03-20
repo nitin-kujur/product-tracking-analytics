@@ -7,6 +7,7 @@ namespace :order do
       child_orders = Order.where(:shop_id => shop.id)
       puts child_orders.count
       child_orders.each do |order|
+        sleep(2)
         shopify_order = ShopifyAPI::Order.find(order.shopify_order_id)
         if shopify_order.fulfillments.present?
           order.tracking_url = shopify_order.fulfillments.first.tracking_url
