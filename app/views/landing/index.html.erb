@@ -254,9 +254,15 @@
                                     <td class="text-left"><%= order.try(:shop).try(:shopify_domain).split(".")[0] %></td>
                                     <td><%= order.try(:fulfillment_status) %></td>
                                     <td>
-                                        <%= order.try(:billing_address).try(:first_name) + " " + order.try(:billing_address).try(:last_name) unless order.try(:billing_address).try(:first_name).nil? && order.try(:billing_address).try(:last_name).nil? %> 
+                                        <%= unless order.try(:billing_address).try(:first_name).nil? && order.try(:billing_address).try(:last_name).nil? %>
+                                            <%= order.try(:billing_address).try(:first_name) + " " + order.try(:billing_address).try(:last_name) %> 
+                                        <% end %>
                                     </td>
-                                    <td class="center"><%= order.try(:shipping_address).try(:first_name) + " " + order.try(:shipping_address).try(:last_name) unless order.try(:shipping_address).try(:first_name).nil? && order.try(:shipping_address).try(:last_name).nil? %> </td>
+                                    <td class="center">
+                                        <%= unless order.try(:shipping_address).try(:first_name).nil? && order.try(:shipping_address).try(:last_name).nil? %>
+                                            <%= order.try(:shipping_address).try(:first_name) + " " + order.try(:shipping_address).try(:last_name)  %> 
+                                        <% end %>
+                                    </td>
                                     <td class="text-right"><%= order.try(:shopify_tracking_id).try(:truncate, 20) %></td>
                                     <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
                                     <td class="text-right"><%= number_to_currency(order.try(:amount).to_f.round(2), :unit => "$") %></td>
