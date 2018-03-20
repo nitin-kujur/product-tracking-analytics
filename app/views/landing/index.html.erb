@@ -252,7 +252,13 @@
                                     <td><%= order.try(:parent_order).try(:order_number) %></td>
                                     <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
                                     <td class="text-left"><%= order.try(:shop).try(:shopify_domain).split(".")[0] %></td>
-                                    <td><%= order.try(:fulfillment_status) %></td>
+                                    <td>
+                                        <% if order.try(:fulfillment_status).nil? %>
+                                            Unfulfilled
+                                        <% else %>
+                                            <%= order.try(:fulfillment_status) %>
+                                        <% end %>
+                                    </td>
                                     <td>
                                         <%= "#{order.try(:billing_address).try(:first_name)}" + " " + "#{order.try(:billing_address).try(:last_name)}" unless order.try(:billing_address).nil? %> 
                                     </td>
