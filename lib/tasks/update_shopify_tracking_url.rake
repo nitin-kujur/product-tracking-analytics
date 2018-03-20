@@ -2,6 +2,7 @@ namespace :order do
   desc 'Shopify sync missing orders'
   task update_shopify_tracking_url: :environment do
     Shop.where(:shop_type => "premium").each do |shop|
+      Shop.set_session(shop)
       puts "I am entered into shop"
       child_orders = Order.where(:shop_id => shop.id)
       puts child_orders.count
