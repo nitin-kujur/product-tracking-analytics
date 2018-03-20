@@ -69,7 +69,7 @@ class LandingController < ApplicationController
         @orders = @orders
   	  end
     end
-    if !params[:form_date].present? || !params[:to_date].present? || !params[:shop_id].present?
+    if params[:form_date].present? || params[:to_date].present? || params[:shop_id].present?
       puts "-------------------------------"
       puts "params not present"
       puts "-------------------------------"
