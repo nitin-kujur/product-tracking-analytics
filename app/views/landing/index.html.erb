@@ -263,7 +263,7 @@
                                         <%= "#{order.try(:billing_address).try(:first_name)}" + " " + "#{order.try(:billing_address).try(:last_name)}" unless order.try(:billing_address).nil? %> 
                                     </td>
                                     <td class="center"><%= "#{order.try(:shipping_address).try(:first_name)}" + " " + "#{order.try(:shipping_address).try(:last_name)}" unless order.try(:shipping_address).nil? %> </td>
-                                    <td class="text-right"><%= order.try(:shopify_tracking_id).try(:truncate, 20) %></td>
+                                    <td class="text-right"><%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url) %></td>
                                     <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
                                     <td class="text-right"><%= number_to_currency(order.try(:amount).to_f.round(2), :unit => "$") %></td>
                                     <td class="center"><td>

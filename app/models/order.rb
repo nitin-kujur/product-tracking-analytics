@@ -76,7 +76,7 @@ class Order < ApplicationRecord
     end
     @order.amount = sum
     @order.shopify_tracking_id = shopify_obj.fulfillments.first.tracking_number if shopify_obj.fulfillments.present?
-        
+    @order.tracking_url =  shopify_obj.fulfillments.first.tracking_url if shopify_obj.fulfillments.present?
     shopify_obj.tags.split(",").each do |order_tag|
       order_t = OrderTag.where(:name => order_tag.split(":")[0].try(:strip), :value => order_tag.split(":")[1].try(:strip)).first
       if order_t.nil?
