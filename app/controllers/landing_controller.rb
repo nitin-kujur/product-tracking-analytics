@@ -66,11 +66,7 @@ class LandingController < ApplicationController
         @orders = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
       else 
-        if params.present?
-          @orders_for_orders_count = Orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        else
-          @orders_for_orders_count = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        end  
+        @orders = @orders
   	  end
     end
     if params.present?
