@@ -73,7 +73,7 @@ class LandingController < ApplicationController
       puts "-------------------------------"
       puts "params not present"
       puts "-------------------------------"
-      @orders = Order.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+      @orders = Order.all.where(:cancelled_at => nil)
       @orders_count = @orders.count
       @orders_quantity = @orders.joins(:line_items).sum(:quantity)
       @shops = Shop.all
@@ -82,7 +82,6 @@ class LandingController < ApplicationController
       puts "-------------------------------"
       puts "params present"
       puts "-------------------------------"
-        @orders = @orders.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         @orders_count = @orders.count
         @orders_quantity = @orders.joins(:line_items).sum(:quantity)
         @shops = Shop.all
