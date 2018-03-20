@@ -166,7 +166,7 @@
 
                 <div class="col-lg-3 col-md-6">
                     <p>
-                        <%= text_field_tag :order_name_search, params[:order_name_search], placeholder: "Order Name", class: "form-control" %>
+                        <%= text_field_tag :order_name_search, params[:order_name_search], placeholder: "Order Id", class: "form-control" %>
                     </p>
                 </div>
 
@@ -232,7 +232,7 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr>
-                                <th>Order Name</th>
+                                <th>Order ID</th>
                                 <th>Parent Order</th>
                                 <th>Order Date</th>
                                 <th>Shop</th>
@@ -253,8 +253,8 @@
                                     <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
                                     <td class="text-right"><%= order.try(:shop).try(:shopify_domain).truncate(20) %></td>
                                     <td><%= order.try(:fulfillment_status) %></td>
-                                    <td><%= order.try(:billing_address).try(:first_name) %></td>
-                                    <td class="center"><%= order.try(:shipping_address).try(:first_name) %></td>
+                                    <td><%= order.try(:billing_address).try(:first_name) + order.try(:billing_address).try(:last_name) %></td>
+                                    <td class="center"><%= order.try(:shipping_address).try(:first_name) + order.try(:shipping_address).try(:last_name) %></td>
                                     <td class="text-right"><%= order.try(:shopify_tracking_id).try(:truncate, 20) %></td>
                                     <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
                                     <td class="text-right"><%= number_to_currency(order.try(:amount).to_f.round(2), :unit => "$") %></td>
