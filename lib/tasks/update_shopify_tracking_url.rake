@@ -8,7 +8,6 @@ namespace :order do
       puts child_orders.count
       child_orders.each do |order|
         shopify_order = ShopifyAPI::Order.find(order.shopify_order_id)
-        sleep(2)
         if shopify_order.fulfillments.present?
           order.tracking_url = shopify_order.fulfillments.first.tracking_url
           if shopify_order.fulfillments.last.shipment_status == "delivered"
