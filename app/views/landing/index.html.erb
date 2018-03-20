@@ -255,11 +255,14 @@
                                     <td><%= order.try(:fulfillment_status) %></td>
                                     <td>
                                         <%= if order.try(:billing_address).try(:first_name).nil? && order.try(:billing_address).try(:last_name).nil? %>
+                                        <% else %>
                                             <%= order.try(:billing_address).try(:first_name) + " " + order.try(:billing_address).try(:last_name) %> 
                                         <% end %>
                                     </td>
                                     <td class="center">
                                         <%= if order.try(:shipping_address).try(:first_name).nil? && order.try(:shipping_address).try(:last_name).nil? %>
+                                            
+                                        <% else %>
                                             <%= order.try(:shipping_address).try(:first_name) + " " + order.try(:shipping_address).try(:last_name)  %> 
                                         <% end %>
                                     </td>
