@@ -22,7 +22,11 @@
                             <%= link_to "<i class='fa fa-dashboard fa-fw'></i> Product View".html_safe, product_index_path %>
                         </li>
                         <li>
-                            <%= link_to "<i class='fa fa-road fa-fw'></i> Tracking View".html_safe, order_index_path %>
+                            <% if params[:controller] == "landing" %>
+                                <%= link_to "<i class='fa fa-road fa-fw'></i> Tracking View".html_safe, order_index_path, class: "active"%>
+                            <% else %>
+                                <%= link_to "<i class='fa fa-road fa-fw'></i> Tracking View".html_safe, order_index_path %>
+                            <% end %>
                         </li>
                         <li>
                             <%= link_to "<i class='fa fa-users fa-fw'></i> Customer View".html_safe, customer_index_path %>
