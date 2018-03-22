@@ -72,7 +72,7 @@ class Order < ApplicationRecord
     @order.cancelled_at = shopify_obj.try(:cancelled_at)
     sum = 0
     shopify_obj.line_items.each do |item|
-      sum = sum + ( item.price.to_f + item.quantity)
+      sum = sum + ( item.price.to_f * item.quantity)
     end
     @order.amount = sum
     @order.shopify_tracking_id = shopify_obj.fulfillments.first.tracking_number if shopify_obj.fulfillments.present?

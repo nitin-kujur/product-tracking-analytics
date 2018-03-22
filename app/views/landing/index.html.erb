@@ -271,7 +271,7 @@
                                         <% end %>
                                     </td>
                                     <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
-                                    <td class="text-right"><%= number_to_currency(order.try(:amount).to_f.round(2), :unit => "$") %></td>
+                                    <td class="text-right"><%= number_to_currency(order.try(:total_price).to_f.round(2), :unit => "$") %></td>
                                     <td class="center"><td>
                                 </tr>
                             <% end %>
