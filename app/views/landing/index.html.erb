@@ -307,6 +307,8 @@
         $(document).on("click","#archived_submit_link",function() {
             $('#form_submit_button_archived').click();
         });
+        var shop_id = $("#shop_id").val();
+        $(".shop_id_hidden_tag").val(shop_id);
     });
 
     $(document).on('ready page:load', function () {
