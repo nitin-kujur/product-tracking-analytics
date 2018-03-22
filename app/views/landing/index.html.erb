@@ -231,8 +231,8 @@
             <div class="panel-body">
             <% if @orders.present? %>
    
-                    <div class="table-responsive">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <table width="100%" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
                         <thead>
                             <tr>
                                 <th>Order ID</th>
