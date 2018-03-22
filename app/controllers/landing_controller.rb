@@ -41,8 +41,10 @@ class LandingController < ApplicationController
       end
     else
       puts "---------Paramter not present-----------"
-      @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-      @cancelled_orders = Order.all.paginate(:page => params[:page], :per_page => 50).where.not(:cancelled_at => nil)
+      if params["unfulfilled"].present? || params["fulfilled"].present? || params["cancelled"].present?
+        @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        @cancelled_orders = Order.all.paginate(:page => params[:page], :per_page => 50).where.not(:cancelled_at => nil)
+      end  
     end
 
     if params["fulfilled"].present?
