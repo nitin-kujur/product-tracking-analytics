@@ -313,7 +313,9 @@
         $(".shop_id_hidden_tag").val(shop_id);
         $(".to_date_hidden_tag").val(to_date);
         $(".form_date_hidden_tag").val(form_date);
-
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
     });
 
     $(document).on('ready page:load', function () {
@@ -321,11 +323,7 @@
         $("#form_date").datetimepicker();
         $("#to_date").datetimepicker();
     });
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
+
 </script>
 <style type="text/css">
     .form-link {
