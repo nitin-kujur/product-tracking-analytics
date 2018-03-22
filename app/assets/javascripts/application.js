@@ -16,6 +16,7 @@
 //= require jquery-ui
 //= require jquery3
 //= require moment
+//= require dataTables/jquery.dataTables
 //= require bootstrap-datetimepicker
 //= require bootstrap_sb_admin_base_v2
 //= require_tree .
