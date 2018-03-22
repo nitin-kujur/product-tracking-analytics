@@ -1,5 +1,8 @@
 class LandingController < ApplicationController
   def index
+    puts "***********************************"
+    puts params
+    puts "***********************************"
     if params[:reset].present?
       puts "======= 1. Reset parameters ============="
       @form_date = nil
