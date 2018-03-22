@@ -76,7 +76,8 @@ class LandingController < ApplicationController
         @orders_count = @orders.count
         @orders_quantity = @orders.joins(:line_items).sum(:quantity)
         @shops = Shop.all
-        @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
+        @sales = @orders.sum(:total_price)
+        # @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     else
       puts "-------------------------------"
       puts "params not present"
@@ -88,7 +89,8 @@ class LandingController < ApplicationController
       puts "====================="
       @orders_quantity = @orders_for_count.joins(:line_items).sum(:quantity)
       @shops = Shop.all
-      @sales = @orders_for_count.joins(:line_items).sum(:price) * @orders_quantity
+      # @sales = @orders_for_count.joins(:line_items).sum(:price) * @orders_quantity
+      @sales = @orders_for_count.sum(:total_price)
     end
   end
 end
