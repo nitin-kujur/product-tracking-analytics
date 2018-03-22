@@ -15,10 +15,10 @@ class LandingController < ApplicationController
         puts "++++++++ 3. All parameter not empty ++++++++++"
         if params[:shop_id] == "all"
           puts "=========== 4. shop parameter set to all ======="
-          @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(order_at) BETWEEN ? AND ? ", "#{start_date}","#{end_date}")
+          @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(order_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         else
           puts "=========== 5. shop parameter not set to all ======="
-          @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(order_at) BETWEEN ? AND ? ", "#{start_date}","#{end_date}")
+          @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(order_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         end
       elsif params[:form_date].empty? && params[:to_date].empty? && !params[:shop_id].empty?
         puts "++++++++6. Shop parameter not empty ++++++++++"
