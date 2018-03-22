@@ -15,7 +15,7 @@
       <header>
         <%= render 'layouts/navigation' %>
             <!-- /.navbar-top-links -->
-          <div class="navbar-default sidebar" role="navigation" style="background-color:black;">
+          <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
@@ -41,7 +41,7 @@
         </div>
       </div>
     <% else %>
-      <nav class="navbar navbar-default navbar-fixed-top" style="background-color:black;">
+      <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
 
             <div class="navbar-header">
@@ -64,3 +64,11 @@
     <% end %>
     </body>
 </html>
+<style type="text/css">
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 147px;
+        margin-top: 83px;
+    }
+</style>
