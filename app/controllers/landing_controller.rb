@@ -1,9 +1,7 @@
 class LandingController < ApplicationController
   def index
-    puts "+++++++++++++++++++++++++++++++++++++++++"
-    puts params
-    puts "+++++++++++++++++++++++++++++++++++++++++"
     if params[:reset].present?
+      puts "======= 1. Reset parameters ============="
       @form_date = nil
       @to_date = nil
       @shop = nil
@@ -12,24 +10,23 @@ class LandingController < ApplicationController
     @to_date = params[:to_date]
     @shop = params[:shop_id]
     if params[:form_date].present? && params[:to_date].present? || params[:shop_id].present?
-      puts "---------Paramter present-----------"
+      puts "---------2. All Paramter present-----------"
       if !params[:form_date].empty? && !params[:to_date].empty? && !params[:shop_id].empty?
-        puts "++++++++ All parameter not empty ++++++++++"
+        puts "++++++++ 3. All parameter not empty ++++++++++"
         if params[:shop_id] == "all"
-          @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+          puts "=========== 4. shop parameter set to all ======="
+          @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(order_at) BETWEEN ? AND ? ", "#{start_date}","#{end_date}")
         else
-          @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+          puts "=========== 5. shop parameter not set to all ======="
+          @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(order_at) BETWEEN ? AND ? ", "#{start_date}","#{end_date}")
         end
       elsif params[:form_date].empty? && params[:to_date].empty? && !params[:shop_id].empty?
-        puts "++++++++ Shop parameter not empty ++++++++++"
+        puts "++++++++6. Shop parameter not empty ++++++++++"
         if params[:shop_id] == "all"
           @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         else
           @orders = Order.all.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         end  
-      else
-        puts "++++++++ from to not empty ++++++++++"
-        @orders = Order.where("date(processed_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
       end
     else
       puts "---------Paramter not present-----------"
@@ -70,23 +67,14 @@ class LandingController < ApplicationController
   	  end
     end
     if params[:form_date].present? && params[:to_date].present? || params[:shop_id].present?
-      puts "-------------------------------"
-      puts "params present"
-      puts "-------------------------------"
         @orders_count = @orders.count
         @orders_quantity = @orders.joins(:line_items).sum(:quantity)
         @shops = Shop.all
         @sales = @orders.sum(:total_price)
         # @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     else
-      puts "-------------------------------"
-      puts "params not present"
-      puts "-------------------------------"
       @orders_for_count = Order.all.where(:cancelled_at => nil)
       @orders_count = @orders_for_count.count
-      puts "====================="
-      puts @orders_count
-      puts "====================="
       @orders_quantity = @orders_for_count.joins(:line_items).sum(:quantity)
       @shops = Shop.all
       # @sales = @orders_for_count.joins(:line_items).sum(:price) * @orders_quantity
