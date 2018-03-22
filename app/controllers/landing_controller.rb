@@ -35,12 +35,13 @@ class LandingController < ApplicationController
       puts "---------Paramter not present-----------"
       # @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
     end
+    
     if params["fulfilled"].present?
-      @orders = Order.where(:fulfillment_status => "fulfilled").paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      @orders = @orders.where(:fulfillment_status => "fulfilled").paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
     elsif params["unfulfilled"].present?
-      @orders = Order.where(:fulfillment_status => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      @orders = @orders.where(:fulfillment_status => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
     elsif params["cancelled"].present?
-      @orders = Order.where.not(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      @orders = @orders.where.not(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
     else
       if params[:billed_to_search].present?
         @orders = @orders.joins(:billing_address).where("lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
