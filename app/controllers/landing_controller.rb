@@ -27,8 +27,7 @@ class LandingController < ApplicationController
         else
           @orders = Order.all.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
         end  
-      end
-    elsif !params[:form_date].empty? && !params[:to_date].empty? && params[:shop_id].empty?
+      elsif !params[:form_date].empty? && !params[:to_date].empty? && params[:shop_id].empty?
         puts "++++++++6. Shop parameter not empty ++++++++++"
         @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
       end
