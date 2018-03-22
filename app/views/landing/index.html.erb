@@ -242,7 +242,7 @@
                                 <th>Tracking Number</th>
                                 <th>Quantity</th>
                                 <th>Amount</th>
-                                <th>Shipped Date</th>
+                                <!-- <th>Shipped Date</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -272,7 +272,7 @@
                                     </td>
                                     <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
                                     <td class="text-right"><%= number_to_currency(order.try(:total_price).to_f.round(2), :unit => "$") %></td>
-                                    <td class="center"><td>
+                                    <!-- <td class="center"><td> -->
                                 </tr>
                             <% end %>
                         
