@@ -134,7 +134,7 @@
                 <div class="col-lg-3 col-md-6">
                     <p>     
                         <%= text_field_tag :billed_to_search, params[:billed_to_search], placeholder: "Billed To", class: "form-control" %>
-                        <%= hidden_field_tag :shop_id, @shop_id %>
+                        <%= hidden_field_tag :shop_id, @shop_id, class: "shop_id_hidden_tag" %>
                         <%= hidden_field_tag :from_date, @from_date %>
                         <%= hidden_field_tag :to_date, @to_date %>
                     </p>
@@ -183,7 +183,7 @@
                 <div class="col-lg-12 col-md-24">
             <%= form_tag(landing_index_path, {:method => 'get', class: "form-link"} )do %>
                 <%= hidden_field_tag 'fulfilled', "fulfilled" %>
-                <%= hidden_field_tag :shop_id, @shop_id %>
+                <%= hidden_field_tag :shop_id, @shop_id , class: "shop_id_hidden_tag"%>
                 <%= hidden_field_tag :from_date, @from_date %>
                 <%= hidden_field_tag :to_date, @to_date %>
                 <%= submit_tag 'Fulfilled', :class => "hidden", :id => 'form_submit_button_fullfilled' %>
@@ -192,7 +192,7 @@
 
             <%= form_tag(landing_index_path,{:method => 'get', class: "form-link"}) do%>
                 <%= hidden_field_tag 'unfulfilled', "unfulfilled" %>
-                <%= hidden_field_tag :shop_id, @shop_id %>
+                <%= hidden_field_tag :shop_id, @shop_id , class: "shop_id_hidden_tag"%>
                 <%= hidden_field_tag :from_date, @from_date %>
                 <%= hidden_field_tag :to_date, @to_date %>
                 <%= submit_tag 'Unfulfilled', :class => "hidden", :id => 'form_submit_button_unfullfilled' %>
@@ -201,7 +201,7 @@
 
             <%= form_tag(landing_index_path, {:method => 'get', class: "form-link"})do %>
                 <%= hidden_field_tag 'cancelled', "cancelled" %>
-                <%= hidden_field_tag :shop_id, value: @shop_id %>
+                <%= hidden_field_tag :shop_id, value: @shop_id, class: "shop_id_hidden_tag" %>
                 <%= hidden_field_tag :from_date, value: @from_date %>
                 <%= hidden_field_tag :to_date, value: @to_date %>
                 <%= submit_tag 'Cancelled', :class => "hidden", :id => 'form_submit_button_cancelled' %>
