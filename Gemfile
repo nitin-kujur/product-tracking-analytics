@@ -29,6 +29,7 @@ gem 'bootstrap_sb_admin_base_v2'
 gem 'jquery-rails'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
+gem 'jquery-datatables-rails', '~> 3.4.0'
 
 
 # Use CoffeeScript for .coffee assets and views
