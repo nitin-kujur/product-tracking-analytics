@@ -264,8 +264,11 @@
                                     </td>
                                     <td class="center"><%= "#{order.try(:shipping_address).try(:first_name)}" + " " + "#{order.try(:shipping_address).try(:last_name)}" unless order.try(:shipping_address).nil? %> </td>
                                     <td class="text-right">
-                                        <% if order.try(:shopify_tracking_id).nil? && order.try(:tracking_url).nil? %>
+                                        <% if (order.try(:shopify_tracking_id).nil? && order.try(:tracking_url).nil?) %>
                                         <% else %>
+                                        <%= order.try(:shopify_tracking_id).nil? %>
+                                        <%= order.try(:tracking_url).nil? %>
+
                                             <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
                                         <% end %>
                                     </td>
