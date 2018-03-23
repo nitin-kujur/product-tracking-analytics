@@ -1,4 +1,5 @@
 class LandingController < ApplicationController
+  require 'will_paginate/array'
   def index
     puts "***********************************"
     puts params
