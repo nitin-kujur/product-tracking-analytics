@@ -79,8 +79,8 @@ class Order < ApplicationRecord
     @order.tracking_url =  shopify_obj.fulfillments.first.tracking_url if shopify_obj.fulfillments.present?
     @order.shipped_date =  shopify_obj.fulfillments.first.updated_at if shopify_obj.fulfillments.present?
     puts "----------------------------------"
-    puts shopify_obj.fulfillments.first.tracking_url
-    puts shopify_obj.fulfillments.first.updated_at
+    puts shopify_obj.try(:fulfillments).try(:first).try(:tracking_url)
+    puts shopify_obj.try(:fulfillments).try(:first).try(:updated_at)
     puts "----------------------------------"
     shopify_obj.tags.split(",").each do |order_tag|
       order_t = OrderTag.where(:name => order_tag.split(":")[0].try(:strip), :value => order_tag.split(":")[1].try(:strip)).first
