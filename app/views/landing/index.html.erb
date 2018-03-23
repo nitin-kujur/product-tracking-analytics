@@ -98,25 +98,21 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <%= form_tag(landing_index_path, { method: 'get' , id: 'select_type_form', class: 'form-inline'}) do %>
-                    <div class="col-lg-2 col-md-3">
-                        Select Webstore:
-                    </div>
-                    <div class="col-lg-2 col-md-3">
+                    <div class="form-group">
+                        <label for="shop_id">
+                            Select Webstore:
+                        </label>
                         <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
                     </div>
-                    <div class="col-lg-2 col-md-3">
-                        <div class="form-group">
-                            <label> From:</label>
+                    <div class="form-group">
+                            <label for="form_date"> From:</label>
                             <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date %>
-                        </div>
                     </div>
-                    <div class="col-lg-1 col-md-1">
-                        To:
-                    </div>
-                    <div class="col-lg-2 col-md-3">
+                    <div class="form-group">
+                        <label for="to_date"> To:</label>
                         <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @to_date %>
                     </div>
-                    <div class="col-lg-2 col-md-4">
+                    <div class="form-group">
                         <%= submit_tag 'Submit', class: "btn btn-primary", id: "sbt-report"%>
                     </div>
                 <% end %>
