@@ -56,9 +56,11 @@ class LandingController < ApplicationController
     end
 
     if params[:billed_to_search].present?
-      puts "================billed_to_search===================="
       @orders = @orders.joins(:billing_address).where("lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       @orders = @orders.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      puts "================billed_to_search===================="
+      puts @orders.count
+      puts "===================================================="
     end
     if params[:shipped_to_search].present?
       puts "================shipped_to_search===================="
