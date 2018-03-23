@@ -105,7 +105,7 @@ class LandingController < ApplicationController
       @orders_quantity = @orders_for_count.joins(:line_items).sum(:quantity)
       @shops = Shop.all
       # @sales = @orders_for_count.joins(:line_items).sum(:price) * @orders_quantity
-      @sales = @orders_for_count.sum(:total_price).to_f
+      @sales = @orders_for_count.sum(:total_price)
     end
   end
 end
