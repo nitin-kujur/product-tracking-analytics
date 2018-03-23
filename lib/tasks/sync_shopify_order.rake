@@ -9,13 +9,10 @@ namespace :order do
       (1..pages).each { |page| orders << ShopifyAPI::Order.find(:all, params: { page: page, status: 'any', limit: 250}) }
       orders.flatten!
       orders.each do |order|
-        local_order = Order.where(:order_number => order.name).first
-        if local_order.nil?
-          puts "------------------------"
+        puts "------------------------"
           puts order.name
           puts "------------------------"
           Order.save_shopify_order(shop, order)
-        end
       end
     end
   end
