@@ -104,11 +104,11 @@
                     <div class="col-lg-2 col-md-3">
                         <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
                     </div>
-                    <div class="col-lg-1 col-md-1">
-                        From:
-                    </div>
                     <div class="col-lg-2 col-md-3">
-                        <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date %>
+                        <div class="form-group">
+                            <label> From:</label>
+                            <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date %>
+                        </div>
                     </div>
                     <div class="col-lg-1 col-md-1">
                         To:
