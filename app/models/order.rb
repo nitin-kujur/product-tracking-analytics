@@ -23,7 +23,7 @@ class Order < ApplicationRecord
       @customer = Customer.where(:email => shopify_obj.try(:customer).try(:email)).first
       if @customer.nil?
         @customer = Customer.new(:shop_id => shop.id, :first_name => shopify_obj.try(:customer).try(:first_name), :last_name => shopify_obj.try(:customer).try(:last_name), :shopify_customer_id => shopify_obj.try(:customer).try(:id), :email => shopify_obj.try(:customer).try(:email))
-        @customer.save
+        @customer.save(:validate => false)
       end
 
       shopify_obj.customer.tags.split(",").each do |c_t|
