@@ -66,9 +66,12 @@ class LandingController < ApplicationController
     if params[:shipped_to_search].present?
       puts "================shipped_to_search===================="
       if @orders_search.nil?
+        puts "I am into if block"
         @orders_search = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
       else
-        @orders_search.merge(@orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+        puts "I am into else block"
+        order = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        @orders_search.merge(order)
       end 
       puts "-----------------------------------"
       puts @orders_search.inspect
@@ -118,9 +121,12 @@ class LandingController < ApplicationController
     if params[:order_name_search].present?
       puts "================order_name_search===================="
       if @orders_search.nil?
+        puts "I am into if block"
         @orders_search = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
       else
-        @orders_search.merge(@orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+        puts "I am into else block"
+        order = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        @orders_search.merge(order)
       end   
       puts "-----------------------------------"
       puts @orders_search.inspect
