@@ -74,7 +74,7 @@ class LandingController < ApplicationController
         @orders_search.merge(order)
       end 
       puts "-----------------------------------"
-      puts @orders_search.inspect
+      puts @orders_search.count
       puts "-----------------------------------"
     end
 
@@ -129,7 +129,7 @@ class LandingController < ApplicationController
         @orders_search.merge(order)
       end   
       puts "-----------------------------------"
-      puts @orders_search.inspect
+      puts @orders_search.count
       puts "-----------------------------------"
     end
 
