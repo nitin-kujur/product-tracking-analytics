@@ -59,10 +59,10 @@ class LandingController < ApplicationController
     if params[:billed_to_search].present?
       if @orders_search.nil?
         puts "I am into if block"
-        @orders_search = @orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil)
       else
         puts "I am into else block"
-        @order_name = @orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @order_name = @orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name
       end
       puts "-----------------------------------"
@@ -74,10 +74,10 @@ class LandingController < ApplicationController
       puts "================shipped_to_search===================="
       if @orders_search.nil?
         puts "I am into if block"
-        @orders_search = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:shipped_to_search].downcase}%").where(:cancelled_at => nil)
       else
         puts "I am into else block"
-        @order_name = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @order_name = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:shipped_to_search].downcase}%").where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name
       end 
       puts "-----------------------------------"
