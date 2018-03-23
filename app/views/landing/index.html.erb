@@ -57,7 +57,7 @@
                         <i class="fa fa-dollar fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="samll" style="height:57px;font-size: 20px;"><%= number_to_currency(@sales.to_i, :unit => "$") %></div>
+                        <div class="samll" style="height:57px;font-size: 20px;"><%= number_to_currency(trim(@sales), :unit => "$") %></div>
                     </div>
                 </div>
             </div>
