@@ -132,8 +132,9 @@ class LandingController < ApplicationController
         @orders_search = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
       else
         puts "I am into else block"
-        order = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @orders_search.merge(order)
+        @order_name = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+        @orders_search.merge(@order_name)
+        @orders_search = @orders_search + @order_name
       end   
       puts "-----------------------------------"
       puts @orders_search.count
