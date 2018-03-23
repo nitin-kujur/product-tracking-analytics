@@ -54,35 +54,65 @@ class LandingController < ApplicationController
     elsif params["cancelled"].present?
       @orders =  @cancelled_orders #Order.where.not(:cancelled_at => nil).where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50)
     end
-    
+
     if params[:billed_to_search].present?
-      @orders_search.merge(@orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      if @orders_search.nil?
+        @orders_search = @orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      else
+        @orders_search.merge(@orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      end
     end
     if params[:shipped_to_search].present?
       puts "================shipped_to_search===================="
-      @orders_search.merge(@orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      if @orders_search.nil?
+        @orders_search = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      else
+        @orders_search.merge(@orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      end 
     end
   	if params[:item_search].present?
       puts "================item_search===================="
-      @orders_search.merge(@orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].downcase}").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      if @orders_search.nil?
+        @orders_search = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].downcase}").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      else
+        @orders_search.merge(@orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].downcase}").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      end  
     end
   	if params[:tracking_number].present?
       puts "================tracking_number===================="
-      @orders_search.merge(@orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      if @orders_search.nil?
+        @orders_search = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      else
+        @orders_search.merge(@orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      end      
     end
   	if params[:free_text_search].present?
       puts "================free_text_search===================="
-      @orders_search.merge(@orders.where("lower(email) || total_price || subtotal_price || total_weight || total_tax || lower(financial_status) || total_line_items_price || cancelled_at || lower(cancel_reason) || lower(order_number) || lower(fulfillment_status) || lower(contact_email) || lower(customer_email) || lower(order_region) || lower(discount_codes) || lower(shopify_tracking_id) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
-      @orders_search.marge(@orders.joins(:billing_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
-      @orders_search.marge(@orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      if @orders_search.nil?
+        @orders_search = @orders.where("lower(email) || total_price || subtotal_price || total_weight || total_tax || lower(financial_status) || total_line_items_price || cancelled_at || lower(cancel_reason) || lower(order_number) || lower(fulfillment_status) || lower(contact_email) || lower(customer_email) || lower(order_region) || lower(discount_codes) || lower(shopify_tracking_id) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+        @orders_search.marge(@orders.joins(:billing_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+        @orders_search.marge(@orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      else
+        @orders_search.merge(@orders.where("lower(email) || total_price || subtotal_price || total_weight || total_tax || lower(financial_status) || total_line_items_price || cancelled_at || lower(cancel_reason) || lower(order_number) || lower(fulfillment_status) || lower(contact_email) || lower(customer_email) || lower(order_region) || lower(discount_codes) || lower(shopify_tracking_id) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
+        @orders_search.marge(@orders.joins(:billing_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+        @orders_search.marge(@orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      end 
     end
     if params[:sku_search].present?
       puts "================sku_search===================="
-      @orders_search.merge(@orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
+      if @orders_search.nil?
+        @orders_search = @orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      else
+        @orders_search.merge(@orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
+      end
     end
     if params[:order_name_search].present?
       puts "================order_name_search===================="
-      @orders_search.merge(@orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      if @orders_search.nil?
+        @orders_search = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      else
+        @orders_search.merge(@orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
+      end   
     end
     unless @orders_search.nil?
       @orders = @orders_search
