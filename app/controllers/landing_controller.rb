@@ -62,6 +62,7 @@ class LandingController < ApplicationController
         @orders_search.merge(@orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
       end
     end
+
     if params[:shipped_to_search].present?
       puts "================shipped_to_search===================="
       if @orders_search.nil?
@@ -69,7 +70,11 @@ class LandingController < ApplicationController
       else
         @orders_search.merge(@orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
       end 
+      puts "-----------------------------------"
+      puts @orders_search.inspect
+      puts "-----------------------------------"
     end
+
   	if params[:item_search].present?
       puts "================item_search===================="
       if @orders_search.nil?
@@ -78,6 +83,7 @@ class LandingController < ApplicationController
         @orders_search.merge(@orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].downcase}").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
       end  
     end
+
   	if params[:tracking_number].present?
       puts "================tracking_number===================="
       if @orders_search.nil?
@@ -86,6 +92,7 @@ class LandingController < ApplicationController
         @orders_search.merge(@orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
       end      
     end
+
   	if params[:free_text_search].present?
       puts "================free_text_search===================="
       if @orders_search.nil?
@@ -98,6 +105,7 @@ class LandingController < ApplicationController
         @orders_search.marge(@orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
       end 
     end
+
     if params[:sku_search].present?
       puts "================sku_search===================="
       if @orders_search.nil?
@@ -106,6 +114,7 @@ class LandingController < ApplicationController
         @orders_search.merge(@orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
       end
     end
+
     if params[:order_name_search].present?
       puts "================order_name_search===================="
       if @orders_search.nil?
@@ -113,7 +122,11 @@ class LandingController < ApplicationController
       else
         @orders_search.merge(@orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
       end   
+      puts "-----------------------------------"
+      puts @orders_search.inspect
+      puts "-----------------------------------"
     end
+
     unless @orders_search.nil?
       @orders = @orders_search
     end
