@@ -62,7 +62,8 @@ class LandingController < ApplicationController
         @orders_search = @orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
       else
         puts "I am into else block"
-        @orders_search.merge(@orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil))
+        @order_name = @orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders_search + @order_name
       end
       puts "-----------------------------------"
       puts @orders_search.count
@@ -76,8 +77,8 @@ class LandingController < ApplicationController
         @orders_search = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
       else
         puts "I am into else block"
-        order = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
-        @orders_search.merge(order)
+        @order_name = @orders.joins(:shipping_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders_search + @order_name
       end 
       puts "-----------------------------------"
       puts @orders_search.count
@@ -89,7 +90,8 @@ class LandingController < ApplicationController
       if @orders_search.nil?
         @orders_search = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].downcase}").where(:cancelled_at => nil).where(:cancelled_at => nil)
       else
-        @orders_search.merge(@orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].downcase}").where(:cancelled_at => nil).where(:cancelled_at => nil))
+        @order_name = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].downcase}").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders_search + @order_name
       end  
     end
 
@@ -98,20 +100,23 @@ class LandingController < ApplicationController
       if @orders_search.nil?
         @orders_search = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
       else
-        @orders_search.merge(@orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil))
-      end      
+        @order_name = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders_search + @order_name
+      end 
     end
 
   	if params[:free_text_search].present?
       puts "================free_text_search===================="
       if @orders_search.nil?
         @orders_search = @orders.where("lower(email) || total_price || subtotal_price || total_weight || total_tax || lower(financial_status) || total_line_items_price || cancelled_at || lower(cancel_reason) || lower(order_number) || lower(fulfillment_status) || lower(contact_email) || lower(customer_email) || lower(order_region) || lower(discount_codes) || lower(shopify_tracking_id) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil)
-        @orders_search.marge(@orders.joins(:billing_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil))
-        @orders_search.marge(@orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil))
+        @order_name2 = @orders.joins(:billing_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @order_name3 = @orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders_search + @order_name2 + @order_name3
       else
-        @orders_search.merge(@orders.where("lower(email) || total_price || subtotal_price || total_weight || total_tax || lower(financial_status) || total_line_items_price || cancelled_at || lower(cancel_reason) || lower(order_number) || lower(fulfillment_status) || lower(contact_email) || lower(customer_email) || lower(order_region) || lower(discount_codes) || lower(shopify_tracking_id) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil))
-        @orders_search.marge(@orders.joins(:billing_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil))
-        @orders_search.marge(@orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil))
+        @order_name1 = @orders.where("lower(email) || total_price || subtotal_price || total_weight || total_tax || lower(financial_status) || total_line_items_price || cancelled_at || lower(cancel_reason) || lower(order_number) || lower(fulfillment_status) || lower(contact_email) || lower(customer_email) || lower(order_region) || lower(discount_codes) || lower(shopify_tracking_id) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil))
+        @order_name2 = @orders.joins(:billing_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @order_name3 = @orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders_search + @order_name1 + @order_name2 + @order_name3
       end 
     end
 
@@ -120,7 +125,8 @@ class LandingController < ApplicationController
       if @orders_search.nil?
         @orders_search = @orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].downcase}%").where(:cancelled_at => nil)
       else
-        @orders_search.merge(@orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].downcase}%").where(:cancelled_at => nil))
+        @order_name = @orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].downcase}%").where(:cancelled_at => nil)
+        @orders_search = @orders_search + @order_name
       end
     end
 
@@ -134,7 +140,6 @@ class LandingController < ApplicationController
       else
         puts "I am into else block"
         @order_name = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
-        # @orders_search.merge(@order_name)
         @orders_search = @orders_search + @order_name
       end   
       puts "-----------------------------------"
