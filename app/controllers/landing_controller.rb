@@ -132,7 +132,7 @@ class LandingController < ApplicationController
 
     if params[:order_name_search].present?
       puts "================order_name_search===================="
-      puts @orders_search.map(&:order_number)
+      # puts @orders_search.map(&:order_number)
       puts "================order_name_search===================="
       if @orders_search.nil?
         puts "I am into if block"
