@@ -57,10 +57,15 @@ class LandingController < ApplicationController
 
     if params[:billed_to_search].present?
       if @orders_search.nil?
+        puts "I am into if block"
         @orders_search = @orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
       else
+        puts "I am into else block"
         @orders_search.merge(@orders.joins(:billing_address).where("lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.city) like ?", "%#{params[:billed_to_search].downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil))
       end
+      puts "-----------------------------------"
+      puts @orders_search.count
+      puts "-----------------------------------"
     end
 
     if params[:shipped_to_search].present?
