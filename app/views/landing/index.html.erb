@@ -9,7 +9,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-9 text-right">
+                    <div class="col-xs-12 text-right">
                         <div class="huge"> <%= number_with_delimiter(@orders_count, :delimiter => ',')%></div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-9 text-right">
+                    <div class="col-xs-12 text-right">
                         <div class="huge"><%= number_with_delimiter(@orders_quantity, :delimiter => ',')%></div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-9 text-right">
-                        <div class="samll" style="height:57px;font-size: 20px;"><%= number_to_currency(@sales.to_i, :unit => "$", strip_insignificant_zeros: true) %></div>
+                    <div class="col-xs-12 text-right">
+                        <div class="samll" style="height:57px;font-size: 25px;"><%= number_to_currency(@sales.to_i, :unit => "$", strip_insignificant_zeros: true) %></div>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
         <div class="panel panel-yellow">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-9 text-right">
+                    <div class="col-xs-12 text-right">
                         <div class="huge"><%= @shops.count %> </div>
                     </div>
                 </div>
