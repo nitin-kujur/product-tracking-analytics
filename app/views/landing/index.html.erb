@@ -97,7 +97,7 @@
                             <label for="form_date"> From:</label>
                             <%#= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date , data:{ provide:'datepicker' } %>
                             
-                            <%= date_select(:form_date, include_blank: true, class: "form-control",selected: Date.today,  start_year: Date.today.year - 100, end_year: Date.today.year - 18) %>
+                            <%= date_select(:form_date, include_blank: true,selected: Date.today,  start_year: Date.today.year - 100, end_year: Date.today.year - 18, class: "datepicker") %>
                             
 
                     </div>
