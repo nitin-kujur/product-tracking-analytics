@@ -98,6 +98,7 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jquery (0.0.1)
     jquery-datatables-rails (3.4.0)
       actionpack (>= 3.1)
       jquery-rails
@@ -268,6 +269,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   jbuilder (~> 2.5)
+  jquery
   jquery-datatables-rails (~> 3.4.0)
   jquery-rails
   jquery-ui-rails
