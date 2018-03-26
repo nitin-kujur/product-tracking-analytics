@@ -1,742 +1,335 @@
-<div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Tables</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header" style="margin: 100px 0 20px;">Tracking View</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="huge"> <%= number_with_delimiter(@orders_count, :delimiter => ',')%></div>
+                    </div>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            DataTables Advanced Tables
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">4</td>
-                                        <td class="center">X</td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 5.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">5</td>
-                                        <td class="center">C</td>
-                                    </tr>
-                                    <tr class="odd gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 5.5</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">5.5</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="even gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 6</td>
-                                        <td>Win 98+</td>
-                                        <td class="center">6</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="odd gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 7</td>
-                                        <td>Win XP SP2+</td>
-                                        <td class="center">7</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="even gradeA">
-                                        <td>Trident</td>
-                                        <td>AOL browser (AOL desktop)</td>
-                                        <td>Win XP</td>
-                                        <td class="center">6</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Firefox 1.0</td>
-                                        <td>Win 98+ / OSX.2+</td>
-                                        <td class="center">1.7</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Firefox 1.5</td>
-                                        <td>Win 98+ / OSX.2+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Firefox 2.0</td>
-                                        <td>Win 98+ / OSX.2+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Firefox 3.0</td>
-                                        <td>Win 2k+ / OSX.3+</td>
-                                        <td class="center">1.9</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Camino 1.0</td>
-                                        <td>OSX.2+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Camino 1.5</td>
-                                        <td>OSX.3+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Netscape 7.2</td>
-                                        <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                        <td class="center">1.7</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Netscape Browser 8</td>
-                                        <td>Win 98SE+</td>
-                                        <td class="center">1.7</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Netscape Navigator 9</td>
-                                        <td>Win 98+ / OSX.2+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.0</td>
-                                        <td>Win 95+ / OSX.1+</td>
-                                        <td class="center">1</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.1</td>
-                                        <td>Win 95+ / OSX.1+</td>
-                                        <td class="center">1.1</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.2</td>
-                                        <td>Win 95+ / OSX.1+</td>
-                                        <td class="center">1.2</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.3</td>
-                                        <td>Win 95+ / OSX.1+</td>
-                                        <td class="center">1.3</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.4</td>
-                                        <td>Win 95+ / OSX.1+</td>
-                                        <td class="center">1.4</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.5</td>
-                                        <td>Win 95+ / OSX.1+</td>
-                                        <td class="center">1.5</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.6</td>
-                                        <td>Win 95+ / OSX.1+</td>
-                                        <td class="center">1.6</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.7</td>
-                                        <td>Win 98+ / OSX.1+</td>
-                                        <td class="center">1.7</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Mozilla 1.8</td>
-                                        <td>Win 98+ / OSX.1+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Seamonkey 1.1</td>
-                                        <td>Win 98+ / OSX.2+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Epiphany 2.20</td>
-                                        <td>Gnome</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Webkit</td>
-                                        <td>Safari 1.2</td>
-                                        <td>OSX.3</td>
-                                        <td class="center">125.5</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Webkit</td>
-                                        <td>Safari 1.3</td>
-                                        <td>OSX.3</td>
-                                        <td class="center">312.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Webkit</td>
-                                        <td>Safari 2.0</td>
-                                        <td>OSX.4+</td>
-                                        <td class="center">419.3</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Webkit</td>
-                                        <td>Safari 3.0</td>
-                                        <td>OSX.4+</td>
-                                        <td class="center">522.1</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Webkit</td>
-                                        <td>OmniWeb 5.5</td>
-                                        <td>OSX.4+</td>
-                                        <td class="center">420</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Webkit</td>
-                                        <td>iPod Touch / iPhone</td>
-                                        <td>iPod</td>
-                                        <td class="center">420.1</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Webkit</td>
-                                        <td>S60</td>
-                                        <td>S60</td>
-                                        <td class="center">413</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Opera 7.0</td>
-                                        <td>Win 95+ / OSX.1+</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Opera 7.5</td>
-                                        <td>Win 95+ / OSX.2+</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Opera 8.0</td>
-                                        <td>Win 95+ / OSX.2+</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Opera 8.5</td>
-                                        <td>Win 95+ / OSX.2+</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Opera 9.0</td>
-                                        <td>Win 95+ / OSX.3+</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Opera 9.2</td>
-                                        <td>Win 88+ / OSX.3+</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Opera 9.5</td>
-                                        <td>Win 88+ / OSX.3+</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Opera for Wii</td>
-                                        <td>Wii</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Nokia N800</td>
-                                        <td>N800</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Presto</td>
-                                        <td>Nintendo DS browser</td>
-                                        <td>Nintendo DS</td>
-                                        <td class="center">8.5</td>
-                                        <td class="center">C/A<sup>1</sup>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeC">
-                                        <td>KHTML</td>
-                                        <td>Konqureror 3.1</td>
-                                        <td>KDE 3.1</td>
-                                        <td class="center">3.1</td>
-                                        <td class="center">C</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>KHTML</td>
-                                        <td>Konqureror 3.3</td>
-                                        <td>KDE 3.3</td>
-                                        <td class="center">3.3</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>KHTML</td>
-                                        <td>Konqureror 3.5</td>
-                                        <td>KDE 3.5</td>
-                                        <td class="center">3.5</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 4.5</td>
-                                        <td>Mac OS 8-9</td>
-                                        <td class="center">-</td>
-                                        <td class="center">X</td>
-                                    </tr>
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.1</td>
-                                        <td>Mac OS 7.6-9</td>
-                                        <td class="center">1</td>
-                                        <td class="center">C</td>
-                                    </tr>
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.2</td>
-                                        <td>Mac OS 8-X</td>
-                                        <td class="center">1</td>
-                                        <td class="center">C</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Misc</td>
-                                        <td>NetFront 3.1</td>
-                                        <td>Embedded devices</td>
-                                        <td class="center">-</td>
-                                        <td class="center">C</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Misc</td>
-                                        <td>NetFront 3.4</td>
-                                        <td>Embedded devices</td>
-                                        <td class="center">-</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>Misc</td>
-                                        <td>Dillo 0.8</td>
-                                        <td>Embedded devices</td>
-                                        <td class="center">-</td>
-                                        <td class="center">X</td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>Misc</td>
-                                        <td>Links</td>
-                                        <td>Text only</td>
-                                        <td class="center">-</td>
-                                        <td class="center">X</td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>Misc</td>
-                                        <td>Lynx</td>
-                                        <td>Text only</td>
-                                        <td class="center">-</td>
-                                        <td class="center">X</td>
-                                    </tr>
-                                    <tr class="gradeC">
-                                        <td>Misc</td>
-                                        <td>IE Mobile</td>
-                                        <td>Windows Mobile 6</td>
-                                        <td class="center">-</td>
-                                        <td class="center">C</td>
-                                    </tr>
-                                    <tr class="gradeC">
-                                        <td>Misc</td>
-                                        <td>PSP browser</td>
-                                        <td>PSP</td>
-                                        <td class="center">-</td>
-                                        <td class="center">C</td>
-                                    </tr>
-                                    <tr class="gradeU">
-                                        <td>Other browsers</td>
-                                        <td>All others</td>
-                                        <td>-</td>
-                                        <td class="center">-</td>
-                                        <td class="center">U</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- /.table-responsive -->
-                            <div class="well">
-                                <h4>DataTables Usage Information</h4>
-                                <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Total Orders</span>
+                    <span class="pull-right"><i class="fa fa-shopping-cart fa-2x"></i></span>
+                    <div class="clearfix"></div>
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Kitchen Sink
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Basic Table
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Striped Rows
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Bordered Table
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive table-bordered">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Hover Rows
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Context Classes
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="success">
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr class="info">
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr class="warning">
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                        <tr class="danger">
-                                            <td>4</td>
-                                            <td>John</td>
-                                            <td>Smith</td>
-                                            <td>@jsmith</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-            </div>
-            <!-- /.row -->
+            </a>
         </div>
-         <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="huge"><%= number_with_delimiter(@orders_quantity, :delimiter => ',')%></div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Total Quantity</span>
+                    <span class="pull-right"><i class="fa fa-stack-overflow fa-2x"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="samll" style="height:57px;font-size: 30px;"><%= number_to_currency(@sales.to_i, :unit => "$", strip_insignificant_zeros: true) %></div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Total Sales</span>
+                    <span class="pull-right"><i class="fa fa-dollar fa-2x"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="huge"><%= @shops.count %> </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Total Shops</span>
+                    <span class="pull-right"><i class="fa fa-home fa-2x"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <%= form_tag(landing_index_path, { method: 'get' , id: 'select_type_form', class: 'form-inline'}) do %>
+                    <div class="form-group">
+                        <label for="shop_id">
+                            Select Webstore:
+                        </label>
+                        <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
+                    </div>
+                    <div class="form-group">
+                            <label for="form_date"> From:</label>
+                            <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date , data:{ provide:'datepicker' } %>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="to_date"> To:</label>
+                        <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @to_date, data:{ provide:'datepicker' }%>
+                    </div>
+                    <div class="form-group">
+                        <%= submit_tag 'Submit', class: "btn btn-primary", id: "sbt-report"%>
+                    </div>
+                <% end %>
+                <div class="col-lg-8 col-md-12">
+                    <%= form_tag(landing_index_path,{method: 'get'}) do %>
+                        <%= hidden_field_tag :reset, params[:reset] %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <%= form_tag landing_index_path, :method => 'get' do %>
+                    <div class="col-lg-3 col-md-6">
+                        <p>     
+                            <%= text_field_tag :billed_to_search, params[:billed_to_search], placeholder: "Billed To", class: "form-control" %>
+                            <%= hidden_field_tag :shop_id, @shop_id, class: "shop_id_hidden_tag" %>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date, @to_date, class: "to_date_hidden_tag" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :shipped_to_search, params[:shipped_to_search], placeholder: "Shipped To", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :item_search, params[:item_search], placeholder: "Item Name", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :tracking_number, params[:tracking_number], placeholder: "Tracking Number", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :sku_search, params[:sku_search], placeholder: "SKU", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :order_name_search, params[:order_name_search], placeholder: "Order Id", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :free_text_search, params[:free_text_search], placeholder: "Free Text Search", class: "form-control"%>
+                        </p>
+                    </div>
+                
+                    <div class="col-lg-3 col-md-6">
+                        <%= submit_tag "Search", :name => nil, class: "btn btn-primary"%>
+                    </div>
+                <% end %>
+
+                    <div class="col-lg-12 col-md-24">
+                        <%= form_tag(landing_index_path, {:method => 'get', class: "form-link"} )do %>
+                            <%= hidden_field_tag 'fulfilled', "fulfilled" %>
+                            <%= hidden_field_tag :shop_id, @shop_id , class: "shop_id_hidden_tag"%>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date, @to_date, class: "to_date_hidden_tag" %>
+                            <%= submit_tag 'Fulfilled', :class => "hidden", :id => 'form_submit_button_fullfilled' %>
+                            <%= content_tag(:a, 'Fulfilled', :name => 'submit', :id => 'fullfilled_submit_link') %>
+                        <% end %>
+
+                        <%= form_tag(landing_index_path,{:method => 'get', class: "form-link"}) do%>
+                            <%= hidden_field_tag 'unfulfilled', "unfulfilled" %>
+                            <%= hidden_field_tag :shop_id, @shop_id , class: "shop_id_hidden_tag"%>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date, @to_date, class: "to_date_hidden_tag" %>
+                            <%= submit_tag 'Unfulfilled', :class => "hidden", :id => 'form_submit_button_unfullfilled' %>
+                            <%= content_tag(:a, 'Unfulfilled', :name => 'submit', :id => 'unfullfilled_submit_link') %>
+                            <% end %>
+
+                        <%= form_tag(landing_index_path, {:method => 'get', class: "form-link"})do %>
+                            <%= hidden_field_tag 'cancelled', "cancelled" %>
+                            <%= hidden_field_tag :shop_id, @shop_id , class: "shop_id_hidden_tag"%>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date, @to_date, class: "to_date_hidden_tag" %>
+                            <%= submit_tag 'Cancelled', :class => "hidden", :id => 'form_submit_button_cancelled' %>
+                            <%= content_tag(:a, 'Cancelled', :name => 'submit', :id => 'cancelled_submit_link') %>
+                        <% end %>
+
+                        <%= form_tag(landing_index_path, {:method => 'get', class: "form-link"})do %>
+                            <%= hidden_field_tag 'archived', "archived" %>
+                            <%= hidden_field_tag :shop_id, @shop_id, class: "shop_id_hidden_tag" %>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date,  @to_date, class: "to_date_hidden_tag" %>
+                            <%= submit_tag 'Archived', :class => "hidden", :id => 'form_submit_button_archived' %>
+                            <%= content_tag(:a, 'Archived', :name => 'submit', :id => 'archived_submit_link') %>
+                        <% end %>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="panel panel-default" style="border-color:white;">
+            <div class="panel-body">
+            <% if @orders.present? %>
+   
+                    <div class="table-responsive">
+                    <table width="100%" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Parent Order</th>
+                                <th>Order Date</th>
+                                <th>Shop</th>
+                                <th>Status</th>
+                                <th>Billed To</th>
+                                <th>Shipped To</th>
+                                <th>Tracking Number</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>Shipped Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @orders.each do |order| %>
+                                <tr class="odd gradeX"> 
+                                    <td><%= order.try(:order_number) %></td>
+                                    <td><%= order.try(:parent_order).try(:order_number) %></td>
+                                    <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
+                                    <td class="text-left"><%= order.try(:shop).try(:shopify_domain).split(".")[0] %></td>
+                                    <td>
+                                        <% if order.try(:fulfillment_status).nil? %>
+                                            Unfulfilled
+                                        <% else %>
+                                            <%= order.try(:fulfillment_status) %>
+                                        <% end %>
+                                    </td>
+                                    <td>
+                                        <%= "#{order.try(:billing_address).try(:first_name)}" + " " + "#{order.try(:billing_address).try(:last_name)}" unless order.try(:billing_address).nil? %> 
+                                    </td>
+                                    <td class="center"><%= "#{order.try(:shipping_address).try(:first_name)}" + " " + "#{order.try(:shipping_address).try(:last_name)}" unless order.try(:shipping_address).nil? %> </td>
+                                    <td class="text-right">
+                                        <% unless order.try(:shopify_tracking_id).nil?  %>
+                                            <% unless order.try(:tracking_url).nil? %>
+                                                <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+                                            <% end %>
+                                        <% end %>
+                                    </td>
+                                    <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
+                                    <td class="text-right"><%= number_to_currency(order.try(:total_price).to_f.round(2), :unit => "$") %></td>
+                                    <td class="center"><%= order.try(:shipped_date) %><td>
+                                </tr>
+                            <% end %>
+                        
+                        </tbody>
+                    </table>
+                </div>
+                
+
+</div>
+<%= will_paginate @orders, renderer: BootstrapPagination::Rails %>
+<% end %>
+</div>
+</div>
+<script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.8/js/dataTables.bootstrap.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript">
+    $('#will_paginate_id').bind('click', function(event){
+        window.scrollTo(0,0);
+        // Some code to show loader on screen
+        $('#loading').html('Loading');
     });
-    </script>
+
+    $(document).ready(function() {
+        $(document).on("click","#fullfilled_submit_link",function() {
+            $('#form_submit_button_fullfilled').click();
+        });
+        $(document).on("click","#unfullfilled_submit_link",function() {
+            $('#form_submit_button_unfullfilled').click();
+        });
+        $(document).on("click","#cancelled_submit_link",function() {
+            $('#form_submit_button_cancelled').click();
+        });
+        $(document).on("click","#archived_submit_link",function() {
+            $('#form_submit_button_archived').click();
+        });
+        var shop_id = $("#shop_id").val();
+        var form_date = $("#form_date").val();
+        var to_date = $("#to_date").val();
+        $(".shop_id_hidden_tag").val(shop_id);
+        $(".to_date_hidden_tag").val(to_date);
+        $(".form_date_hidden_tag").val(form_date);
+        $('#dataTables-example').DataTable({ responsive: true});
+        console.log("I am into .....");
+        $("#form_date").datepicker();
+        $("#to_date").datepicker();
+    });
+
+
+
+    // $(document).on('ready page:load', function () {
+    //     // $('#datetimepicker1').datetimepicker();
+    //     $("#form_date").datetimepicker();
+    //     $("#to_date").datetimepicker();
+    // });
+
+</script>
+<style type="text/css">
+    .form-link {
+        display: inline-block; //Or display: inline; 
+        margin-left: 100px;
+    }
+    .pagination {
+    display: inline-block;
+    /* padding-left: 0; */
+    /* margin: 20px 0; */
+    /* border-radius: 4px; */
+    }
+    #shop_id{
+        width: 200px !important;
+    }
+</style>
