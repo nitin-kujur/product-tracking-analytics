@@ -16,3 +16,8 @@
 //= require bootstrap_sb_admin_base_v2
 //= require jquery-ui
 //= require_tree .
+
+$(function() {
+  $("#form_date").datepicker();
+        $("#to_date").datepicker();
+});
