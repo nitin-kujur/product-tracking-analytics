@@ -289,36 +289,36 @@
 <script src="https://cdn.datatables.net/1.10.8/js/dataTables.bootstrap.min.js"></script>
 <link href="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript">
-    jQuery('#will_paginate_id').bind('click', function(event){
+    $('#will_paginate_id').bind('click', function(event){
         window.scrollTo(0,0);
         // Some code to show loader on screen
-        jQuery('#loading').html('Loading');
+        $('#loading').html('Loading');
     });
 
-    jQuery(document).ready(function() {
-        jQuery(document).on("click","#fullfilled_submit_link",function() {
-            jQuery('#form_submit_button_fullfilled').click();
+    $(document).ready(function() {
+        $(document).on("click","#fullfilled_submit_link",function() {
+            $('#form_submit_button_fullfilled').click();
         });
-        jQuery(document).on("click","#unfullfilled_submit_link",function() {
-            jQuery('#form_submit_button_unfullfilled').click();
+        $(document).on("click","#unfullfilled_submit_link",function() {
+            $('#form_submit_button_unfullfilled').click();
         });
-        jQuery(document).on("click","#cancelled_submit_link",function() {
-            jQuery('#form_submit_button_cancelled').click();
+        $(document).on("click","#cancelled_submit_link",function() {
+            $('#form_submit_button_cancelled').click();
         });
-        jQuery(document).on("click","#archived_submit_link",function() {
-            jQuery('#form_submit_button_archived').click();
+        $(document).on("click","#archived_submit_link",function() {
+            $('#form_submit_button_archived').click();
         });
-        var shop_id = jQuery("#shop_id").val();
-        var form_date = jQuery("#form_date").val();
-        var to_date = jQuery("#to_date").val();
-        jQuery(".shop_id_hidden_tag").val(shop_id);
-        jQuery(".to_date_hidden_tag").val(to_date);
-        jQuery(".form_date_hidden_tag").val(form_date);
-        jQuery('#dataTables-example').DataTable({
+        var shop_id = $("#shop_id").val();
+        var form_date = $("#form_date").val();
+        var to_date = $("#to_date").val();
+        $(".shop_id_hidden_tag").val(shop_id);
+        $(".to_date_hidden_tag").val(to_date);
+        $(".form_date_hidden_tag").val(form_date);
+        $('#dataTables-example').DataTable({
             responsive: true
         });
-        jQuery("#form_date").datepicker();
-        jQuery("#to_date").datepicker();
+        $("#form_date").datepicker();
+        $("#to_date").datepicker();
     });
 
     // $(document).on('ready page:load', function () {
