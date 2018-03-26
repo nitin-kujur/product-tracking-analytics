@@ -285,6 +285,9 @@
 <% end %>
 </div>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places&language=en-US"> </script>
 <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.8/js/dataTables.bootstrap.min.js"></script>
 <link href="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css" rel="stylesheet" />
@@ -317,9 +320,13 @@
         $('#dataTables-example').DataTable({
             responsive: true
         });
-        $("#form_date").datepicker();
-        $("#to_date").datepicker();
     });
+    (document).on('ready page:load', function () {
+        $('#form_date').datetimepicker();
+        $("#to_date").datetimepicker();
+    });
+
+
 
     // $(document).on('ready page:load', function () {
     //     // $('#datetimepicker1').datetimepicker();
