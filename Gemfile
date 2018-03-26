@@ -19,11 +19,14 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem "pg"
+gem 'jquery-datatables-rails', '~> 3.4.0'
+
 gem 'rails-erd'
 gem 'shopify_api'
 gem 'shopify_app'
 gem 'devise'
 gem 'bootstrap_sb_admin_base_v2'
+gem 'jquery-rails'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
 gem "bootstrap-table-rails"
@@ -59,14 +62,13 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-gem 'jquery-rails'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'jquery'
+gem 'jquery-ui-rails'
+gem 'momentjs-rails', '>= 2.9.0'
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
 end
-gem 'jquery-ui-rails'
-gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
-gem 'jquery-datatables-rails', '~> 3.4.0'
 
