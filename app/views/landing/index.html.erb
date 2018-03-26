@@ -312,7 +312,10 @@
         $(".shop_id_hidden_tag").val(shop_id);
         $(".to_date_hidden_tag").val(to_date);
         $(".form_date_hidden_tag").val(form_date);
-        $('#dataTables-example').DataTable({ responsive: true});
+        $('#dataTables-example').DataTable({ 
+            responsive: true,
+            searching: false
+        });
         console.log("I am into .....");
         $("#form_date").datepicker();
         $("#to_date").datepicker();
