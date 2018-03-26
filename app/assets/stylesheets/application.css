@@ -12,10 +12,5 @@
  *
  *= require_tree .
  *= require_self
- *= require fancybox
- *= require jquery-ui
- *= require font-awesome
  *= require bootstrap_sb_admin_base_v2
- *= require bootstrap-datepicker
- *= require font-awesome
  */
