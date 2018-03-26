@@ -106,11 +106,11 @@
                     </div>
                     <div class="form-group">
                             <label for="form_date"> From:</label>
-                            <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date %>
+                            <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date , data:{ provide:'datepicker' } %>
                     </div>
                     <div class="form-group">
                         <label for="to_date"> To:</label>
-                        <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @to_date %>
+                        <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @to_date, data:{ provide:'datepicker' }%>
                     </div>
                     <div class="form-group">
                         <%= submit_tag 'Submit', class: "btn btn-primary", id: "sbt-report"%>
