@@ -65,4 +65,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
 end
+gem 'jquery-ui-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
+gem 'jquery-datatables-rails', '~> 3.4.0'
 
