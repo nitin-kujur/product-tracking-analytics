@@ -57,7 +57,7 @@
                         <i class="fa fa-dollar fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="samll" style="height:57px;font-size: 20px;"><%= number_to_currency(@sales.to_i, :unit => "$", strip_insignificant_zeros: true) %></div>
+                        <div class="samll" style="height:57px;font-size: 20px;"><%= number_to_currency(@sales.to_i, :unit => "j", strip_insignificant_zeros: true) %></div>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                         <label for="shop_id">
                             Select Webstore:
                         </label>
-                        <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
+                        <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "j('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
                     </div>
                     <div class="form-group">
                             <label for="form_date"> From:</label>
@@ -270,7 +270,7 @@
                                         <% end %>
                                     </td>
                                     <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
-                                    <td class="text-right"><%= number_to_currency(order.try(:total_price).to_f.round(2), :unit => "$") %></td>
+                                    <td class="text-right"><%= number_to_currency(order.try(:total_price).to_f.round(2), :unit => "j") %></td>
                                     <td class="center"><%= order.try(:shipped_date) %><td>
                                 </tr>
                             <% end %>
@@ -292,44 +292,45 @@
 <script src="https://cdn.datatables.net/1.10.8/js/dataTables.bootstrap.min.js"></script>
 <link href="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript">
-    $('#will_paginate_id').bind('click', function(event){
+var j = jQuery.noConflict();
+    j('#will_paginate_id').bind('click', function(event){
         window.scrollTo(0,0);
         // Some code to show loader on screen
-        $('#loading').html('Loading');
+        j('#loading').html('Loading');
     });
 
-    $(document).ready(function() {
-        $(document).on("click","#fullfilled_submit_link",function() {
-            $('#form_submit_button_fullfilled').click();
+    j(document).ready(function() {
+        j(document).on("click","#fullfilled_submit_link",function() {
+            j('#form_submit_button_fullfilled').click();
         });
-        $(document).on("click","#unfullfilled_submit_link",function() {
-            $('#form_submit_button_unfullfilled').click();
+        j(document).on("click","#unfullfilled_submit_link",function() {
+            j('#form_submit_button_unfullfilled').click();
         });
-        $(document).on("click","#cancelled_submit_link",function() {
-            $('#form_submit_button_cancelled').click();
+        j(document).on("click","#cancelled_submit_link",function() {
+            j('#form_submit_button_cancelled').click();
         });
-        $(document).on("click","#archived_submit_link",function() {
-            $('#form_submit_button_archived').click();
+        j(document).on("click","#archived_submit_link",function() {
+            j('#form_submit_button_archived').click();
         });
-        var shop_id = $("#shop_id").val();
-        var form_date = $("#form_date").val();
-        var to_date = $("#to_date").val();
-        $(".shop_id_hidden_tag").val(shop_id);
-        $(".to_date_hidden_tag").val(to_date);
-        $(".form_date_hidden_tag").val(form_date);
-        $('#dataTables-example').DataTable({
+        var shop_id = j("#shop_id").val();
+        var form_date = j("#form_date").val();
+        var to_date = j("#to_date").val();
+        j(".shop_id_hidden_tag").val(shop_id);
+        j(".to_date_hidden_tag").val(to_date);
+        j(".form_date_hidden_tag").val(form_date);
+        j('#dataTables-example').DataTable({
             responsive: true
         });
-        $('#form_date').datetimepicker();
-        $("#to_date").datetimepicker();
+        j('#form_date').datetimepicker();
+        j("#to_date").datetimepicker();
     });
 
 
 
-    // $(document).on('ready page:load', function () {
-    //     // $('#datetimepicker1').datetimepicker();
-    //     $("#form_date").datetimepicker();
-    //     $("#to_date").datetimepicker();
+    // j(document).on('ready page:load', function () {
+    //     // j('#datetimepicker1').datetimepicker();
+    //     j("#form_date").datetimepicker();
+    //     j("#to_date").datetimepicker();
     // });
 
 </script>
