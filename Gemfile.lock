@@ -1,6 +1,5 @@
 GEM
   remote: https://rubygems.org/
-  remote: https://rails-assets.org/
   specs:
     actioncable (5.1.5)
       actionpack (= 5.1.5)
@@ -55,6 +54,8 @@ GEM
     bootstrap-datepicker-rails (1.7.1.1)
       railties (>= 3.0)
     bootstrap-table-rails (1.11.1.1)
+    bootstrap3-datetimepicker-rails (3.1.3)
+      momentjs-rails (>= 2.8.1)
     bootstrap_sb_admin_base_v2 (0.3.6)
       font-awesome-rails
       jquery-rails
@@ -167,14 +168,6 @@ GEM
       bundler (>= 1.3.0)
       railties (= 5.1.5)
       sprockets-rails (>= 2.0.0)
-    rails-assets-datetimepicker (2.5.20)
-      rails-assets-jquery (>= 1.7.2)
-      rails-assets-jquery-mousewheel (>= 3.1.13)
-      rails-assets-php-date-formatter (>= 1.3.3)
-    rails-assets-jquery (3.3.1)
-    rails-assets-jquery-mousewheel (3.1.13)
-      rails-assets-jquery (>= 1.2.2)
-    rails-assets-php-date-formatter (1.3.4)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -263,6 +256,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-table-rails
+  bootstrap3-datetimepicker-rails (~> 3.1.2)
   bootstrap_sb_admin_base_v2
   byebug
   capybara (~> 2.13)
@@ -278,7 +272,6 @@ DEPENDENCIES
   pg
   puma (~> 3.7)
   rails (~> 5.1.4)
-  rails-assets-datetimepicker!
   rails-erd
   sass-rails (~> 5.0)
   selenium-webdriver
