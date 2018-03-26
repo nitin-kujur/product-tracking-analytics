@@ -31,6 +31,8 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
 gem "bootstrap-table-rails"
 
+ gem 'bootstrap-sass', '~> 3.3.5.1'
+
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

@@ -15,6 +15,7 @@
  *= require_self
  *= require fancybox
  *= require jquery-ui
+ *=require bootstrap
  *= require bootstrap-duallistbox
  *= require bootstrap-multiselect
  *= require dataTables/jquery.dataTables
