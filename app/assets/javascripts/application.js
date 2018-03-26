@@ -13,11 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap_sb_admin_base_v2
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
-//= require bootstrap
-//= require jquery-ui/datepicker
 //= require bootstrap-sprockets
 //= require moment
 //= require_tree .

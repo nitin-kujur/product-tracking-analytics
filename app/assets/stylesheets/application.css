@@ -17,10 +17,5 @@
  *= require font-awesome
  *= require bootstrap_sb_admin_base_v2
  *= require bootstrap-datepicker
- *=require bootstrap
- *= require dataTables/jquery.dataTables
- *= require bootstrap-duallistbox
- *= require bootstrap-multiselect
- *= require dataTables/jquery.dataTables
  *= require font-awesome
  */
