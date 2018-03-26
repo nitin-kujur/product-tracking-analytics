@@ -136,10 +136,10 @@ class LandingController < ApplicationController
       puts "================order_name_search===================="
       if @orders_search.nil?
         puts "I am into if block"
-        @orders_search = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil)
       else
         puts "I am into else block"
-        @order_name = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @order_name = @orders.where("lower(order_number) like ?", "%#{params[:order_name_search].downcase}%").where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name
       end   
       puts "-----------------------------------"
