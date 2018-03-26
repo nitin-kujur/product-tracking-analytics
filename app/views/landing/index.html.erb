@@ -237,9 +237,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="odd gradeX">
+                                    
                                         <% @orders.each do |order| %>
-                                <tr class="odd gradeX"> 
+                                    <tr class="odd gradeX">
                                     <td><%= order.try(:order_number) %></td>
                                     <td><%= order.try(:parent_order).try(:order_number) %></td>
                                     <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
@@ -267,7 +267,7 @@
                                     <td class="center"><%= order.try(:shipped_date) %><td>
                                 </tr>
                             <% end %>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
