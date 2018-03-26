@@ -214,9 +214,7 @@
 <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            DataTables Advanced Tables
-                        </div>
+                        
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -240,31 +238,35 @@
                                     
                                         <% @orders.each do |order| %>
                                     <tr class="odd gradeX">
-                                    <td><%= order.try(:order_number) %></td>
-                                    <td><%= order.try(:parent_order).try(:order_number) %></td>
-                                    <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
-                                    <td class="text-left"><%= order.try(:shop).try(:shopify_domain).split(".")[0] %></td>
-                                    <td>
-                                        <% if order.try(:fulfillment_status).nil? %>
-                                            Unfulfilled
-                                        <% else %>
-                                            <%= order.try(:fulfillment_status) %>
-                                        <% end %>
-                                    </td>
-                                    <td>
-                                        <%= "#{order.try(:billing_address).try(:first_name)}" + " " + "#{order.try(:billing_address).try(:last_name)}" unless order.try(:billing_address).nil? %> 
-                                    </td>
-                                    <td class="center"><%= "#{order.try(:shipping_address).try(:first_name)}" + " " + "#{order.try(:shipping_address).try(:last_name)}" unless order.try(:shipping_address).nil? %> </td>
-                                    <td class="text-right">
-                                        <% unless order.try(:shopify_tracking_id).nil?  %>
-                                            <% unless order.try(:tracking_url).nil? %>
-                                                <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+                                        <td><%= order.try(:order_number) %></td>
+                                        <td><%= order.try(:parent_order).try(:order_number) %></td>
+                                        <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
+                                        <td class="text-left"><%= order.try(:shop).try(:shopify_domain).split(".")[0] %></td>
+                                        <td>
+                                            <% if order.try(:fulfillment_status).nil? %>
+                                                Unfulfilled
+                                            <% else %>
+                                                <%= order.try(:fulfillment_status) %>
                                             <% end %>
-                                        <% end %>
-                                    </td>
-                                    <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
-                                    <td class="text-right"><%= number_to_currency(order.try(:total_price).to_f.round(2), :unit => "$") %></td>
-                                    <td class="center"><%= order.try(:shipped_date) %><td>
+                                        </td>
+                                        <td>
+                                            <%= "#{order.try(:billing_address).try(:first_name)}" + " " + "#{order.try(:billing_address).try(:last_name)}" unless order.try(:billing_address).nil? %> 
+                                        </td>
+                                        <td class="center"><%= "#{order.try(:shipping_address).try(:first_name)}" + " " + "#{order.try(:shipping_address).try(:last_name)}" unless order.try(:shipping_address).nil? %> 
+                                        </td>
+                                        <td class="text-right">
+                                            <% unless order.try(:shopify_tracking_id).nil?  %>
+                                                <% unless order.try(:tracking_url).nil? %>
+                                                    <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+                                                <% end %>
+                                            <% end %>
+                                        </td>
+                                        <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %>
+                                        </td>
+                                        <td class="text-right"><%= number_to_currency(order.try(:total_price).to_f.round(2), :unit => "$") %>
+                                        </td>
+                                        <td class="center"><%= order.try(:shipped_date) %></td>
+
                                 </tr>
                             <% end %>
                                     
