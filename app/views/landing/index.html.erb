@@ -285,11 +285,11 @@
 <% end %>
 </div>
 </div>
-
 <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.8/js/dataTables.bootstrap.min.js"></script>
 <link href="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript">
+$.noConflict();
     $('#will_paginate_id').bind('click', function(event){
         window.scrollTo(0,0);
         // Some code to show loader on screen
