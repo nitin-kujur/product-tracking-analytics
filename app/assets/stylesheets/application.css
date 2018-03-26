@@ -11,6 +11,11 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
- *= require_self
+ *= require font-awesome
+ *= require jquery-ui
+ *= require bootstrap
  *= require bootstrap_sb_admin_base_v2
+ *= require datetimepicker
+ *= require bootstrap-table
+ *= require_self
  */
