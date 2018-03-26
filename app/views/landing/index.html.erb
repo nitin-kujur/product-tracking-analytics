@@ -221,20 +221,50 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
+                                    <th>Order ID</th>
+                                    <th>Parent Order</th>
+                                    <th>Order Date</th>
+                                    <th>Shop</th>
+                                    <th>Status</th>
+                                <th>Billed To</th>
+                                <th>Shipped To</th>
+                                <th>Tracking Number</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>Shipped Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="odd gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">4</td>
-                                        <td class="center">X</td>
+                                        <% @orders.each do |order| %>
+                                <tr class="odd gradeX"> 
+                                    <td><%= order.try(:order_number) %></td>
+                                    <td><%= order.try(:parent_order).try(:order_number) %></td>
+                                    <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
+                                    <td class="text-left"><%= order.try(:shop).try(:shopify_domain).split(".")[0] %></td>
+                                    <td>
+                                        <% if order.try(:fulfillment_status).nil? %>
+                                            Unfulfilled
+                                        <% else %>
+                                            <%= order.try(:fulfillment_status) %>
+                                        <% end %>
+                                    </td>
+                                    <td>
+                                        <%= "#{order.try(:billing_address).try(:first_name)}" + " " + "#{order.try(:billing_address).try(:last_name)}" unless order.try(:billing_address).nil? %> 
+                                    </td>
+                                    <td class="center"><%= "#{order.try(:shipping_address).try(:first_name)}" + " " + "#{order.try(:shipping_address).try(:last_name)}" unless order.try(:shipping_address).nil? %> </td>
+                                    <td class="text-right">
+                                        <% unless order.try(:shopify_tracking_id).nil?  %>
+                                            <% unless order.try(:tracking_url).nil? %>
+                                                <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+                                            <% end %>
+                                        <% end %>
+                                    </td>
+                                    <td class="text-right"><%= order.try(:line_items).try(:sum, :quantity) %></td>
+                                    <td class="text-right"><%= number_to_currency(order.try(:total_price).to_f.round(2), :unit => "$") %></td>
+                                    <td class="center"><%= order.try(:shipped_date) %><td>
+                                </tr>
+                            <% end %>
                                     </tr>
                                 </tbody>
                             </table>
