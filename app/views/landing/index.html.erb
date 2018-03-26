@@ -94,7 +94,8 @@
                     </div>
                     <div class="form-group">
                             <label for="form_date"> From:</label>
-                            <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date , data:{ provide:'datepicker' } %>
+                            <%#= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date , data:{ provide:'datepicker' } %>
+                            <%= date_select :form_date, value: @form_date, :class => 'form-control' %>
 
                     </div>
                     <div class="form-group">
