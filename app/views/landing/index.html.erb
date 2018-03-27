@@ -323,6 +323,8 @@
         $(".to_date_hidden_tag").val(to_date);
         $(".form_date_hidden_tag").val(form_date);
         $('#dataTables-example').DataTable({ 
+            responsive: true,
+            searching: false,
             dom: 'Bfrtip',
             buttons: [
                 'excel'
