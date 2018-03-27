@@ -90,7 +90,7 @@
                         <label for="shop_id">
                             Select Webstore:
                         </label>
-                        <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shopify_domain', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
+                        <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shop_name', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
 
                     </div>
                     <div class="form-group">
