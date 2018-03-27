@@ -19,8 +19,8 @@ namespace :order do
               order.save(:validate => false)
             end
 
+            shipping_address = Address.new(:first_name => shopify_obj.shipping_address.first_name, :last_name => shopify_obj.shipping_address.last_name, :address1 => shopify_obj.shipping_address.address1, :phone => shopify_obj.shipping_address.phone, :city => shopify_obj.shipping_address.city, :zip => shopify_obj.shipping_address.zip, :province => shopify_obj.shipping_address.province, :country => shopify_obj.shipping_address.country, :address2 => shopify_obj.shipping_address.address2, :company => shopify_obj.shipping_address.company, :name => shopify_obj.shipping_address.name, :country_code => shopify_obj.shipping_address.country_code, :province_code => shopify_obj.shipping_address.province_code, :address_type => "Billing" )
             if order.shipping_address.nil?
-              shipping_address = Address.new(:first_name => shopify_obj.shipping_address.first_name, :last_name => shopify_obj.shipping_address.last_name, :address1 => shopify_obj.shipping_address.address1, :phone => shopify_obj.shipping_address.phone, :city => shopify_obj.shipping_address.city, :zip => shopify_obj.shipping_address.zip, :province => shopify_obj.shipping_address.province, :country => shopify_obj.shipping_address.country, :address2 => shopify_obj.shipping_address.address2, :company => shopify_obj.shipping_address.company, :name => shopify_obj.shipping_address.name, :country_code => shopify_obj.shipping_address.country_code, :province_code => shopify_obj.shipping_address.province_code, :address_type => "Billing" )
               shipping_address.save
               order.shipping_address_id = shipping_address.id
               order.save(:validate => false)
