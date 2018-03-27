@@ -243,8 +243,13 @@
                                     
                                         <% @orders.each do |order| %>
                                     <tr class="odd gradeX">
-                                        <td><%= order.try(:order_number) %></td>
-                                        <td><%= order.try(:parent_order).try(:order_number) %></td>
+                                        <td><%= link_to order.try(:order_number), "https://#{order.shop.shopify_domain}/admin/orders/#{order.shopify_order_id}", :target => "_blank" %>
+                                        </td>
+                                        <td>
+                                            <% unless order.try(:parent_order).nil? %>
+                                                <%= link_to order.try(:parent_order), "https://#{order.try(:parent_order).try(:shop).try(:shopify_domain)}/admin/orders/#{order.try(:parent_order).try(:shopify_order_id)}", :target => "_blank" %>
+                                            <% end %>
+                                        </td>
                                         <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
                                         <td class="text-left"><%= order.try(:shop).try(:shopify_domain).split(".")[0] %></td>
                                         <td>
