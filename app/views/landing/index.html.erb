@@ -247,7 +247,7 @@
                                         </td>
                                         <td>
                                             <% unless order.try(:parent_order).nil? %>
-                                                <%= link_to order.try(:parent_order), "https://#{order.try(:parent_order).try(:shop).try(:shopify_domain)}/admin/orders/#{order.try(:parent_order).try(:shopify_order_id)}", :target => "_blank" %>
+                                                <%= link_to order.try(:parent_order).try(:order_number), "https://#{order.try(:parent_order).try(:shop).try(:shopify_domain)}/admin/orders/#{order.try(:parent_order).try(:shopify_order_id)}", :target => "_blank" %>
                                             <% end %>
                                         </td>
                                         <td><%= order.shopify_created_at.strftime("%m-%d-%y") %></td>
