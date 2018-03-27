@@ -261,7 +261,9 @@
                                         </td>
                                         <td class="text-right">
                                             <% unless order.try(:shopify_tracking_id).nil?  %>
-                                                <% unless order.try(:tracking_url).nil? %>
+                                                <% if order.try(:tracking_url).nil? %>
+                                                    <%= order.try(:shopify_tracking_id) %>
+                                                <% else %>
                                                     <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
                                                 <% end %>
                                             <% end %>
