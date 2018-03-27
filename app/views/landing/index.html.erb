@@ -322,7 +322,11 @@
         $(".form_date_hidden_tag").val(form_date);
         $('#dataTables-example').DataTable({ 
             responsive: true,
-            searching: false
+            searching: false,
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel'
+            ]
         });
         console.log("I am into .....");
         $("#form_date").datepicker();
