@@ -12,8 +12,8 @@ namespace :order do
         puts parent_order.try(:shopify_order_id)
         order.parent_order_id = parent_order.try(:shopify_order_id)
         order.order_type = "Child"
-        parent_order.order_type = "Parent"
-        parent_order.save(:validate => false)
+        parent_order.order_type = "Parent" unless parent_order.nil?
+        parent_order.save(:validate => false) unless parent_order.nil?
         if order.save(:validate => false)
           puts "------------- I am at save --------------"
         else
