@@ -54,6 +54,8 @@ class LandingController < ApplicationController
       @orders = @orders.where(:fulfillment_status => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
     elsif params["cancelled"].present?
       @orders =  @cancelled_orders #Order.where.not(:cancelled_at => nil).where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50)
+    elsif params["archived"].present?
+      @orders =  @orders.where.not(:closed_at => nil).paginate(:page => params[:page], :per_page => 50)
     end
 
     if params[:billed_to_search].present?
