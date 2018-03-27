@@ -70,6 +70,15 @@ class Order < ApplicationRecord
     @order.discount_codes = shopify_obj.discount_codes
     @order.parent_order_id = parent_id
     @order.cancelled_at = shopify_obj.try(:cancelled_at)
+    if shop.shop_type == "print"
+      if parent_id.nil?
+        @order.order_type = "Parent"
+      else
+        @order.order_type = "Child"
+      end
+    elsif shop.shop_type == "NonPremium"
+      @order.order_type = "Child"
+    end
     sum = 0
     shopify_obj.line_items.each do |item|
       sum = sum + ( item.price.to_f * item.quantity)
@@ -77,7 +86,11 @@ class Order < ApplicationRecord
     @order.amount = sum
     @order.shopify_tracking_id = shopify_obj.fulfillments.first.tracking_number if shopify_obj.fulfillments.present?
     @order.tracking_url =  shopify_obj.fulfillments.first.tracking_url if shopify_obj.fulfillments.present?
-    @order.shipped_date =  shopify_obj.fulfillments.first.updated_at if shopify_obj.fulfillments.present?
+    if shopify_obj.fulfillments.present?
+      if shopify_obj.fulfillments.last.shipment_status == "delivered"
+        @order.shipped_date =  shopify_obj.fulfillments.first.updated_at 
+      end
+    end
     puts "----------------------------------"
     puts shopify_obj.try(:fulfillments).try(:first).try(:tracking_url)
     puts shopify_obj.try(:fulfillments).try(:first).try(:updated_at)

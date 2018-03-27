@@ -8,9 +8,12 @@ namespace :order do
       child_orders.each do |order|
         local_parent_id = order.line_items.first.variant_title.split(":")[1].strip
         puts local_parent_id
-        parent_order = Order.where(:parent_order_flag => local_parent_id).try(:first).try(:shopify_order_id)
-        puts parent_order
-        order.parent_order_id = parent_order
+        parent_order = Order.where(:parent_order_flag => local_parent_id).try(:first)
+        puts parent_order.try(:shopify_order_id)
+        order.parent_order_id = parent_order.try(:shopify_order_id)
+        order.order_type = "Child"
+        parent_order.order_type = "Parent"
+        parent_order.save(:validate => false)
         if order.save(:validate => false)
           puts "------------- I am at save --------------"
         else
