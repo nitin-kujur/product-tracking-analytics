@@ -165,7 +165,7 @@ class LandingController < ApplicationController
         # @sales = @orders.where(:order_type => "Child").sum(:total_price)
         # @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     else
-      @orders_for_count = Order.all.where(:cancelled_at => nil).where(:order_type => "Child")
+      @orders_for_count = Order.where(:order_type => "Child").where(:cancelled_at => nil).where(:order_type => "Child")
       @orders_count = @orders_for_count.count
       @orders_quantity = @orders_for_count.joins(:line_items).sum(:quantity)
       @shops = Shop.all
