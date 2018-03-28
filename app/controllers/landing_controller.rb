@@ -160,7 +160,7 @@ class LandingController < ApplicationController
       @orders = @orders.paginate(:page => params[:page], :per_page => 50)
       respond_to do |format|
         format.html
-        format.csv { render text: @orders.to_csv }
+        format.csv { render text: Order.to_csv(@orders) }
       end
     else
       @orders_for_count = Order.where(:order_type => "Child").where(:cancelled_at => nil).where(:order_type => "Child")
@@ -170,7 +170,7 @@ class LandingController < ApplicationController
       @sales = @orders_for_count.sum(:total_price)
       respond_to do |format|
         format.html
-        format.csv { render text: @orders_for_count.to_csv }
+        format.csv { render text: Order.to_csv(@orders_for_count) }
       end
     end
   end
