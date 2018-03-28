@@ -160,7 +160,7 @@ class LandingController < ApplicationController
       @orders = @orders.paginate(:page => params[:page], :per_page => 50)
       respond_to do |format|
         format.html
-        format.csv { render text: Order.to_csv(@orders) }
+        format.csv { send_data Order.to_csv(@orders) }
       end
     else
       @orders_for_count = Order.where(:order_type => "Child").where(:cancelled_at => nil).where(:order_type => "Child")
