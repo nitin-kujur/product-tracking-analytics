@@ -223,7 +223,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <%#= link_to "CSV", landing_index_path(format: "csv"), :class=>"btn btn-primary" %>
-                            <%#= link_to "Export", landing_index_path({:format => :csv }.merge(params.to_hash )) %>
+                            <%= link_to "Export", landing_index_path({:format => :csv }.merge(params.to_hash )) %>
                             <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
@@ -346,10 +346,10 @@
             paging: false,
             info:   false
             // "iDisplayLength": 150,
-            dom: 'Bfrtip',
-            buttons: [
-               'excel'
-            ]
+            // dom: 'Bfrtip',
+            // buttons: [
+            //    'excel'
+            // ]
         });
         console.log("I am into .....");
         $("#form_date").datepicker();
