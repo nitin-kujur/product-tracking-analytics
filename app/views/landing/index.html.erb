@@ -225,7 +225,7 @@
 
                             <select id="per_page_select">
                                 <% [10, 20, 50, 100].each do |per_page| %>
-                                    <option data-url="<%= users_page_url per_page: per_page %>"><%= per_page %></option>
+                                    <option data-url="<%= landing_index_url per_page: per_page %>"><%= per_page %></option>
                                 <% end %>
                             </select>
 
