@@ -284,7 +284,6 @@
                                     
                                 </tbody>
                             </table>
-                            <%= will_paginate @orders, renderer: BootstrapPagination::Rails %>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
@@ -330,10 +329,13 @@
         $(".form_date_hidden_tag").val(form_date);
         $('#dataTables-example').DataTable({ 
             responsive: true,
-            dom: 'Bfrtip',
-            buttons: [
-               'excel'
-            ]
+            searching: false,
+            "iDisplayLength": 50,
+            "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+            // dom: 'Bfrtip',
+            // buttons: [
+            //    'excel'
+            // ]
         });
         console.log("I am into .....");
         $("#form_date").datepicker();
