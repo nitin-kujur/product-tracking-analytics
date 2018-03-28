@@ -19,43 +19,43 @@ class LandingController < ApplicationController
         puts "++++++++ 3. All parameter not empty ++++++++++"
         if params[:shop_id] == "all"
           puts "=========== 4. shop parameter set to all ======="
-          @orders = Order.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
-          @cancelled_orders = Order.paginate(:page => params[:page], :per_page => 50).where.not(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+          @orders = Order.where(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+          @cancelled_orders = Order.where.not(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         else
           puts "=========== 5. shop parameter not set to all ======="
-          @orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
-          @cancelled_orders = Order.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where.not(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+          @orders = Order.where(:shop_id => params[:shop_id]).where(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+          @cancelled_orders = Order.where(:shop_id => params[:shop_id]).where.not(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
         end
       elsif params[:form_date].empty? && params[:to_date].empty? && !params[:shop_id].empty?
         puts "++++++++6. Shop parameter not empty ++++++++++"
         if params[:shop_id] == "all"
-          @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-          @cancelled_orders = Order.all.paginate(:page => params[:page], :per_page => 50).where.not(:cancelled_at => nil)
+          @orders = Order.where(:cancelled_at => nil)
+          @cancelled_orders = Order.where.not(:cancelled_at => nil)
         else
-          @orders = Order.all.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-          @cancelled_orders = Order.all.where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50).where.not(:cancelled_at => nil)
+          @orders = Order.where(:shop_id => params[:shop_id]).where(:cancelled_at => nil)
+          @cancelled_orders = Order.where(:shop_id => params[:shop_id]).where.not(:cancelled_at => nil)
         end  
       elsif !params[:form_date].empty? && !params[:to_date].empty? && params[:shop_id].empty?
         puts "++++++++6. Shop parameter not empty ++++++++++"
-        @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
-        @cancelled_orders = Order.all.paginate(:page => params[:page], :per_page => 50).where.not(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+        @orders = Order.where(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
+        @cancelled_orders = Order.where.not(:cancelled_at => nil).where("date(shopify_created_at) BETWEEN ? AND ? ", "#{params[:form_date]}","#{params[:to_date]}")
       end
     else
       puts "---------Paramter not present-----------"
       if params["unfulfilled"].present? || params["fulfilled"].present? || params["cancelled"].present? || params[:billed_to_search].present? || params[:shipped_to_search].present? || params[:item_search].present? || params[:tracking_number].present? || params[:free_text_search].present? || params[:sku_search].present? || params[:order_name_search].present? || params["archived"].present?
-        @orders = Order.all.paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
-        @cancelled_orders = Order.all.paginate(:page => params[:page], :per_page => 50).where.not(:cancelled_at => nil)
+        @orders = Order.where(:cancelled_at => nil)
+        @cancelled_orders = Order.where.not(:cancelled_at => nil)
       end  
     end
 
     if params["fulfilled"].present?
-      @orders = @orders.where(:fulfillment_status => "fulfilled").paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      @orders = @orders.where(:fulfillment_status => "fulfilled").where(:cancelled_at => nil)
     elsif params["unfulfilled"].present?
-      @orders = @orders.where(:fulfillment_status => nil).paginate(:page => params[:page], :per_page => 50).where(:cancelled_at => nil)
+      @orders = @orders.where(:fulfillment_status => nil).where(:cancelled_at => nil)
     elsif params["cancelled"].present?
       @orders =  @cancelled_orders #Order.where.not(:cancelled_at => nil).where(:shop_id => params[:shop_id]).paginate(:page => params[:page], :per_page => 50)
     elsif params["archived"].present?
-      @orders =  @orders.where.not(:closed_at => nil).paginate(:page => params[:page], :per_page => 50)
+      @orders =  @orders.where.not(:closed_at => nil)
     end
 
     if params[:billed_to_search].present?
@@ -90,9 +90,9 @@ class LandingController < ApplicationController
   	if params[:item_search].present?
       puts "================item_search===================="
       if @orders_search.nil?
-        @orders_search = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].strip.downcase}").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].strip.downcase}").where(:cancelled_at => nil)
       else
-        @order_name = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].strip.downcase}").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @order_name = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].strip.downcase}").where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name
       end  
     end
@@ -100,9 +100,9 @@ class LandingController < ApplicationController
   	if params[:tracking_number].present?
       puts "================tracking_number===================="
       if @orders_search.nil?
-        @orders_search = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].strip.downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @orders_search = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].strip.downcase}%").where(:cancelled_at => nil)
       else
-        @order_name = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].strip.downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
+        @order_name = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].strip.downcase}%").where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name
       end 
     end
@@ -162,8 +162,8 @@ class LandingController < ApplicationController
           @sales = @sales + order.total_price
         end 
         @shops = Shop.all
+        @orders = @orders.paginate(:page => params[:page], :per_page => 50)
         # @sales = @orders.where(:order_type => "Child").sum(:total_price)
-        # @sales = @orders.joins(:line_items).sum(:price) * @orders_quantity
     else
       @orders_for_count = Order.where(:order_type => "Child").where(:cancelled_at => nil).where(:order_type => "Child")
       @orders_count = @orders_for_count.count
@@ -171,6 +171,7 @@ class LandingController < ApplicationController
       @shops = Shop.all
       # @sales = @orders_for_count.joins(:line_items).sum(:price) * @orders_quantity
       @sales = @orders_for_count.sum(:total_price)
+      @orders = @orders.paginate(:page => params[:page], :per_page => 50)
     end
   end
 end
