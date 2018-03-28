@@ -171,7 +171,7 @@ class LandingController < ApplicationController
       @shops = Shop.all
       # @sales = @orders_for_count.joins(:line_items).sum(:price) * @orders_quantity
       @sales = @orders_for_count.sum(:total_price)
-      @orders = @orders.paginate(:page => params[:page], :per_page => 50)
+      # @orders = @orders.paginate(:page => params[:page], :per_page => 50)
     end
   end
 end
