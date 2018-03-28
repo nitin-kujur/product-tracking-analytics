@@ -156,7 +156,8 @@ class LandingController < ApplicationController
         @orders_count = @orders.where(:order_type => "Child").count
         @orders_quantity = @orders.where(:order_type => "Child").joins(:line_items).sum(:quantity)
         puts "++++++++++++++++++++++++"
-        puts @orders_quantity
+        puts @orders.where(:order_type => "Child").joins(:line_items).count
+        puts @orders.where(:order_type => "Child").joins(:line_items).sum(:quantity).inspect
         puts "++++++++++++++++++++++++"
         @shops = Shop.all
         @sales = @orders.where(:order_type => "Child").sum(:total_price)
