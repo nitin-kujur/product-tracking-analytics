@@ -284,6 +284,7 @@
                                     
                                 </tbody>
                             </table>
+                            <%= will_paginate @orders, renderer: BootstrapPagination::Sinatra %>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
@@ -329,7 +330,6 @@
         $(".form_date_hidden_tag").val(form_date);
         $('#dataTables-example').DataTable({ 
             responsive: true,
-            searching: false,
             dom: 'Bfrtip',
             buttons: [
                'excel'
