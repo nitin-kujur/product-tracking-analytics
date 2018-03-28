@@ -152,7 +152,7 @@ class LandingController < ApplicationController
     unless @orders_search.nil?
       @orders = @orders_search.paginate(:page => params[:page], :per_page => 50)
     end
-    if params[:form_date].present? && params[:to_date].present? || params[:shop_id].present?
+    if params.present?
         @orders_count = @orders.where(:order_type => "Child").count
         @orders_quantity = @orders.where(:order_type => "Child").joins(:line_items).sum(:quantity)
         @shops = Shop.all

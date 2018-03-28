@@ -223,7 +223,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
 
-                            <%= select_tag :per_page, options_for_select([10,20,50], params[:per_page].to_i), :onchange => "if(this.value){window.location.href='?per_page='+this.value;}" %>
+                            <%#= select_tag :per_page, options_for_select([10,20,50], params[:per_page].to_i), :onchange => "if(this.value){window.location.href='?per_page='+this.value;}" %>
                             <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
