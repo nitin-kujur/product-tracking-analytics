@@ -293,6 +293,18 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                        <%= will_paginate @orders, renderer: BootstrapPagination::Rails %>
+                    </div>
+                </div>
+            </div>
 <% end %>
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
