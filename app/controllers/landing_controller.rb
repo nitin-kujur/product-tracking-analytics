@@ -154,11 +154,11 @@ class LandingController < ApplicationController
     end
     if params[:form_date].present? && params[:to_date].present? || params[:shop_id].present?
         @orders_count = @orders.where(:order_type => "Child").count
-        @orders_quantity = @orders.where(:order_type => "Child").joins(:line_items).sum(:quantity)
-        puts "++++++++++++++++++++++++"
-        puts @orders.where(:order_type => "Child").joins(:line_items).count
-        puts @orders.where(:order_type => "Child").joins(:line_items).first.line_items.sum(:quantity)
-        puts "++++++++++++++++++++++++"
+        @orders_quantity = 0
+        # @orders.where(:order_type => "Child").joins(:line_items).sum(:quantity)
+        @orders.where(:order_type => "Child").each do |order|
+          @orders_quantity = @orders_quantity + order.line_items.sum(:quantity)
+        end 
         @shops = Shop.all
         @sales = @orders.where(:order_type => "Child").sum(:total_price)
         puts "++++++++++++++++++++++++"
