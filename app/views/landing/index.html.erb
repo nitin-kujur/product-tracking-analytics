@@ -223,12 +223,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
 
-                            <select id="per_page_select">
-                                <% [10, 20, 50, 100].each do |per_page| %>
-                                    <option data-url="<%= landing_index_path per_page: per_page %>"><%= per_page %></option>
-                                <% end %>
-                            </select>
-
+                            <%= select_tag :per_page, options_for_select([10,20,50], params[:per_page].to_i), :onchange => "if(this.value){window.location='?per_page='+this.value;}" %>
                             <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
@@ -296,7 +291,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                                <%= will_paginate @orders, params: { per_page: params[:per_page] }, renderer: BootstrapPagination::Rails %>
+                                <%= will_paginate @orders, renderer: BootstrapPagination::Rails %>
                                 </div>  
                             </div>
                 </div>
@@ -321,10 +316,6 @@
         window.scrollTo(0,0);
         // Some code to show loader on screen
         $('#loading').html('Loading');
-    });
-
-    $(document).on('change', '#per_page_select', function () {
-        window.location.href = $(this).data('url');
     });
 
     $(document).ready(function() {
