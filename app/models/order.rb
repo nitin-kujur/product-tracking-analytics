@@ -185,7 +185,7 @@ class Order < ApplicationRecord
   def self.to_csv(order, options = {})
     output = Hash.new
     order.each do |key, value|
-      output[key] = value.titleize
+      output[key] = value.try(:titleize)
     end
     CSV.generate(options) do |csv|
       csv << column_names
