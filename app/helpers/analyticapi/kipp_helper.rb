@@ -1,0 +1,2 @@
+module Analyticapi::KippHelper
+end

@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :analyticapi do
+    root to: 'kipp#index'
+    get 'premium/index'
+  end
+
   get 'home/index', as: :login
   get 'landing/index'
 
@@ -13,11 +18,6 @@ Rails.application.routes.draw do
   #   # GET /app_proxy/reviews will now be routed to
   #   # AppProxy::ReviewsController#index, for example
   # end
-
-  namespace :analyticapi do
-    get  "/product-tracking-analytics/login"  => "home#index",  :as => 'login'
-    get  "/product-tracking-analytics/index"  => "landing#index"
-  end
 
   get 'order_order_tag/index'
 

@@ -1,0 +1,2 @@
+module Analyticapi::PremiumHelper
+end
