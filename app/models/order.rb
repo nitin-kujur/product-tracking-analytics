@@ -187,10 +187,10 @@ class Order < ApplicationRecord
     order.each do |key, value|
       output[key] = value.try(:titleize)
     end
-    CSV.generate(headers: true) do |csv|
-      csv << attributes = %w{order_number parent Order shop customer shopify_order_id email closed_at total_price subtotal_price financial_status total_line_items_price cancelled_at cancel_reason fulfillment_status contact_email billing_address shipping_address shopify_tracking_id amount tracking_url shipped_date  }
-      all.each do |product|
-        csv << product.attributes.merge(product.try(:billing_address).try(:first_name), product.try(:shipping_address).try(:first_name), product.try(:parent_order).try(:order_number), product.try(:customer).try(:first_name)).values_at(*attributes)
+    CSV.generate do |csv|
+      csv << ["order_number", "parent Order", "shop","customer","shopify_order_id","email","closed_at", "total_price","subtotal_price","financial_status","total_line_items_price","cancelled_at","cancel_reason","fulfillment_status","contact_email","billing_address", "shipping_address_id", "shopify_tracking_id", "amount", "tracking_url", "shipped_date"]
+      all.each do |s|
+        csv << [s.order_number, s.try(:parent_order).try(:order_number), s.shop.shopify_domain, s.try(:customer).try(:first_name), s.shopify_order_id, s.email, s.closed_at, s.total_price, s.subtotal_price, s.financial_status, s.total_line_items_price, s.cancelled_at, s.cancel_reason, s.fulfillment_status, s.contact_email, s.try(:shipping_address).try(:first_name), s.shopify_tracking_id, s.amount, s.tracking_url, s.shipped_date ]
       end
     end
   end
