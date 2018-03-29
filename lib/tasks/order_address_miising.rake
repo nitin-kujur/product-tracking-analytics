@@ -1,9 +1,11 @@
 namespace :order do
   desc 'Shopify sync missing orders'
   task order_address_miising: :environment do
+    start_date = Date.today - 3
+    end_date = Date.today
     Shop.all.each do |shop|
       Shop.set_session(shop)
-      orders  = shop.orders.all
+      orders  = shop.orders.where("DATE(created_at) BETWEEN ? AND ?", "#{start_date}","#{end_date}")
       orders.each do |order|
         if order.billing_address.nil? || order.shipping_address.nil?
           shopify_obj = ShopifyAPI::Order.find(order.shopify_order_id)

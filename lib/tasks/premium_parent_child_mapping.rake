@@ -5,7 +5,7 @@ namespace :order do
     end_date = Date.today
     Shop.where(:shop_type => "premium").each do |shop|
       puts "I am entered into shop"
-      child_orders = Order.where(:shop_id => shop.id).where("DATE(created_at) BETWEEN ? AND ?", "#{start_date}","#{end_date}").joins(:line_items).where("line_items.variant_title like ?", "%Parent ID%")
+      child_orders = Order.where("DATE(created_at) BETWEEN ? AND ?", "#{start_date}","#{end_date}").where(:shop_id => shop.id).joins(:line_items).where("line_items.variant_title like ?", "%Parent ID%")
       puts child_orders.count
       child_orders.each do |order|
         local_parent_id = order.line_items.first.variant_title.split(":")[1].strip
