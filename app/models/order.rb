@@ -190,7 +190,7 @@ class Order < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << attributes = %w{order_number parent Order shop customer shopify_order_id email closed_at total_price subtotal_price financial_status total_line_items_price cancelled_at cancel_reason fulfillment_status contact_email billing_address shipping_address shopify_tracking_id amount tracking_url shipped_date  }
       all.each do |product|
-        csv << product.attributes.merge(product.billing_address.first_name, product.shipping_address.first_name, product.parent_order.order_number, product.customer.first_name).values_at(*attributes)
+        csv << product.attributes.merge(product.try(:billing_address).try(:first_name), product.try(:shipping_address).try(:first_name), product.try(:parent_order).try(:order_number), product.try(:customer).try(:first_name)).values_at(*attributes)
       end
     end
   end
