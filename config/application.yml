@@ -11,8 +11,8 @@ development:
   shopify_private_secret: "ed0b5f6d7bce201bcc5cc29020796e6e"
   shopify_private_password: "f9b0e579e616757f3875c7ec3b039fad"
 production:
-  shopify_api_key: "15a617046caa88187fcc5f70f18284a8"
-  shopify_secret: "ed0b5f6d7bce201bcc5cc29020796e6e"
+  shopify_api_key: "bc8cca7a9f1dab06f758c7061561b972"
+  shopify_secret: "7ef8abbfd22b831d36e99c6bf6533223"
   ups_user_id: 'jnatowitz@lapineinc.com'
   ups_password: 'P444word!' 
   ups_key: 'ACD8A71E16D5BA35'
