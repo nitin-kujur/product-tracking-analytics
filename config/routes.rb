@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # end
 
   namespace :analyticapi do
-    get 'home/index', as: :login
+    root to: 'home#index', as::login
   end
 
   get 'order_order_tag/index'
