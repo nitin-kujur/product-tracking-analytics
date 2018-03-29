@@ -194,7 +194,7 @@ class Order < ApplicationRecord
       puts all.count
       output.each do |s|
         puts "I am into csv generate 2"
-        puts s.inspect
+        puts s["order_number"]
         csv << [s.order_number, s.try(:parent_order).try(:order_number), s.shop.shopify_domain, s.try(:customer).try(:first_name), s.shopify_order_id, s.email, s.closed_at, s.total_price, s.subtotal_price, s.financial_status, s.total_line_items_price, s.cancelled_at, s.cancel_reason, s.fulfillment_status, s.contact_email, s.try(:shipping_address).try(:first_name), s.shopify_tracking_id, s.amount, s.tracking_url, s.shipped_date ]
       end
     end
