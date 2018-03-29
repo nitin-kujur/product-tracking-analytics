@@ -191,7 +191,7 @@ class Order < ApplicationRecord
     CSV.generate do |csv|
       puts "I am into generate csv 1"
       csv << ["order_number", "parent Order", "shop","customer","shopify_order_id","email","closed_at", "total_price","subtotal_price","financial_status","total_line_items_price","cancelled_at","cancel_reason","fulfillment_status","contact_email","billing_address", "shipping_address_id", "shopify_tracking_id", "amount", "tracking_url", "shipped_date"]
-      puts output.count
+      puts all.count
       output.each do |s|
         puts "I am into csv generate 2"
         puts s.inspect
