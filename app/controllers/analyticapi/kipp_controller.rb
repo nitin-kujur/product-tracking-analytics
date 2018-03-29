@@ -2,19 +2,19 @@ class Analyticapi::KippController < ApplicationController
   def index
   end
 
-  def search_orders
-	 puts "=============================="
-	 puts params  	
-	 puts "=============================="
-	 params["search_term"], params["school"], params["domain"], params["page"]
-	 shop = Shop.where(:shopify_domain => params["domain"]).first
-	 @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.city) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil)
-	 respond_to do |format|
-      format.json { 
-        render json: @orders
-      }
-    end
-  end
+  # def search_orders
+	 # puts "=============================="
+	 # puts params  	
+	 # puts "=============================="
+	 # params["search_term"], params["school"], params["domain"], params["page"]
+	 # shop = Shop.where(:shopify_domain => params["domain"]).first
+	 # @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.city) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil)
+	 # respond_to do |format|
+  #     format.json { 
+  #       render json: @orders
+  #     }
+  #   end
+  # end
 
   # def kipp_order_mark_paid
  	# if params[:id].present? && params[:school].present? && params[:cid].present? && params[:domain].present?
