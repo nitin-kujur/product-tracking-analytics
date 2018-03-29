@@ -17,7 +17,9 @@ class Analyticapi::KippController < ApplicationController
   		end
   	else
   		@orders = Order.all
-  		format.json { render json: @orders.to_json }
+  		respond_to do |format|  ## Add this
+    		format.json { render json: @orders, status: :ok}
+    	end    
   	end
 
   # def kipp_order_mark_paid
