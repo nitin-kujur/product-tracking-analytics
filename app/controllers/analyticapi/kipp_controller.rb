@@ -6,22 +6,23 @@ class Analyticapi::KippController < ApplicationController
 	 puts "=============================="
 	 puts params  	
 	 puts "=============================="
-	 	if params[:domain].present? && params[:search_term].present?
+	if params[:domain].present? && params[:search_term].present?
 	 		shop = Shop.where(:shopify_domain => params[:domain]).first
-	 		@orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.city) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil)
-	 		respond_to do |format|
-      			format.json { 
-        			render json: @orders
-      			}
+	 		@orders = shop.orders.joins(:customer).where("lower(order_number) like ?", , "%#{params[:search_term].strip.downcase}%" ).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.city) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil)
+	 		respond_to do |format|  ## Add this
+    			format.json { render json: @orders, status: :ok}
     		end
-  		end
-  	else
-  		@orders = Order.all
-  		respond_to do |format|  ## Add this
+	elsif params[:domain].present?
+  		shop = Shop.where(:shopify_domain => params[:domain]).first
+	 	@orders = shop.orders
+	 	respond_to do |format|  ## Add this
     		format.json { render json: @orders, status: :ok}
-    	end    
+    	end
+  	else
+  		respond_to do |format|  ## Add this
+    		format.json { render json: {'error' => 'No orders found..', :status => "400"} }
+    	end
   	end
-
   # def kipp_order_mark_paid
  	# if params[:id].present? && params[:school].present? && params[:cid].present? && params[:domain].present?
   # 		@order = ShopifyAPI::Order.find(params[:id])
