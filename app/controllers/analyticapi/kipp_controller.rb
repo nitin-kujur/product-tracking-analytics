@@ -23,6 +23,7 @@ class Analyticapi::KippController < ApplicationController
     		format.json { render json: {'error' => 'No orders found..', :status => "400"} }
     	end
   	end
+  end
   # def kipp_order_mark_paid
  	# if params[:id].present? && params[:school].present? && params[:cid].present? && params[:domain].present?
   # 		@order = ShopifyAPI::Order.find(params[:id])
