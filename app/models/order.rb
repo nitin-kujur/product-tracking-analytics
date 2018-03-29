@@ -195,7 +195,7 @@ class Order < ApplicationRecord
       output.each do |s|
         puts "I am into csv generate 2"
         puts s.first.inspect
-        csv << [s.first.order_number, s.first.try(:parent_order).try(:order_number), s.first.shop.shopify_domain, s.first.try(:customer).try(:first_name), s.first.shopify_order_id, s.first.email, s.first.closed_at, s.first.total_price, s.first.subtotal_price, s.first.financial_status, s.first.total_line_items_price, s.first.cancelled_at, s.first.cancel_reason, s.first.fulfillment_status, s.first.contact_email, s.first.try(:shipping_address).try(:first_name), s.first.shopify_tracking_id, s.first.amount, s.first.tracking_url, s.first.shipped_date ]
+        csv << [s.first.order_number, s.first.try(:parent_order).try(:order_number), s.first.shop.shopify_domain, s.first.try(:customer).try(:first_name), s.first.shopify_order_id, s.first.email, s.first.closed_at, s.first.total_price, s.first.subtotal_price, s.first.financial_status, s.first.total_line_items_price, s.first.cancelled_at, s.first.cancel_reason, s.first.fulfillment_status, s.first.contact_email, s.first.try(:billing_address).try(:first_name), s.first.try(:shipping_address).try(:first_name), s.first.shopify_tracking_id, s.first.amount, s.first.tracking_url, s.first.shipped_date ]
       end
     end
   end
