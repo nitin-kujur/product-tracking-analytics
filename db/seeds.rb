@@ -89,10 +89,10 @@
 # shop.save
 
 # shop = Shop.where(shopify_domain: "kipp-dev.myshopify.com").first
-# shop.shop_private_api_keys = "000b9bed16c9e9bdd54e7d8eeac6bdb2"
-# shop.shop_private_api_password = "238ad9075b6a97fb614cf075861e23cd"
-# shop.shop_private_api_secret = "32212cc1c5f787bf3dd017db29589c83"
-# shop.save
+# @shop.shop_private_api_keys = "000b9bed16c9e9bdd54e7d8eeac6bdb2"
+# @shop.shop_private_api_password = "238ad9075b6a97fb614cf075861e23cd"
+# @shop.shop_private_api_secret = "32212cc1c5f787bf3dd017db29589c83"
+# @shop.save
 
 # shop = Shop.where(shopify_domain: "pepsidewmixology.myshopify.com").first
 # shop.shop_private_api_keys = "44160ba790218b731c3cf66d513817a8"
