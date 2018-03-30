@@ -26,7 +26,7 @@ namespace :order do
             order.shipped_date = shopify_order.fulfillments.last.updated_at
           end
         end
-        order.save
+        order.save(:validate => false)
       end
     end
   end
