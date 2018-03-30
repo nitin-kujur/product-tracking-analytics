@@ -7,7 +7,7 @@ namespace :order do
       child_orders.each do |order|
         if order.shopify_tracking_id.present?
           puts order.shopify_tracking_id
-          if order.shopify_tracking_id.include?("UPS")
+          if order.shopify_tracking_id.include?("FEDEX")
             if order.shopify_tracking_id.split(" ")[1].nil?
               puts "+++++++++++++++++++++++++++++++++"
               puts order.shopify_tracking_id.split(" ")[1]
