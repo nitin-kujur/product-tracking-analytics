@@ -158,7 +158,10 @@ class LandingController < ApplicationController
       puts "-----------------------------------"
       puts @orders_search.count
       puts "-----------------------------------"
+      puts "------------------------------"
       @flag = "no_search_result"
+      puts @flag
+      puts "------------------------------"
     end
 
     unless @orders_search.nil?
