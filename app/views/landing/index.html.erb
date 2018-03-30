@@ -289,12 +289,30 @@
                                     </td>
                                     <td class="text-right">
                                         <% unless order.try(:shopify_tracking_id).nil?  %>
-                                            <% if order.try(:tracking_url).nil? %>
-                                                <%= order.try(:shopify_tracking_id) %>
-                                            <% else %>
-                                                <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
-                                            <% end %>
-                                        <% end %>
+    <% if order.try(:tracking_url).nil? %>
+        <% if order.try(:shopify_tracking_id).include?("UPS") == true %>
+            <% if order.try(:shopify_tracking_id).split(" ")[1].nil? %>
+                <% if order.first.shopify_tracking_id.split("#")[1].nil? %>
+                    <%= order.try(:shopify_tracking_id).include?("UPS") ? order.try(:shopify_tracking_id).split("#")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20) %>
+                <% else %>
+                    <%= order.try(:shopify_tracking_id).try(:truncate, 20) %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <%= order.try(:shopify_tracking_id).include?("UPS") ? order.try(:shopify_tracking_id).split(" ")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20) %>
+        <% end %>
+    <% else %>
+        <% if order.try(:shopify_tracking_id).split(" ")[1].nil? %>
+            <% if order.first.shopify_tracking_id.split("#")[1].nil? %>
+                <%= link_to order.try(:shopify_tracking_id).include?("UPS") ? order.try(:shopify_tracking_id).split("#")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+            <% else %>
+                <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+            <% end %>
+        <% else %>
+            <%= link_to order.try(:shopify_tracking_id).include?("UPS") ? order.try(:shopify_tracking_id).split("#")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+        <% end %>
+    <% end %>
+<% end %>
                                     </td>
                                     <td class="text-right">
                                         <%= order.try(:line_items).try(:sum, :quantity) %>
