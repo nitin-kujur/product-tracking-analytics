@@ -290,9 +290,9 @@
                                     <td class="text-right">
                                         <% unless order.try(:shopify_tracking_id).nil?  %>
                                             <% if order.try(:tracking_url).nil? %>
-                                                <%= order.try(:shopify_tracking_id) %>
+                                                <%= order.try(:shopify_tracking_id).include?("UPS") ? s.split(" ")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20) %>
                                             <% else %>
-                                                <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+                                                <%= link_to order.try(:shopify_tracking_id).include?("UPS") ? s.split(" ")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
                                             <% end %>
                                         <% end %>
                                     </td>
