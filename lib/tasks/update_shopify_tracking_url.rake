@@ -26,7 +26,15 @@ namespace :order do
             order.shipped_date = shopify_order.fulfillments.last.updated_at
           end
         end
-        order.save(:validate => false)
+        if order.save(:validate => false)
+          puts "---------------------------"
+          puts "Order save successfully"
+          puts "---------------------------"
+        else
+          puts "---------------------------"
+          puts order.errors.full_messages
+          puts "---------------------------"
+        end
       end
     end
   end
