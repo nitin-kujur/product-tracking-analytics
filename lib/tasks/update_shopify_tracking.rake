@@ -22,8 +22,16 @@ namespace :order do
           else
             order.shopify_tracking_id = order.shopify_tracking_id
           end
+          if order.save(:validate => false)
+            puts "---------------------------"
+            puts "Order save successfully"
+            puts "---------------------------"
+          else
+            puts "---------------------------"
+            puts order.errors.full_messages
+            puts "---------------------------"
+          end
         end
-        order.save
       end
     end
   end
