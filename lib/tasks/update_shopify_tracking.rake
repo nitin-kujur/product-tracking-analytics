@@ -6,7 +6,8 @@ namespace :order do
       child_orders = Order.where(:shop_id => shop.id)
       child_orders.each do |order|
         if order.shopify_tracking_id.present?
-          if order.shopify_tracking_id.include?("UPS") == true
+          puts order.shopify_tracking_id
+          if order.shopify_tracking_id.include?("UPS")
             if order.shopify_tracking_id.split(" ")[1].nil?
               order.shopify_tracking_id = order.shopify_tracking_id.split(" ")[1]
               puts "+++++++++++++++++++++++++++++++++"
