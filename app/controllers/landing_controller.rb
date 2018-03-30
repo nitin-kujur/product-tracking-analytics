@@ -177,8 +177,6 @@ class LandingController < ApplicationController
         format.html
         format.csv { send_data Order.to_csv(@orders) }
       end
-      @flag = "search_result"
-      puts "=====I am in seacrh==="
     else
       @orders_for_count = Order.where(:order_type => "Child").where(:cancelled_at => nil).where(:order_type => "Child")
       @orders_count = @orders_for_count.count
