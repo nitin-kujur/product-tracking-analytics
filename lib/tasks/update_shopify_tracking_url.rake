@@ -10,15 +10,15 @@ namespace :order do
         sleep(2)
         shopify_order = ShopifyAPI::Order.find(order.shopify_order_id)
         if shopify_order.fulfillments.present?
-          if shopify_obj.fulfillments.first.first.tracking_number.present?
-            if shopify_obj.fulfillments.first.first.tracking_number.include?("UPS") == true
-              if shopify_obj.fulfillments.first.first.tracking_number.split(" ")[1].nil?
-                order.shopify_tracking_id = shopify_obj.fulfillments.first.first.tracking_number.split(" ")[1]
+          if shopify_order.fulfillments.first.first.tracking_number.present?
+            if shopify_order.fulfillments.first.first.tracking_number.include?("UPS") == true
+              if shopify_order.fulfillments.first.first.tracking_number.split(" ")[1].nil?
+                order.shopify_tracking_id = shopify_order.fulfillments.first.first.tracking_number.split(" ")[1]
               else
-                order.shopify_tracking_id = shopify_obj.fulfillments.first.first.tracking_number.split("#")[1]
+                order.shopify_tracking_id = shopify_order.fulfillments.first.first.tracking_number.split("#")[1]
               end
             else
-              order.shopify_tracking_id = shopify_obj.fulfillments.first.first.tracking_number
+              order.shopify_tracking_id = shopify_order.fulfillments.first.first.tracking_number
             end
           end
           order.tracking_url = shopify_order.fulfillments.first.tracking_url
