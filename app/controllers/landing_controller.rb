@@ -70,6 +70,7 @@ class LandingController < ApplicationController
       puts "-----------------------------------"
       puts @orders_search.count
       puts "-----------------------------------"
+      @flag = "search_result"
     end
 
     if params[:shipped_to_search].present?
@@ -85,6 +86,7 @@ class LandingController < ApplicationController
       puts "-----------------------------------"
       puts @orders_search.count
       puts "-----------------------------------"
+      @flag = "search_result"
     end
 
   	if params[:item_search].present?
@@ -95,6 +97,7 @@ class LandingController < ApplicationController
         @order_name = @orders.joins(:line_items).where("lower(line_items.title) like ?", "#{params[:item_search].strip.downcase}").where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name
       end  
+      @flag = "search_result"
     end
 
   	if params[:tracking_number].present?
@@ -105,6 +108,7 @@ class LandingController < ApplicationController
         @order_name = @orders.where("lower(shopify_tracking_id) like ?", "%#{params[:tracking_number].strip.downcase}%").where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name
       end 
+      @flag = "search_result"
     end
 
   	if params[:free_text_search].present?
@@ -120,6 +124,7 @@ class LandingController < ApplicationController
         @order_name3 = @orders.joins(:shipping_address).where("lower(addresses.city) || lower(addresses.first_name) || lower(addresses.last_name) || lower(addresses.address1) || lower(addresses.zip) || lower(addresses.name) like ?", "%#{params[:free_text_search].strip.downcase}%").where(:cancelled_at => nil).where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name1 + @order_name2 + @order_name3
       end 
+      @flag = "search_result"
     end
 
     if params[:sku_search].present?
@@ -130,6 +135,7 @@ class LandingController < ApplicationController
         @order_name = @orders.joins(:line_items).where("lower(line_items.sku) like ?", "%#{params[:sku_search].strip.downcase}%").where(:cancelled_at => nil)
         @orders_search = @orders_search + @order_name
       end
+      @flag = "search_result"
     end
 
     if params[:order_name_search].present?
@@ -147,6 +153,7 @@ class LandingController < ApplicationController
       puts "-----------------------------------"
       puts @orders_search.count
       puts "-----------------------------------"
+      @flag = "search_result"
     end
 
     unless @orders_search.nil?
@@ -173,5 +180,6 @@ class LandingController < ApplicationController
         format.csv { render text: Order.to_csv(@orders_for_count) }
       end
     end
+    @flag = "search_result"
   end
 end
