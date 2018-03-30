@@ -228,9 +228,7 @@
 <%= @flag.present? %>
 <%= @flag == "search_result" %>
 <% if @flag.present? %>
-    
-<% else %>
-<div class="row">
+    <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="alert alert-info alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -238,6 +236,7 @@
             </div>    
         </div>
     </div>
+<% else %>
 <% end %>
 <div class="row">
     <div class="col-lg-12">
