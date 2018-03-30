@@ -303,7 +303,7 @@
         <% end %>
     <% else %>
         <% if order.try(:shopify_tracking_id).split(" ")[1].nil? %>
-            <% if order.try(:first).try(:shopify_tracking_id).split("#")[1].nil? %>
+            <% if order.try(:shopify_tracking_id).split("#")[1].nil? %>
                 <%= link_to order.try(:shopify_tracking_id).include?("UPS") ? order.try(:shopify_tracking_id).split("#")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
             <% else %>
                 <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
