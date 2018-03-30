@@ -9,8 +9,14 @@ namespace :order do
           if order.shopify_tracking_id.include?("UPS") == true
             if order.shopify_tracking_id.split(" ")[1].nil?
               order.shopify_tracking_id = order.shopify_tracking_id.split(" ")[1]
+              puts "+++++++++++++++++++++++++++++++++"
+              puts order.shopify_tracking_id.split(" ")[1]
+              puts "+++++++++++++++++++++++++++++++++"
             else
               order.shopify_tracking_id = order.shopify_tracking_id.split("#")[1]
+              puts "-------------------------------------"
+              puts order.shopify_tracking_id.split(" ")[1]
+              puts "-------------------------------------"
             end
           else
             order.shopify_tracking_id = order.shopify_tracking_id
