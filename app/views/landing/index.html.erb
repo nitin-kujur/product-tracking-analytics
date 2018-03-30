@@ -225,8 +225,10 @@
     </div>
 </div>
 <% if @orders.present? %>
-<% unless @flag == "search_result" %>
-    <div class="row">
+<% if @flag == "search_result" %>
+    
+<% else %>
+<div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="alert alert-info alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
