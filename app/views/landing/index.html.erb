@@ -292,7 +292,9 @@
                                             <% if order.try(:tracking_url).nil? %>
                                                 <%= order.try(:shopify_tracking_id).include?("UPS") ? order.try(:shopify_tracking_id).split(" ")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20) %>
                                             <% else %>
-                                                <%= link_to order.try(:shopify_tracking_id).try(:truncate, 20), order.try(:tracking_url), :target => "_blank" %>
+                                                <% order_tracking_name = order.try(:shopify_tracking_id).include?("UPS") ? order.try(:shopify_tracking_id).split(" ")[1].try(:truncate, 20) : order.try(:shopify_tracking_id).try(:truncate, 20) %> 
+
+                                                <%= link_to order_tracking_name, order.try(:tracking_url), :target => "_blank" %>
                                             <% end %>
                                         <% end %>
                                     </td>
