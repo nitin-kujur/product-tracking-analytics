@@ -225,7 +225,7 @@
     </div>
 </div>
 <% if @orders.present? %>
-<% unless @flag.present? %>
+<% if @flag.present? %>
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="alert alert-info alert-dismissable">
