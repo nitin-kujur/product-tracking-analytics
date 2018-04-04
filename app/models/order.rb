@@ -13,13 +13,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :line_items, :billing_address, :shipping_address, :order_products, :order_order_tags, :order_tags
 
   def self.collect_customer_region(tags_str)
-    puts "ssssssssssssssssssss"
-    puts tags_str.first.select{|x| /ParentId:/ =~ x}
-    puts "ssssssssssssssssssss"
     customer_tags = tags_str.split(",")
-    puts "---------------------"
-    puts customer_tags
-    puts "---------------------"
     customer_tags = customer_tags.first.collect(&:strip)
     customer_tag = customer_tags
   end
@@ -27,21 +21,15 @@ class Order < ApplicationRecord
   def self.save_shopify_order(shop, shopify_obj)
     unless shopify_obj.try(:customer).nil?
       @customer = Customer.where(:email => shopify_obj.try(:customer).try(:email)).first
+      puts "====================================="
+      puts @customer.nil?
+      puts "====================================="
       if @customer.nil?
         @customer = Customer.new(:shop_id => shop.id, :first_name => shopify_obj.try(:customer).try(:first_name), :last_name => shopify_obj.try(:customer).try(:last_name), :shopify_customer_id => shopify_obj.try(:customer).try(:id), :email => shopify_obj.try(:customer).try(:email))
         @customer.save
       end
-      puts "+++++++++++++++++++"
-      puts shopify_obj.customer.tags
-      puts shopify_obj.customer.tags.first.split(",")[0].nil?
-      puts shopify_obj.customer.tags.first.split(",")[1].nil?
-      puts "+++++++++++++++++++"
       unless shopify_obj.customer.tags == "LOCATION"
         shopify_obj.customer.tags.first.split(",").each do |c_t|
-          puts "==============================="
-            puts c_t.split(":")[0].try(:strip)
-            puts c_t.split(":")[1].try(:strip)
-            puts "==============================="
           customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
           if customer_tag.nil?
             unless c_t.split(":")[0].try(:strip).nil? && c_t.split(":")[1].try(:strip).nil?
