@@ -56,7 +56,7 @@ class Order < ApplicationRecord
     order_tags = Order.collect_customer_region(shopify_obj.tags)
     unless order_tags.first.nil?
       order_tags = order_tags.first.select{|x| /ParentId:/ =~ x}
-      parent_id_tag = order_tags.first.first
+      parent_id_tag = order_tags.first
       parent_id_arr = parent_id_tag.split(":") if parent_id_tag
       parent_id = parent_id_arr[1] if parent_id_arr
     end
@@ -104,11 +104,11 @@ class Order < ApplicationRecord
       sum = sum + ( item.price.to_f * item.quantity)
     end
     @order.amount = sum
-    @order.shopify_tracking_id = shopify_obj.fulfillments.first.first.tracking_number if shopify_obj.fulfillments.first.present?
-    @order.tracking_url =  shopify_obj.fulfillments.first.first.tracking_url if shopify_obj.fulfillments.first.present?
+    @order.shopify_tracking_id = shopify_obj.fulfillments.first.tracking_number if shopify_obj.fulfillments.first.present?
+    @order.tracking_url =  shopify_obj.fulfillments.first.tracking_url if shopify_obj.fulfillments.first.present?
     if shopify_obj.fulfillments.first.present?
       if shopify_obj.fulfillments.first.last.shipment_status == "delivered"
-        @order.shipped_date =  shopify_obj.fulfillments.first.first.updated_at 
+        @order.shipped_date =  shopify_obj.fulfillments.first.updated_at 
       end
     end
     puts "----------------------------------"
