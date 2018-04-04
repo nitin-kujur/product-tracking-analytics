@@ -13,29 +13,29 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :line_items, :billing_address, :shipping_address, :order_products, :order_order_tags, :order_tags
 
   def self.collect_customer_region(tags_str)
-    # customer_tags = tags_str.split(",")
-    # customer_tags = customer_tags.first.collect(&:strip) 
-    # customer_tag = customer_tags
+    customer_tags = tags_str.split(",")
+    customer_tags = customer_tags.first.collect(&:strip) 
+    customer_tag = customer_tags
   end
 
   def self.save_shopify_order(shop, shopify_obj)
-    # unless shopify_obj.try(:customer).nil?
-    #   @customer = Customer.where(:email => shopify_obj.try(:customer).try(:email)).first
-    #   # if @customer.nil?
-    #   #   @customer = Customer.new(:shop_id => shop.id, :first_name => shopify_obj.try(:customer).try(:first_name), :last_name => shopify_obj.try(:customer).try(:last_name), :shopify_customer_id => shopify_obj.try(:customer).try(:id), :email => shopify_obj.try(:customer).try(:email))
-    #   #   @customer.save
-    #   # end
+    unless shopify_obj.try(:customer).nil?
+      @customer = Customer.where(:email => shopify_obj.try(:customer).try(:email)).first
+      if @customer.nil?
+        @customer = Customer.new(:shop_id => shop.id, :first_name => shopify_obj.try(:customer).try(:first_name), :last_name => shopify_obj.try(:customer).try(:last_name), :shopify_customer_id => shopify_obj.try(:customer).try(:id), :email => shopify_obj.try(:customer).try(:email))
+        @customer.save
+      end
 
-    #   shopify_obj.customer.tags.first.split(",").each do |c_t|
-    #     customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
-    #     if customer_tag.nil?
-    #       customer_t = @customer.customer_tags.first.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip))
-    #       customer_t.save
-    #     else
-    #       customer_tag.customer_customer_tags.first.build(:customer_id => @customer.id, :customer_tag_id => customer_tag.id)
-    #     end
-    #   end
-    # end
+      shopify_obj.customer.tags.first.split(",").each do |c_t|
+        customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
+        if customer_tag.nil?
+          customer_t = @customer.customer_tags.first.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip))
+          customer_t.save
+        else
+          customer_tag.customer_customer_tags.first.build(:customer_id => @customer.id, :customer_tag_id => customer_tag.id)
+        end
+      end
+    end
 
     @order = Order.new
     order_tags = Order.collect_customer_region(shopify_obj.tags)
