@@ -14,7 +14,7 @@ class Order < ApplicationRecord
 
   def self.collect_customer_region(tags_str)
     puts "ssssssssssssssssssss"
-    puts tags_str
+    puts tags_str.first.select{|x| /ParentId:/ =~ x}
     puts "ssssssssssssssssssss"
     customer_tags = tags_str.split(",")
     puts "---------------------"
