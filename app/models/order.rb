@@ -34,6 +34,7 @@ class Order < ApplicationRecord
           if customer_tag.nil?
             unless c_t.split(":")[0].try(:strip).nil? && c_t.split(":")[1].try(:strip).nil?
               puts "================="
+              puts @customer
               puts @customer.customer_tags
               puts @customer.customer_tags.first
               puts "-----------------"
