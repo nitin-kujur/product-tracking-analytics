@@ -125,7 +125,7 @@ class Order < ApplicationRecord
     end
 
     if shopify_obj.line_items.first.present?
-      shopify_obj.line_items.first.each do |l|
+      shopify_obj.line_items.each do |l|
         product = Product.where(:shopify_product_id => l.product_id).last
         if product.nil?
           if l.product_id.nil?
@@ -137,7 +137,7 @@ class Order < ApplicationRecord
           unless shopify_product.nil? 
             if product.nil?
               product = Product.new(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
-              shopify_product.variants.first.each do |variant|
+              shopify_product.variants.each do |variant|
                 shopify_variant = ShopifyAPI::Variant.find(variant.id)
                 variant = Variant.where(:shopify_variant_id => variant.id).first
                 product.variants.first.build(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id) if variant.nil?
