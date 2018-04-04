@@ -26,7 +26,8 @@ class Order < ApplicationRecord
         @customer.save
       end
       puts "+++++++++++++++++++"
-      puts shopify_obj.customer.tags.inspect
+      puts shopify_obj.customer.tags.first.split(",")
+      puts shopify_obj.customer.tags.first.split(",").nil?
       puts "+++++++++++++++++++"
       shopify_obj.customer.tags.first.split(",").each do |c_t|
         customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
