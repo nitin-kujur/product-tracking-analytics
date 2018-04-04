@@ -13,6 +13,7 @@ namespace :order do
         puts order.name
         puts "------------------------"
         unless order.name == "SWP1782" || "SWP1781"
+          puts "I am into unless part"
           Order.save_shopify_order(shop, order)
         end
       end 
