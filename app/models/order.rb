@@ -13,11 +13,14 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :line_items, :billing_address, :shipping_address, :order_products, :order_order_tags, :order_tags
 
   def self.collect_customer_region(tags_str)
+    puts "ssssssssssssssssssss"
+    puts tags_str
+    puts "ssssssssssssssssssss"
     customer_tags = tags_str.split(",")
     puts "---------------------"
     puts customer_tags
     puts "---------------------"
-    customer_tags = customer_tags.first #.collect(&:strip) 
+    customer_tags = customer_tags.first.collect(&:strip) 
     customer_tag = customer_tags
   end
 
