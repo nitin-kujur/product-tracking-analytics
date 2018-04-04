@@ -3,7 +3,7 @@ namespace :order do
   task premium_parent_child_mapping: :environment do
     start_date = Date.today - 15
     end_date = Date.today
-    Shop.where(:shop_type => "premium").each do |shop|
+    Shop.where(:shopify_domain => "mtndewbajablast.myshopify.com").each do |shop|
       puts "I am entered into shop"
       child_orders = Order.where("DATE(shopify_created_at) BETWEEN ? AND ?", "#{start_date}","#{end_date}").where(:shop_id => shop.id).joins(:line_items).where("line_items.variant_title like ?", "%Parent ID%")
       puts child_orders.count
