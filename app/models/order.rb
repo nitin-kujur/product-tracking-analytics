@@ -17,7 +17,7 @@ class Order < ApplicationRecord
     if customer_tags.first.nil?
       customer_tag =  customer_tags
     else
-      customer_tags = customer_tags.first.collect(&:strip)
+      customer_tags = customer_tags.collect(&:strip)
       customer_tag = customer_tags
     end
   end
