@@ -1,7 +1,7 @@
 namespace :order do
   desc 'Shopify sync missing orders'
   task premium_parent_child_mapping: :environment do
-    start_date = Date.today - 3
+    start_date = Date.today - 15
     end_date = Date.today
     Shop.where(:shop_type => "premium").each do |shop|
       puts "I am entered into shop"
