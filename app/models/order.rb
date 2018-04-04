@@ -54,7 +54,7 @@ class Order < ApplicationRecord
 
     @order = Order.new
     order_tags = Order.collect_customer_region(shopify_obj.tags)
-    unless order_tags.nil?
+    unless order_tags.first.nil?
       order_tags = order_tags.first.select{|x| /ParentId:/ =~ x}
       parent_id_tag = order_tags.first.first
       parent_id_arr = parent_id_tag.split(":") if parent_id_tag
