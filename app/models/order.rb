@@ -29,19 +29,21 @@ class Order < ApplicationRecord
       puts shopify_obj.customer.tags
       puts shopify_obj.customer.tags.first.split(",").nil?
       puts "+++++++++++++++++++"
-      shopify_obj.customer.tags.first.split(",").each do |c_t|
-        customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
-        if customer_tag.nil?
-          puts "==============================="
-          puts c_t.split(":")[0].try(:strip)
-          puts c_t.split(":")[1].try(:strip)
-          puts "==============================="
-          unless c_t.split(":")[0].try(:strip).nil? && c_t.split(":")[1].try(:strip).nil?
-            customer_t = @customer.customer_tags.first.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip))
-            customer_t.save
+      unless shopify_obj.customer.tags == "LOCATION"
+        shopify_obj.customer.tags.first.split(",").each do |c_t|
+          customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
+          if customer_tag.nil?
+            puts "==============================="
+            puts c_t.split(":")[0].try(:strip)
+            puts c_t.split(":")[1].try(:strip)
+            puts "==============================="
+            unless c_t.split(":")[0].try(:strip).nil? && c_t.split(":")[1].try(:strip).nil?
+              customer_t = @customer.customer_tags.first.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip))
+              customer_t.save
+            end
+          else
+            customer_tag.customer_customer_tags.first.build(:customer_id => @customer.id, :customer_tag_id => customer_tag.id)
           end
-        else
-          customer_tag.customer_customer_tags.first.build(:customer_id => @customer.id, :customer_tag_id => customer_tag.id)
         end
       end
     end
