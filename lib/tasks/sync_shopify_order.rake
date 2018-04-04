@@ -12,10 +12,10 @@ namespace :order do
         puts "------------------------"
         puts order.name
         puts "------------------------"
-        unless order.name == "SWP1782"
+        unless order.name == "SWP1782" || "SWP1781"
           Order.save_shopify_order(shop, order)
         end
-      end
+      end 
     end
   end
 end
