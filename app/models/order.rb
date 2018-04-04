@@ -17,7 +17,7 @@ class Order < ApplicationRecord
     puts "---------------------"
     puts customer_tags
     puts "---------------------"
-    customer_tags = customer_tags.first.collect(&:strip) 
+    customer_tags = customer_tags.first #.collect(&:strip) 
     customer_tag = customer_tags
   end
 
