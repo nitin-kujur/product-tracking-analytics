@@ -14,8 +14,8 @@ class Order < ApplicationRecord
 
   def self.collect_customer_region(tags_str)
     customer_tags = tags_str.split(",")
-    if tags_str.nil?
-      customer_tag =  nil
+    if customer_tags.first.nil?
+      customer_tag =  customer_tags
     else
       customer_tags = customer_tags.first.collect(&:strip)
       customer_tag = customer_tags
