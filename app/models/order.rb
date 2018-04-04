@@ -14,11 +14,12 @@ class Order < ApplicationRecord
 
   def self.collect_customer_region(tags_str)
     customer_tags = tags_str.split(",")
-    puts "----------------------------------"
-    puts tags_str
-    puts "----------------------------------"
-    customer_tags = customer_tags.first.collect(&:strip)
-    customer_tag = customer_tags
+    if tags_str.nil?
+      customer_tag =  nil
+    else
+      customer_tags = customer_tags.first.collect(&:strip)
+      customer_tag = customer_tags
+    end
   end
 
   def self.save_shopify_order(shop, shopify_obj)
@@ -53,10 +54,12 @@ class Order < ApplicationRecord
 
     @order = Order.new
     order_tags = Order.collect_customer_region(shopify_obj.tags)
-    order_tags = order_tags.first.select{|x| /ParentId:/ =~ x}
-    parent_id_tag = order_tags.first.first
-    parent_id_arr = parent_id_tag.split(":") if parent_id_tag
-    parent_id = parent_id_arr[1] if parent_id_arr
+    unless order_tags.nil?
+      order_tags = order_tags.first.select{|x| /ParentId:/ =~ x}
+      parent_id_tag = order_tags.first.first
+      parent_id_arr = parent_id_tag.split(":") if parent_id_tag
+      parent_id = parent_id_arr[1] if parent_id_arr
+    end
     @order.shop_id = shop.id
     @order.customer_id = @customer.try(:id)
     @order.shopify_order_id = shopify_obj.id
@@ -94,6 +97,9 @@ class Order < ApplicationRecord
       @order.order_type = "Child"
     end
     sum = 0
+    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    puts shopify_obj.line_items.count
+    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$"
     shopify_obj.line_items.first.each do |item|
       sum = sum + ( item.price.to_f * item.quantity)
     end
