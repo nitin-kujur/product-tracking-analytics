@@ -38,11 +38,11 @@ class Order < ApplicationRecord
               puts @customer.customer_tags
               puts @customer.customer_tags.first
               puts "-----------------"
-              customer_t = @customer.customer_tags.first.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[0].try(:strip))
+              customer_t = @customer.customer_tags.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[0].try(:strip))
               customer_t.save
             end
           else
-            customer_tag.customer_customer_tags.first.build(:customer_id => @customer.id, :customer_tag_id => customer_tag.id)
+            customer_tag.customer_customer_tags.build(:customer_id => @customer.id, :customer_tag_id => customer_tag.id)
           end
         end
       end
