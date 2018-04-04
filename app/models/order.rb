@@ -37,12 +37,12 @@ class Order < ApplicationRecord
       puts "+++++++++++++++++++"
       unless shopify_obj.customer.tags == "LOCATION"
         shopify_obj.customer.tags.first.split(",").each do |c_t|
-          customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
-          if customer_tag.nil?
-            puts "==============================="
+          puts "==============================="
             puts c_t.split(":")[0].try(:strip)
             puts c_t.split(":")[1].try(:strip)
             puts "==============================="
+          customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
+          if customer_tag.nil?
             unless c_t.split(":")[0].try(:strip).nil? && c_t.split(":")[1].try(:strip).nil?
               customer_t = @customer.customer_tags.first.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip))
               customer_t.save
