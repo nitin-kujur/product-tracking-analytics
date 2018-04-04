@@ -33,7 +33,11 @@ class Order < ApplicationRecord
           customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
           if customer_tag.nil?
             unless c_t.split(":")[0].try(:strip).nil? && c_t.split(":")[1].try(:strip).nil?
-              customer_t = @customer.customer_tags.first.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip))
+              puts "================="
+              puts @customer.customer_tags
+              puts @customer.customer_tags.first
+              puts "-----------------"
+              customer_t = @customer.customer_tags.first.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[0].try(:strip))
               customer_t.save
             end
           else
