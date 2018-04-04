@@ -9,12 +9,7 @@ namespace :order do
       (1..pages).each { |page| orders << ShopifyAPI::Order.find(:all, params: { page: page, status: 'any', limit: 250}) }
       orders.flatten!
       orders.each do |order|
-        puts "------------------------"
-        puts order.name
-        puts "------------------------"
-        unless order.name == "SWP1782" || "SWP1781"
-          Order.save_shopify_order(shop, order)
-        end
+        Order.save_shopify_order(shop, order)
       end 
     end
   end
