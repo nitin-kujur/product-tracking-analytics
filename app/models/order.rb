@@ -107,7 +107,7 @@ class Order < ApplicationRecord
     @order.shopify_tracking_id = shopify_obj.fulfillments.first.tracking_number if shopify_obj.fulfillments.first.present?
     @order.tracking_url =  shopify_obj.fulfillments.first.tracking_url if shopify_obj.fulfillments.first.present?
     if shopify_obj.fulfillments.first.present?
-      if shopify_obj.fulfillments.first.last.shipment_status == "delivered"
+      if shopify_obj.fulfillments.last.shipment_status == "delivered"
         @order.shipped_date =  shopify_obj.fulfillments.first.updated_at 
       end
     end
