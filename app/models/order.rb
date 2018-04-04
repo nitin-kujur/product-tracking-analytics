@@ -53,11 +53,14 @@ class Order < ApplicationRecord
     end
 
     @order = Order.new
+
     order_tags = Order.collect_customer_region(shopify_obj.tags)
     order_tags = order_tags.first.select{|x| /ParentId:/ =~ x}
-    parent_id_tag = order_tags.first.first
-    parent_id_arr = parent_id_tag.split(":") if parent_id_tag
-    parent_id = parent_id_arr[1] if parent_id_arr
+    unless parent_id_tag.nil?
+      parent_id_tag = order_tags.try(:first)
+      parent_id_arr = parent_id_tag.split(":") if parent_id_tag
+      parent_id = parent_id_arr[1] if parent_id_arr
+    end
     @order.shop_id = shop.id
     @order.customer_id = @customer.try(:id)
     @order.shopify_order_id = shopify_obj.id
