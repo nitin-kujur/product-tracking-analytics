@@ -26,7 +26,7 @@ class Order < ApplicationRecord
         @customer.save
       end
       puts "+++++++++++++++++++"
-      puts shopify_obj.customer.tags.first.split(",")
+      puts shopify_obj.customer.tags
       puts shopify_obj.customer.tags.first.split(",").nil?
       puts "+++++++++++++++++++"
       shopify_obj.customer.tags.first.split(",").each do |c_t|
