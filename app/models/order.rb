@@ -211,15 +211,16 @@ class Order < ApplicationRecord
     end
   end
 
-  def self.email_csv(order, options = {})
+  def self  
     output = Hash.new
     order.each do |key, value|
       output[key] = value.try(:titleize)
     end
     file = "#{Rails.root}/public/order_data.csv"
+    column_headers = ["order_number", "parent Order", "shop","customer","shopify_order_id","email","closed_at", "total_price","subtotal_price","financial_status","total_line_items_price","cancelled_at","cancel_reason","fulfillment_status","contact_email","billing_address", "shipping_address_id", "shopify_tracking_id", "amount", "tracking_url", "shipped_date"] 
     CSV.open(file, 'w', write_headers: true, headers: column_headers) do |csv|
       puts "I am into generate csv 1"
-      csv << ["order_number", "parent Order", "shop","customer","shopify_order_id","email","closed_at", "total_price","subtotal_price","financial_status","total_line_items_price","cancelled_at","cancel_reason","fulfillment_status","contact_email","billing_address", "shipping_address_id", "shopify_tracking_id", "amount", "tracking_url", "shipped_date"]
+      # csv << ["order_number", "parent Order", "shop","customer","shopify_order_id","email","closed_at", "total_price","subtotal_price","financial_status","total_line_items_price","cancelled_at","cancel_reason","fulfillment_status","contact_email","billing_address", "shipping_address_id", "shopify_tracking_id", "amount", "tracking_url", "shipped_date"]
       puts all.count
       output.each do |s|
         puts "I am into csv generate 2"
