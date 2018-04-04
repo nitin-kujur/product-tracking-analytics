@@ -172,10 +172,11 @@ class LandingController < ApplicationController
       @orders_quantity = @orders.where(:order_type => "Child").joins(:line_items).sum(:quantity)
       @shops = Shop.all
       @sales = @orders.where(:order_type => "Child").sum(:total_price)
+      @orders_to_csv = @orders
       @orders = @orders.paginate(:page => params[:page], :per_page => 50)
       respond_to do |format|
         format.html
-        format.csv { send_data Order.to_csv(@orders) }
+        format.csv { send_data Order.to_csv(@orders_to_csv) }
       end
     else
       @orders_for_count = Order.where(:order_type => "Child").where(:cancelled_at => nil).where(:order_type => "Child")
