@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   def self.collect_customer_region(tags_str)
     customer_tags = tags_str.split(",")
     puts "----------------------------------"
-    puts customer_tags
+    puts tags_str
     puts "----------------------------------"
     customer_tags = customer_tags.first.collect(&:strip)
     customer_tag = customer_tags
