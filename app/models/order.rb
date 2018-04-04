@@ -98,7 +98,7 @@ class Order < ApplicationRecord
     end
     sum = 0
     puts "$$$$$$$$$$$$$$$$$$$$$$$$$$"
-    puts shopify_obj.line_items.count
+    puts shopify_obj.line_items.inspect
     puts "$$$$$$$$$$$$$$$$$$$$$$$$$$"
     shopify_obj.line_items.first.each do |item|
       sum = sum + ( item.price.to_f * item.quantity)
