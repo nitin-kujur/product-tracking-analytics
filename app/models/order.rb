@@ -33,7 +33,8 @@ class Order < ApplicationRecord
       end
       puts "+++++++++++++++++++"
       puts shopify_obj.customer.tags
-      puts shopify_obj.customer.tags.first.split(",").nil?
+      puts shopify_obj.customer.tags.first.split(",")[0].nil?
+      puts shopify_obj.customer.tags.first.split(",")[1].nil?
       puts "+++++++++++++++++++"
       unless shopify_obj.customer.tags == "LOCATION"
         shopify_obj.customer.tags.first.split(",").each do |c_t|
