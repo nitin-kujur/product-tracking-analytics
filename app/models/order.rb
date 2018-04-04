@@ -14,8 +14,12 @@ class Order < ApplicationRecord
 
   def self.collect_customer_region(tags_str)
     customer_tags = tags_str.split(",")
-    customer_tags = customer_tags.first.collect(&:strip)
-    customer_tag = customer_tags
+    if customer_tags.first.nil?
+      customer_tag = nil
+    else
+      customer_tags = customer_tags.first.collect(&:strip)
+      customer_tag = customer_tags
+    end
   end
 
   def self.save_shopify_order(shop, shopify_obj)
