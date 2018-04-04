@@ -25,7 +25,9 @@ class Order < ApplicationRecord
         @customer = Customer.new(:shop_id => shop.id, :first_name => shopify_obj.try(:customer).try(:first_name), :last_name => shopify_obj.try(:customer).try(:last_name), :shopify_customer_id => shopify_obj.try(:customer).try(:id), :email => shopify_obj.try(:customer).try(:email))
         @customer.save
       end
-
+      puts "+++++++++++++++++++"
+      puts shopify_obj.customer.tags.inspect
+      puts "+++++++++++++++++++"
       shopify_obj.customer.tags.first.split(",").each do |c_t|
         customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
         if customer_tag.nil?
