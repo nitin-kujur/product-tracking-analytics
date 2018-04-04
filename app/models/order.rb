@@ -118,7 +118,7 @@ class Order < ApplicationRecord
     shopify_obj.tags.first.split(",").each do |order_tag|
       order_t = OrderTag.where(:name => order_tag.split(":")[0].try(:strip), :value => order_tag.split(":")[1].try(:strip)).first
       if order_t.nil?
-         @order.order_tags.first.build(:name => order_tag.split(":")[0].try(:strip),:value => order_tag.split(":")[1].try(:strip))
+         @order.order_tags.build(:name => order_tag.split(":")[0].try(:strip),:value => order_tag.split(":")[1].try(:strip))
       else
         @order.order_tags << order_t
       end
