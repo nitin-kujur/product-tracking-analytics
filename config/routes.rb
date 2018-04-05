@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :analyticapi do
     root to: 'kipp#index'
     get 'premium/index'
-    get '/orders', to: 'kipp#search_orders'
+    get '/orders', to: 'kipp#search_orders', format: 'json'
   end
 
   get 'home/index', as: :login
