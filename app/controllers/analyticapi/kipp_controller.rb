@@ -2,19 +2,22 @@ class Analyticapi::KippController < ApplicationController
   def index
   end
 
+
+  # Response : {"order":[{"id":"375065706558","name":"LTS1096","email":"nkujur@lapineinc.com","first_name":"Nitin","last_name":"Kujur","date_unix":"03/15/2018","created_at":"March 15, 2018","payment_status":"Pending","fulfillment_status":"Unfulfilled","total_price":"$85.08"}]}
+  # Type : get
   def search_orders
-	 puts "=============================="
-	 puts params  	
-	 puts "=============================="
+	puts "=============================="
+	puts params  	
+	puts "=============================="
 	if params[:domain].present? && params[:search_term].present?
-	 		shop = Shop.where(:shopify_domain => params[:domain]).first
-	 		@orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil)
-	 		if @orders.empty?
-	 			@orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil)
-	 		end	
-	 		respond_to do |format|  ## Add this
-    			format.json { render json: @orders, status: :ok}
-    		end
+	 	shop = Shop.where(:shopify_domain => params[:domain]).first
+	 	@orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil)
+	 	if @orders.empty?
+	 		@orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil)
+	 	end	
+	 	respond_to do |format|  ## Add this
+    		format.json { render json: @orders, status: :ok}
+    	end
 	elsif params[:domain].present?
   		shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	@orders = shop.orders
