@@ -6,7 +6,7 @@ json.orders @orders do |order|
   json.last_name order.customer.last_name
   json.created_at order.shopify_updated_at.strftime("%m/%d/%Y")
   json.payment_status order.financial_status
-  json.fulfillment_status order.fulfillment_status
+  json.fulfillment_status humanize(order.fulfillment_status)
   json.total_price order.total_price
 end
 json.total_orders @total_orders
