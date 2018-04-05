@@ -16,16 +16,25 @@ class Analyticapi::KippController < ApplicationController
 	 		@orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil)
 	 	end	
 	 	respond_to do |format|  ## Add this
+            puts "++++++++++++++++++++++++++="
+            puts "I am into if"
+            puts "++++++++++++++++++++++++++="
     		format.json { render json: @orders, status: :ok}
     	end
 	elsif params[:domain].present?
   		shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	@orders = shop.orders
 	 	respond_to do |format|  ## Add this
+            puts "++++++++++++++++++++++++++="
+            puts "I am into elseif"
+            puts "++++++++++++++++++++++++++="
     		format.json { render json: @orders, status: :ok}
     	end
   	else
   		respond_to do |format|  ## Add this
+            puts "++++++++++++++++++++++++++="
+            puts "I am into else"
+            puts "++++++++++++++++++++++++++="
     		format.json { render json: {'error' => 'No orders found..', :status => "400"} }
     	end
   	end
