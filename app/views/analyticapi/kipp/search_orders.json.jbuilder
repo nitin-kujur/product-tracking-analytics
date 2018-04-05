@@ -2,7 +2,7 @@ json.array! @orders do |order|
   json.id order.id
   json.order_number order.order_number
   json.email order.email
-  json.first_name order.custaomer.first_name
+  json.first_name order.customer.first_name
   json.last_name order.customer.last_name
   json.shopify_updated_at order.shopify_updated_at
   json.payment_status order.financial_status
