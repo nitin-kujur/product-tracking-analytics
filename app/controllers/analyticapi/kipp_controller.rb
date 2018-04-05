@@ -10,6 +10,15 @@ class Analyticapi::KippController < ApplicationController
 	puts "=============================="
 	puts params  	
 	puts "=============================="
+    if params[:page].present? && params[:per_page].present?
+        @page = params[:page]
+        @per_page = params[:per_page]
+    else
+        params[:page] = 1
+        params[:per_page] = 10
+        @page = params[:page]
+        @per_page = params[:per_page]
+    end
 	if params[:domain].present? && params[:search_term].present?
 	 	shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	@orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
