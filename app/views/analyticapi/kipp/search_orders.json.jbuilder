@@ -1,4 +1,4 @@
-json.array! @orders do |order|
+json.orders @orders do |order|
   json.id order.id
   json.name order.order_number
   json.email order.email
