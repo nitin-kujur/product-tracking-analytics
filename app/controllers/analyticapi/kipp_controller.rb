@@ -129,11 +129,11 @@ class Analyticapi::KippController < ApplicationController
         puts x
         puts i
         puts "000000000000000000000000000000000000000"
-        @order.tags << "Ocr#{i}:#{x}"
+        @order.tags = "Ocr#{i}:#{x}"
        @order_local.order_tags.build(:name =>"Ocr#{i}", value: "#{x}")
      end 
      # order_tags << "Ocr:#{params[:reason]}"
-     @order.tags = order_tags.join(",")
+     # @order.tags = order_tags.join(",")
      if @order.save
        @order_local.cancelled_at = @order.cancelled_at
        @order_local.save
