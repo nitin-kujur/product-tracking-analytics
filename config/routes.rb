@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get '/orders', to: 'kipp#search_orders', format: 'json'
     get '/update', to: 'kipp#kipp_order_mark_paid', format: 'json'
     get '/get_order_detail', to: 'kipp#get_order_detail', format: 'json'
+    get '/cancel_order', to: 'kipp#cancel_order', format: 'json'
   end
 
   get 'home/index', as: :login
