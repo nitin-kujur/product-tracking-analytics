@@ -4,8 +4,8 @@ json.email @order.customer.try(:email)
 json.first_name @order.try(:customer).try(:first_name)
 json.last_name @order.try(:customer).try(:last_name)
 json.created_at @order.shopify_updated_at.strftime("%m/%d/%Y")
-json.cancelled_at @order.cancelled_at.strftime("%m/%d/%Y")
-json.cancelled_status @order.cancelled_at.to_bool.to_s
+json.cancelled_at @order.cancelled_at.try(:strftime, "%m/%d/%Y")
+json.cancelled_st atus @order.cancelled_at.to_bool.to_s
 json.payment_status @order.financial_status.split('_').map(&:capitalize).join(' ')
 if @order.fulfillment_status.nil? 
   json.fulfillment_status  "Unfulfilled" 
