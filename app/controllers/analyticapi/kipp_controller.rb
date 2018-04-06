@@ -7,9 +7,9 @@ class Analyticapi::KippController < ApplicationController
   # Type : get
   # Params : params["search_term"], params["school"], params["domain"], params["page"]
   def search_orders
-	puts "=============================="
-	puts params  	
-	puts "=============================="
+	 puts "=============================="
+	 puts params  	
+	 puts "=============================="
     if params[:page].present? && params[:per_page].present?
         @page = params[:page]
         @per_page = params[:per_page]
@@ -45,6 +45,11 @@ class Analyticapi::KippController < ApplicationController
     	end
   	end
   end
+
+  def get_order_detail
+    
+  end
+
   # def kipp_order_mark_paid
  	# if params[:id].present? && params[:school].present? && params[:cid].present? && params[:domain].present?
   # 		@order = ShopifyAPI::Order.find(params[:id])
