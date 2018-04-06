@@ -9,7 +9,7 @@ json.orders @orders do |order|
   if order.fulfillment_status.nil? 
     json.fulfillment_status  "Unfulfilled" 
   else
-    json.fulfillment_status order.fulfillment_status.try(:titleize)
+    json.fulfillment_status  humanize(order.fulfillment_status)
   end
   json.total_price order.total_price
 end
