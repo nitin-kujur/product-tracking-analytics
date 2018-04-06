@@ -5,7 +5,7 @@ class UserMailer < ApplicationMailer
 	end
 
 	def order_cancellation_email(order_local, reason)
-		@order = order.id
+		@order = order_local
 		mail(to: "NKujur@LapineInc.com, PChaudhari@LapineInc.com", subject: "Order cancelled successfully.")
 	end
 end
