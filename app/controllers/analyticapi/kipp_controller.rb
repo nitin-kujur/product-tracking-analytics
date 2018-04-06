@@ -66,7 +66,8 @@ class Analyticapi::KippController < ApplicationController
     			transaction.kind = "capture"
     			transaction.amount = @order.transactions.last.amount
     			transaction.prefix_options={:order_id => @order.id}
-    			if transaction.save
+          transaction.save
+    			# if transaction.save
             puts "Transaction saved"
      				order_tags = @order.tags.split(',')
      				order_tags << "PaidAt:#{params[:school_id]}"
@@ -87,7 +88,7 @@ class Analyticapi::KippController < ApplicationController
               	format.json { render json: {'message' => 'Order successfully marked as paid.', :status => "200"} }
             	end
      				end
-    			end
+    			# end
    			end
   		end
  	  else
