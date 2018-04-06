@@ -125,6 +125,9 @@ class Analyticapi::KippController < ApplicationController
      require 'uri'
      ocr_a = URI.encode(params[:reason]).scan(/.{1,35}/)
      ocr_a.each_with_index do |x, i| 
+        puts x
+        puts i
+        @order.tags << "Ocr#{i}:#{x}"
        @order_local.order_tags.build(:name =>"Ocr#{i}", value: "#{x}")
      end 
      # order_tags << "Ocr:#{params[:reason]}"
