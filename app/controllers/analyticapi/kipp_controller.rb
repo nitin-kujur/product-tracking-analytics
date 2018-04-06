@@ -65,9 +65,9 @@ class Analyticapi::KippController < ApplicationController
     			transaction.amount = @order.transactions.last.amount
     			transaction.prefix_options={:order_id => @order.id}
     			if transaction.save
-     				# order_tags = @order.tags.split(',')
-     				# order_tags << "PaidAt:#{params[:school_id]}"
-     				# order_tags << "PaidThrough:#{params[:cid]}"
+     				order_tags = @order.tags.split(',')
+     				order_tags << "PaidAt:#{params[:school_id]}"
+     				order_tags << "PaidThrough:#{params[:cid]}"
      				@order.tags = order_tags.join(",")
      				if @order.save
       				local_order = Order.where(:shopify_order_id => params[:id]).first
