@@ -19,7 +19,7 @@ class Analyticapi::KippController < ApplicationController
         @page = params[:page]
         @per_page = params[:per_page]
     end
-	if params[:domain].present? && params[:search_term].present?
+	 if params[:domain].present? && params[:search_term].present?
 	 	shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	@orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       if @orders.empty?
@@ -29,7 +29,7 @@ class Analyticapi::KippController < ApplicationController
 	 	respond_to do |format|
             format.json
         end
-	elsif params[:domain].present?
+	 elsif params[:domain].present?
   		shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	@orders = shop.orders.paginate(:page => params[:page], :per_page => 50)
         @total_orders = @orders.count
@@ -50,38 +50,44 @@ class Analyticapi::KippController < ApplicationController
 
   end
 
-  # def kipp_order_mark_paid
- 	# if params[:id].present? && params[:school].present? && params[:cid].present? && params[:domain].present?
-  # 		@order = ShopifyAPI::Order.find(params[:id])
-  # 		if @order.present?
-  #  			if @order.fulfillment_status == 'paid'
-  #   			respond_to do |format|
-  #           		format.json { render json: {'error' => 'Payment already done for this order.', :status => "400"} }
-  #         		end
-  #  			else
-  #   			transaction = ShopifyAPI::Transaction.new
-  #   			transaction.kind = "capture"
-  #   			transaction.amount = @order.transactions.last.amount
-  #   			transaction.prefix_options={:order_id => @order.id}
-  #   			if transaction.save
-  #    				order_tags = @order.tags.split(',')
-  #    				order_tags << "PaidAt:#{params[:school_id]}"
-  #    				order_tags << "PaidThrough:#{params[:cid]}"
-  #    				@order.tags = order_tags.join(",")
-  #    				if @order.save
-  #     					Order.update(@order)
-  #     					UserMailer.order_paid_email(@order, params).deliver_now
-  #     					respond_to do |format|
-  #             				format.json { render json: {'message' => 'Order successfully marked as paid.', :status => "200"} }
-  #           			end
-  #    				end
-  #   			end
-  #  			end
-  # 		end
- 	# else
-  # 		respond_to do |format|
-  #         format.json { render json: {'error' => 'Insufficient params provided.', :status => "400"} }
-  #       end
- 	# end
-  # end
+  def kipp_order_mark_paid
+ 	  if params[:id].present? && params[:school].present? && params[:cid].present? && params[:domain].present?
+      shop = Shop.where(:shopify_domain => params[:domain]).first
+      Shop.set_session(shop)
+  		@order = ShopifyAPI::Order.find(params[:id])
+  		if @order.present?
+   			if @order.fulfillment_status == 'paid'
+    			respond_to do |format|
+            format.json { render json: {'error' => 'Payment already done for this order.', :status => "400"} }
+          end
+   			else
+    			transaction = ShopifyAPI::Transaction.new
+    			transaction.kind = "capture"
+    			transaction.amount = @order.transactions.last.amount
+    			transaction.prefix_options={:order_id => @order.id}
+    			if transaction.save
+     				order_tags = @order.tags.split(',')
+     				order_tags << "PaidAt:#{params[:school_id]}"
+     				order_tags << "PaidThrough:#{params[:cid]}"
+     				@order.tags = order_tags.join(",")
+     				if @order.save
+      				local_order = Order.where(:shopify_order_id => params[:id]).first
+              local_order.tags = @order.tags
+              local_order.amount = @order.transactions.last.amount
+              local_order.fulfillment_status = @order.fulfillment_status
+              local_order.save
+      				UserMailer.order_paid_email(@order, params).deliver_now
+      				respond_to do |format|
+              	format.json { render json: {'message' => 'Order successfully marked as paid.', :status => "200"} }
+            	end
+     				end
+    			end
+   			end
+  		end
+ 	  else
+  		respond_to do |format|
+        format.json { render json: {'error' => 'Insufficient params provided.', :status => "400"} }
+      end
+ 	  end
+  end
 end
