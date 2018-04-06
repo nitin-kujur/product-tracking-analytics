@@ -68,7 +68,8 @@ class Analyticapi::KippController < ApplicationController
      				@order.tags = order_tags.join(",")
      				if @order.save
       				local_order = Order.where(:shopify_order_id => params[:id]).first
-              local_order.tags = @order.tags
+              local_order.order_tags.build(name: "PaidAt", value: params[:school_id])
+              local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
               local_order.amount = @order.transactions.last.amount
               local_order.fulfillment_status = @order.fulfillment_status
               local_order.save
