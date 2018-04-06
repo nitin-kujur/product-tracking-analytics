@@ -1,4 +1,4 @@
-json.orders @orders do |order|
+json.orders @order do |order|
   json.id order.id
   json.name order.order_number
   json.email order.customer.try(:email)
