@@ -1,7 +1,7 @@
 json.orders @orders do |order|
   json.id order.id
   json.name order.order_number
-  json.email order.customer.email
+  json.email order.customer.try(:email)
   json.first_name order.try(:customer).try(:first_name)
   json.last_name order.try(:customer).try(:last_name)
   json.created_at order.shopify_updated_at.strftime("%m/%d/%Y")
