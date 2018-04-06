@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     root to: 'kipp#index'
     get 'premium/index'
     get '/orders', to: 'kipp#search_orders', format: 'json'
-    post '/update', to: 'kipp#kipp_order_mark_paid', format: 'json'
+    get '/update', to: 'kipp#kipp_order_mark_paid', format: 'json'
   end
 
   get 'home/index', as: :login
