@@ -51,6 +51,9 @@ class Analyticapi::KippController < ApplicationController
       shop = Shop.where(:shopify_domain => params[:domain]).first
       Shop.set_session(shop)
   		@order = ShopifyAPI::Order.find(params[:id])
+      puts "---------------------------------"
+      puts @order.inspect
+      puts "---------------------------------"
   		if @order.present?
    			if @order.fulfillment_status == 'paid'
     			respond_to do |format|
@@ -68,8 +71,8 @@ class Analyticapi::KippController < ApplicationController
      				@order.tags = order_tags.join(",")
      				if @order.save
       				local_order = Order.where(:shopify_order_id => params[:id]).first
-               local_order.order_tags.build(name: "PaidAt", value: params[:school_id])
-               local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
+              local_order.order_tags.build(name: "PaidAt", value: params[:school_id])
+              local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
               local_order.amount = @order.transactions.last.amount
               local_order.fulfillment_status = @order.fulfillment_status
               local_order.save
