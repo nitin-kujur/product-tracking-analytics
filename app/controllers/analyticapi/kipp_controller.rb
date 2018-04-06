@@ -90,7 +90,7 @@ class Analyticapi::KippController < ApplicationController
   def get_order_detail
     if params[:name].present?
       @order = Order.find_by_order_number(params[:name])
-      ocr = URI.decode(@order[:tags].try(:split, ',').collect(&:strip).select{|x| /Ocr\d*:/ =~ x}.sort.join.gsub(/Ocr\d*:/,""))
+      ocr = URI.decode(@order.tags.try(:split, ',').collect(&:strip).select{|x| /Ocr\d*:/ =~ x}.sort.join.gsub(/Ocr\d*:/,""))
       ocr = ocr.present? ? ocr : nil 
       if @order.nil?
         respond_to do |format|
