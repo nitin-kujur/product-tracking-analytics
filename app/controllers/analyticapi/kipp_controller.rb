@@ -131,7 +131,6 @@ class Analyticapi::KippController < ApplicationController
      @order.tags = order_tags.join(",")
      if @order.save
        @order_local.cancelled_at = @order.cancelled_at
-       @order_local.tags = @order.tags
        @order_local.save
        puts "-------------------------"
        puts @order_local.inspect
