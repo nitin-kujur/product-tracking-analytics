@@ -56,27 +56,33 @@ class Analyticapi::KippController < ApplicationController
       puts "---------------------------------"
   		if @order.present?
    			if @order.fulfillment_status == 'paid'
+          puts "I am into order fullfilment status paid"
     			respond_to do |format|
             format.json { render json: {'error' => 'Payment already done for this order.', :status => "400"} }
           end
    			else
+          puts "I am into else part of order fullfilment"
     			transaction = ShopifyAPI::Transaction.new
     			transaction.kind = "capture"
     			transaction.amount = @order.transactions.last.amount
     			transaction.prefix_options={:order_id => @order.id}
     			if transaction.save
+            puts "Transaction saved"
      				order_tags = @order.tags.split(',')
      				order_tags << "PaidAt:#{params[:school_id]}"
      				order_tags << "PaidThrough:#{params[:cid]}"
      				@order.tags = order_tags.join(",")
      				if @order.save
+              puts "Order saved"
       				local_order = Order.where(:shopify_order_id => params[:id]).first
               local_order.order_tags.build(name: "PaidAt", value: params[:school_id])
               local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
               local_order.amount = @order.transactions.last.amount
               local_order.fulfillment_status = @order.fulfillment_status
               local_order.save
+              puts "Local Order saved"
       				UserMailer.order_paid_email(@order, params).deliver_now
+              puts "user email triggered"
       				respond_to do |format|
               	format.json { render json: {'message' => 'Order successfully marked as paid.', :status => "200"} }
             	end
@@ -85,6 +91,7 @@ class Analyticapi::KippController < ApplicationController
    			end
   		end
  	  else
+      puts "I am into main else"
   		respond_to do |format|
         format.json { render json: {'error' => 'Insufficient params provided.', :status => "400"} }
       end
