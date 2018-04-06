@@ -78,7 +78,7 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Use a different logger for distributed setups.
-  # require 'syslog/loggingger'
+  # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # if ENV["RAILS_LOG_TO_STDOUT"].present?
@@ -91,7 +91,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.default_url_options = { :host => 'https://lapine-analytics-app.herokuapp.com/' }
+  config.action_mailer.default_url_options = { :host => 'https://pepsi-print.herokuapp.com/' }
   config.action_mailer.smtp_settings = {
     address: 'smtp.office365.com',
     port: 587,
