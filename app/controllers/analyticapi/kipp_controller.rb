@@ -90,8 +90,6 @@ class Analyticapi::KippController < ApplicationController
   def get_order_detail
     if params[:name].present?
       @order = Order.find_by_order_number(params[:name])
-      ocr = URI.decode(@order.tags.try(:split, ',').collect(&:strip).select{|x| /Ocr\d*:/ =~ x}.sort.join.gsub(/Ocr\d*:/,""))
-      ocr = ocr.present? ? ocr : nil 
       if @order.nil?
         respond_to do |format|
           format.json { render json: {'error' => 'No orders found..', :status => "400"} }
@@ -101,6 +99,49 @@ class Analyticapi::KippController < ApplicationController
           format.json
         end
       end
+    end
+  end
+
+  def cancel_order
+    if params[:order_id].present? && params[:domain].present?
+     shop = Shop.where(:shopify_domain => params[:domain]).first
+     Shop.set_session(shop)
+     @order = ShopifyAPI::Order.find(params[:order_id])
+     @order_local = Order.find_by_shopify_order_id(@order.id)
+     @order.cancel({"order":{"amount": @order.total_price, "reason":params[:reason]}})
+     order_tags = @order.tags.split(',')
+     require 'uri'
+     ocr_a = URI.encode(params[:reason]).scan(/.{1,35}/)
+     ocr_a.each_with_index do |x, i| 
+       @order_local.order_tags.build(:name =>"Ocr#{i}", value: "#{x}")
+     end 
+     # order_tags << "Ocr:#{params[:reason]}"
+     @order.tags = order_tags.join(",")
+     if @order.save
+       @order_local.cancelled_at = @order.cancelled_at
+       @order_local.tags = @order.tags
+       @order_local.save
+       puts "-------------------------"
+       puts @order_local.inspect
+       puts "-------------------------"
+
+       respond_to do |format|
+         puts "====================================="
+         puts params[:reason]
+         puts @order_local.inspect
+         puts "====================================="
+         UserMailer.order_cancellation_email(@order_local, params[:reason]).deliver_now
+         format.json { render json: {'message' => "ok", :status => "200"} }
+       end
+        else
+         respond_to do |format|
+           format.json { render json: {'message' => "#{@order.errors.full_messages}", :status => "400"} }
+         end
+     end
+    else
+     respond_to do |format|
+          format.json { render json: {'error' => 'Insufficient params provided.', :status => "400"} }
+        end
     end
   end
 end

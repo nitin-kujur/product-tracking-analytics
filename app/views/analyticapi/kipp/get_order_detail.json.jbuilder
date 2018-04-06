@@ -6,7 +6,6 @@ json.last_name @order.try(:customer).try(:last_name)
 json.created_at @order.shopify_updated_at.strftime("%m/%d/%Y")
 json.cancelled_at @order.cancelled_at.try(:strftime, "%m/%d/%Y")
 json.cancelled_status @order.try(:cancelled_at).try(:to_bool).try(:to_s)
-json.cancel_reason @order.cancelled_at ?  ocr || @order[:tags].try(:split, ',').collect(&:strip).select{|x| /Ocr:/ =~ x}.first.try(:split, ":").try(:last) || "Other" : ""
 json.payment_status @order.financial_status.split('_').map(&:capitalize).join(' ')
 if @order.fulfillment_status.nil? 
   json.fulfillment_status  "Unfulfilled" 
