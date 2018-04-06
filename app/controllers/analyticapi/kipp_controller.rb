@@ -46,10 +46,6 @@ class Analyticapi::KippController < ApplicationController
   	end
   end
 
-  def get_order_detail
-
-  end
-
   def kipp_order_mark_paid
  	  if params[:id].present? && params[:school].present? && params[:cid].present? && params[:domain].present?
       shop = Shop.where(:shopify_domain => params[:domain]).first
@@ -89,5 +85,20 @@ class Analyticapi::KippController < ApplicationController
         format.json { render json: {'error' => 'Insufficient params provided.', :status => "400"} }
       end
  	  end
+  end
+
+  def get_order_detail
+    if params[:name].present?
+      @order = Order.find_by_order_number(params[:name])
+      if @order.nil?
+        respond_to do |format|
+          format.json { render json: {'error' => 'No orders found..', :status => "400"} }
+        end
+      else
+        respond_to do |format|
+          format.json
+        end
+      end
+    end
   end
 end
