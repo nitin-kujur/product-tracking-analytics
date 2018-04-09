@@ -20,7 +20,7 @@ class Analyticapi::KippController < ApplicationController
       @per_page = params[:per_page]
     end
 
-	  if params[:domain].present? && params[:search_term].present? && params[:school].present?
+	  if params[:domain].present? && params[:search_term].present? || params[:school].present?
       @orders = []
       puts "------------------------------------------"
       puts "domain and search term present"
