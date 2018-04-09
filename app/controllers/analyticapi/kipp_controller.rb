@@ -132,7 +132,7 @@ class Analyticapi::KippController < ApplicationController
   end
 
   def get_order_detail
-    if params[:name].present?
+    if params[:shopify_order_id].present?
       @order = Order.find_by_shopify_order_id(params[:shopify_order_id])
       if @order.nil?
         respond_to do |format|
