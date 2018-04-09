@@ -189,7 +189,7 @@ class Order < ApplicationRecord
     @order.billing_address_id = billing_address.try(:id) if shopify_obj.try(:billing_address).present? 
     @order.shipping_address_id = shipping_address.try(:id) if shopify_obj.try(:shipping_address).present? 
     existing_order_numbers = Order.where("shopify_order_id = ? and deleted_at IS NULL",@order.shopify_order_id)
-    existing_order_numbers.first.destroy_all unless existing_order_numbers.first.nil?
+    existing_order_numbers.destroy_all unless existing_order_numbers.first.nil?
     if @order.save(:validate => false)
       puts "Order save successfully.........."
     else
