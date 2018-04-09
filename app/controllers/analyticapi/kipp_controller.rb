@@ -20,7 +20,7 @@ class Analyticapi::KippController < ApplicationController
       @per_page = params[:per_page]
     end
 
-	  if params[:domain].present? && params[:search_term].present?
+	  if params[:domain].present? && params[:search_term].present? && params[:school].present?
       @orders = []
       puts "------------------------------------------"
       puts "domain and search term present"
@@ -28,10 +28,16 @@ class Analyticapi::KippController < ApplicationController
 	 	  shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	  @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       if @orders.empty?
-	 		  @orders << shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
-	 	  end
+	 		  @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+	 	  else
+        @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      end
       if params[:school].present?
+        if @orders.empty?
+        @orders = shop.orders.joins(:line_items).where("lower(line_items.properties) like ?", "%#{params[:school]}%")
+      else
         @orders << shop.orders.joins(:line_items).where("lower(line_items.properties) like ?", "%#{params[:school]}%")
+      end
       end
       @total_orders = @orders.count
 	 	  respond_to do |format|
