@@ -1,5 +1,5 @@
 json.orders @orders do |order|
-  json.id order.id
+  json.shopify_order_id order.shopify_order_id
   json.name order.order_number
   json.email order.customer.try(:email)
   json.first_name order.try(:customer).try(:first_name)
