@@ -26,7 +26,9 @@ class Analyticapi::KippController < ApplicationController
       puts "domain and search term present"
       puts "------------------------------------------"
 	 	  shop = Shop.where(:shopify_domain => params[:domain]).first
-	 	  @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      if params[:search_term].present?
+	 	   @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+      end 
       if @orders.empty?
 	 		  @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
 	 	  else
