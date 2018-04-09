@@ -7,6 +7,7 @@ class Analyticapi::KippController < ApplicationController
   # Type : get
   # Params : params["search_term"], params["school"], params["domain"], params["page"]
   def search_orders
+    @orders = []
 	  puts "=============================="
 	  puts params  	
 	  puts "=============================="
@@ -21,7 +22,6 @@ class Analyticapi::KippController < ApplicationController
     end
 
 	  if params[:domain].present? && params[:search_term].present? || params[:school].present?
-      @orders = []
       puts "------------------------------------------"
       puts "domain and search term present"
       puts "------------------------------------------"
