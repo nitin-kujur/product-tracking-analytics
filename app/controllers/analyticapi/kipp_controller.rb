@@ -21,6 +21,9 @@ class Analyticapi::KippController < ApplicationController
     end
 
 	  if params[:domain].present? && params[:search_term].present?
+      puts "------------------------------------------"
+      puts "domain and search term present"
+      puts "------------------------------------------"
 	 	  shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	  @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       if @orders.empty?
@@ -31,6 +34,9 @@ class Analyticapi::KippController < ApplicationController
         format.json
       end
 	  elsif params[:domain].present?
+      puts "------------------------------------------"
+      puts "Only domain present"
+      puts "------------------------------------------"
   		shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	  @orders = shop.orders.paginate(:page => params[:page], :per_page => 50)
       @total_orders = @orders.count
