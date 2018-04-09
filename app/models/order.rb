@@ -24,7 +24,7 @@ class Order < ApplicationRecord
 
   def self.save_shopify_order(shop, shopify_obj)
     unless shopify_obj.try(:customer).nil?
-      @customer = Customer.where(:email => shopify_obj.try(:customer).try(:email)).first
+      @customer = Customer.where(:email => shopify_obj.try(:customer).try(:email), :shop_id => shop.id, :shopify_customer_id => shopify_obj.try(:customer).try(:id)).first
       puts "====================================="
       puts @customer.nil?
       puts "====================================="
