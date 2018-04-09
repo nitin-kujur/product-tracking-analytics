@@ -41,11 +41,17 @@ class Analyticapi::KippController < ApplicationController
             puts "(((((((((((((((((((((((((((((((((((("
         if @orders.empty?
         @orders = shop.orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
+        puts "+++++++++++++++++++++++++++"
+        puts @orders.inspect
+        puts "+++++++++++++++++++++++++++"
       else
         puts "(((((((((((((((((((((((((((((((((((("
           puts "I am into school params else present"
             puts "(((((((((((((((((((((((((((((((((((("
         @orders << shop.orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
+        puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        puts @orders.inspect
+        puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       end
       end
       @total_orders = @orders.count
