@@ -27,7 +27,7 @@ class Analyticapi::KippController < ApplicationController
 	 	  shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	  @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       if @orders.empty?
-	 		  @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+	 		  @orders << shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
 	 	  end
       @total_orders = @orders.count
 	 	  respond_to do |format|
