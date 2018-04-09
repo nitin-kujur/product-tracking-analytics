@@ -133,7 +133,7 @@ class Analyticapi::KippController < ApplicationController
 
   def get_order_detail
     if params[:name].present?
-      @order = Order.find_by_order_number(params[:name])
+      @order = Order.find_by_shopify_order_id(params[:shopify_order_id])
       if @order.nil?
         respond_to do |format|
           format.json { render json: {'error' => 'No orders found..', :status => "400"} }
