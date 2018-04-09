@@ -7,40 +7,41 @@ class Analyticapi::KippController < ApplicationController
   # Type : get
   # Params : params["search_term"], params["school"], params["domain"], params["page"]
   def search_orders
-	 puts "=============================="
-	 puts params  	
-	 puts "=============================="
+	  puts "=============================="
+	  puts params  	
+	  puts "=============================="
     if params[:page].present? && params[:per_page].present?
-        @page = params[:page]
-        @per_page = params[:per_page]
+      @page = params[:page]
+      @per_page = params[:per_page]
     else
-        params[:page] = 1
-        params[:per_page] = 10
-        @page = params[:page]
-        @per_page = params[:per_page]
+      params[:page] = 1
+      params[:per_page] = 10
+      @page = params[:page]
+      @per_page = params[:per_page]
     end
-	 if params[:domain].present? && params[:search_term].present?
-	 	shop = Shop.where(:shopify_domain => params[:domain]).first
-	 	@orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
+
+	  if params[:domain].present? && params[:search_term].present?
+	 	  shop = Shop.where(:shopify_domain => params[:domain]).first
+	 	  @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       if @orders.empty?
 	 		  @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
-	 	  end	
-        @total_orders = @orders.count
-	 	respond_to do |format|
-            format.json
-        end
-	 elsif params[:domain].present?
+	 	  end
+      @total_orders = @orders.count
+	 	  respond_to do |format|
+        format.json
+      end
+	  elsif params[:domain].present?
   		shop = Shop.where(:shopify_domain => params[:domain]).first
-	 	@orders = shop.orders.paginate(:page => params[:page], :per_page => 50)
-        @total_orders = @orders.count
-	 	respond_to do |format|
-            format.json
-        end  
+	 	  @orders = shop.orders.paginate(:page => params[:page], :per_page => 50)
+      @total_orders = @orders.count
+	 	  respond_to do |format|
+        format.json
+      end  
   	else
-        respond_to do |format|  ## Add this
-            puts "++++++++++++++++++++++++++="
-            puts "I am into else"
-            puts "++++++++++++++++++++++++++="
+      respond_to do |format|  ## Add this
+        puts "++++++++++++++++++++++++++="
+        puts "I am into else"
+        puts "++++++++++++++++++++++++++="
     		format.json { render json: {'error' => 'No orders found..', :status => "400"} }
     	end
   	end
