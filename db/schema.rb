@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327090208) do
+ActiveRecord::Schema.define(version: 20180409104043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20180327090208) do
     t.text "tracking_url"
     t.date "shipped_date"
     t.string "order_type"
+    t.string "school"
   end
 
   create_table "orders_products", force: :cascade do |t|

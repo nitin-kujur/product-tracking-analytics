@@ -87,6 +87,9 @@ class Order < ApplicationRecord
     @order.discount_codes = shopify_obj.discount_codes
     @order.parent_order_id = parent_id
     @order.cancelled_at = shopify_obj.try(:cancelled_at)
+    if shopify_obj.note_attributes.first.name == "school"
+      @order.school = shopify_obj.note_attributes.first.value
+    end
     if shop.shop_type == "print"
       if parent_id.nil?
         @order.order_type = "Parent"
