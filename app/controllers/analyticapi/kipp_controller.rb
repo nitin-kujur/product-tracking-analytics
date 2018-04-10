@@ -190,6 +190,9 @@ class Analyticapi::KippController < ApplicationController
               local_order.amount = @order.transactions.last.amount
               local_order.fulfillment_status = @order.fulfillment_status
               local_order.save(:validate => false)
+              puts "---------------------------------"
+              puts local_order.errors.inspect
+              puts "---------------------------------"
               puts "Local Order saved"
       				UserMailer.order_paid_email(@order, params)
               puts "user email triggered"
