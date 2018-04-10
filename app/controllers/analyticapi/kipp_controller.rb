@@ -214,9 +214,7 @@ class Analyticapi::KippController < ApplicationController
       puts params[:shopify_order_id]
       puts "-------- I am into gt order detail------------"
       @order = Order.where(:shopify_order_id => params[:shopify_order_id]).first
-      puts "-------------------"
-      puts @order.count
-      puts "-------------------"
+      
       if @order.nil?
         respond_to do |format|
           format.json { render json: {'error' => 'No orders found..', :status => "400"} }
