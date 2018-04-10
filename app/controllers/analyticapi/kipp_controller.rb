@@ -122,7 +122,7 @@ class Analyticapi::KippController < ApplicationController
         puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       end
       end
-      if params[:start_date].present? && params[:end_date].present?
+      if params[:start_date].present? && params[:en_date].present?
         @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:from_date], params[:to_date])
       end
       @total_orders = @orders.count
@@ -159,7 +159,7 @@ class Analyticapi::KippController < ApplicationController
       puts @order.inspect
       puts "---------------------------------"
   		if @order.present?
-   			if @order.fulfillment_status == 'paid'
+   		if @order.fulfillment_status == 'paid'
           puts "I am into order fullfilment status paid"
     			respond_to do |format|
             format.json { render json: {'error' => 'Payment already done for this order.', :status => "400"} }
