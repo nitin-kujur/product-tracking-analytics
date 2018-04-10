@@ -100,9 +100,6 @@ class Order < ApplicationRecord
       @order.order_type = "Child"
     end
     sum = 0
-    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$"
-    puts shopify_obj.line_items.inspect
-    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$"
     shopify_obj.line_items.each do |item|
       sum = sum + ( item.price.to_f * item.quantity)
     end
@@ -114,10 +111,6 @@ class Order < ApplicationRecord
         @order.shipped_date =  shopify_obj.fulfillments.first.updated_at 
       end
     end
-    puts "----------------------------------"
-    puts shopify_obj.try(:fulfillments).try(:first).try(:tracking_url)
-    puts shopify_obj.try(:fulfillments).try(:first).try(:updated_at)
-    puts "----------------------------------"
     shopify_obj.tags.first.split(",").each do |order_tag|
       order_t = OrderTag.where(:name => order_tag.split(":")[0].try(:strip), :value => order_tag.split(":")[1].try(:strip)).first
       if order_t.nil?
@@ -164,12 +157,10 @@ class Order < ApplicationRecord
 
         end
         @order.line_items.build(:shopify_line_item_id => l.id, :variant_title => l.variant_title, :variant_id => l.variant_id, :title => l.title,:quantity => l.quantity, :price => l.price, :sku => l.sku, :fulfillment_service => l.fulfillment_service, :product_id => product.try(:id), :requires_shipping => l.requires_shipping, :properties => l.properties.map(&:attributes), :fulfillable_quantity => l.fulfillable_quantity, :total_discount => l.total_discount, :fulfillment_status => l.fulfillment_status, :destination_location => l.try(:destination_location).try(:attributes), :origin_location => l.try(:origin_location).try(:attributes))
+        puts "-------- I am into fix mtn dew --------------------"
+        puts shop.shop_type == "premium" && shopify_obj.financial_status == ("pending" || "paid")
+        puts "-------- I am into fix mtn dew --------------------"
         if shop.shop_type == "premium" && shopify_obj.financial_status == ("pending" || "paid")
-          puts "================"
-          puts shopify_obj.financial_status
-          puts l.properties.map(&:attributes)
-          puts l.properties.first.empty?
-          puts "================"
           unless l.properties.first.empty?
             puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
             puts l.properties.map(&:attributes)[0]["value"]
