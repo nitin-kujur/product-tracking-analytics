@@ -191,7 +191,7 @@ class Analyticapi::KippController < ApplicationController
               local_order.fulfillment_status = @order.fulfillment_status
               local_order.save
               puts "Local Order saved"
-      				UserMailer.order_paid_email(@order, params).deliver_now
+      				UserMailer.order_paid_email(@order, params)
               puts "user email triggered"
       				respond_to do |format|
               	format.json { render json: {'message' => 'Order successfully marked as paid.', :status => "200"} }
