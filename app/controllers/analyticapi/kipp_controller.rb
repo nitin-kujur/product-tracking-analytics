@@ -189,6 +189,9 @@ class Analyticapi::KippController < ApplicationController
               local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
               local_order.amount = @order.transactions.last.amount
               local_order.fulfillment_status = @order.fulfillment_status
+              puts "====================================="
+              puts @order.fulfillment_status
+              puts "====================================="
               local_order.save(:validate => false)
               puts "---------------------------------"
               puts local_order.errors.inspect
