@@ -4,7 +4,7 @@ json.order do
 	json.email @order.customer.try(:email)
 	json.first_name @order.try(:customer).try(:first_name)
 	json.last_name @order.try(:customer).try(:last_name)
-	json.created_at @order.shopify_updated_at.strftime("%m/%d/%Y")
+	json.created_at order.shopify_created_at.strftime("%m/%d/%Y")
 	json.cancelled_at @order.cancelled_at.try(:strftime, "%m/%d/%Y")
 	json.cancel_reason @order.try(:cancelled_at).try(:to_bool).try(:to_s)
 	json.discount_codes @order.discount_codes

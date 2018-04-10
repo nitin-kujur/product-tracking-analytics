@@ -65,7 +65,7 @@ class Order < ApplicationRecord
     @order.shopify_order_id = shopify_obj.id
     @order.email = shopify_obj.try(:customer).try(:email)
     @order.closed_at = shopify_obj.closed_at
-    @order.shopify_created_at = shopify_obj.processed_at
+    @order.shopify_created_at = shopify_obj.created_at
     @order.shopify_updated_at = shopify_obj.updated_at
     @order.number = shopify_obj.name
     @order.total_price = shopify_obj.total_price
