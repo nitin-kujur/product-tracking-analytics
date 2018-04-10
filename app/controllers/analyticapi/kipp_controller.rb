@@ -273,4 +273,12 @@ class Analyticapi::KippController < ApplicationController
         end
     end
   end
+
+  def save_shopify_order
+    shop = Shop.where(:shopify_domain => params[:domain]).first
+    Shop.set_session(shop)
+    @order = ShopifyAPI::Order.find(params[:shopify_order_id])
+    Order.save_shopify_order(shop, @order)
+    format.json { render json: {'message' => "ok", :status => "200"} } 
+  end
 end
