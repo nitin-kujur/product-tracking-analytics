@@ -48,7 +48,7 @@ class Analyticapi::KippController < ApplicationController
         puts "(((((((((((((((((((((((((((((((((((("
           puts "I am into school params else present"
             puts "(((((((((((((((((((((((((((((((((((("
-        @orders.merge(shop.orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%"))
+        @orders = @orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%"))
         puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         puts @orders.inspect
         puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
