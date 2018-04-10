@@ -136,6 +136,10 @@ class Analyticapi::KippController < ApplicationController
       puts "------------------------------------------"
       shop = Shop.where(:shopify_domain => params[:domain]).first
       @orders = shop.orders.paginate(:page => params[:page], :per_page => 50)
+      if params[:start_date].present? && params[:end_date].present?
+        puts "I am into start date end date present parameter"
+        @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
+      end
       @total_orders = @orders.count
       respond_to do |format|
         format.json
