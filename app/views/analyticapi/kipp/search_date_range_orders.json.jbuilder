@@ -2,6 +2,7 @@ json.orders @orders do |order|
   json.id order.shopify_order_id
   json.name order.order_number
   json.school order.school
+  json.cancelled_at order.cancelled_at
   json.email order.customer.try(:email)
   json.first_name order.try(:customer).try(:first_name)
   json.last_name order.try(:customer).try(:last_name)
