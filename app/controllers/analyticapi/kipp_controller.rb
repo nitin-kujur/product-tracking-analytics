@@ -99,7 +99,7 @@ class Analyticapi::KippController < ApplicationController
         if @orders.empty?
           @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) || lower(CONCAT_WS(' ', first_name, last_name)) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         else
-          @orders.merge(shop.orders.joins(:customer).where("lower(CONCAT_WS(' ', first_name, last_name)) || lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
+          @orders = shop.orders.joins(:customer).where("lower(CONCAT_WS(' ', first_name, last_name)) || lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
         end
       end 
 
@@ -116,7 +116,7 @@ class Analyticapi::KippController < ApplicationController
         puts "(((((((((((((((((((((((((((((((((((("
           puts "I am into school params else present"
             puts "(((((((((((((((((((((((((((((((((((("
-        @orders.merge(shop.orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%"))
+        @orders = shop.orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
         puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         puts @orders.inspect
         puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
