@@ -185,11 +185,11 @@ class Analyticapi::KippController < ApplicationController
      				if @order.save
               puts "Order saved"
       				local_order = Order.where(:shopify_order_id => params[:id]).first
-              local_order.order_tags.build(name: "PaidAt", value: params[:school_id])
+              local_order.order_tags.build(name: "PaidAt", value: params[:school])
               local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
               local_order.amount = @order.transactions.last.amount
               local_order.fulfillment_status = @order.fulfillment_status
-              local_order.save
+              local_order.save(:validate => false)
               puts "Local Order saved"
       				UserMailer.order_paid_email(@order, params)
               puts "user email triggered"
