@@ -210,6 +210,9 @@ class Analyticapi::KippController < ApplicationController
 
   def get_order_detail
     if params[:shopify_order_id].present?
+      puts "-------- I am into gt order detail------------"
+      puts params[:shopify_order_id]
+      puts "-------- I am into gt order detail------------"
       @order = Order.find_by_shopify_order_id(params[:shopify_order_id])
       if @order.nil?
         respond_to do |format|
