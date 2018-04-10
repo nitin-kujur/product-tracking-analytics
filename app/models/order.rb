@@ -171,6 +171,9 @@ class Order < ApplicationRecord
           puts l.properties.first.empty?
           puts "================"
           unless l.properties.first.empty?
+            puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
+            puts l.properties.map(&:attributes)[0]["value"]
+            puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
             @order.parent_order_flag = l.properties.map(&:attributes)[0]["value"]
           end
         end       
