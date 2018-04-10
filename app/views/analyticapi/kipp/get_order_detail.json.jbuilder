@@ -9,10 +9,10 @@ json.order do
 	json.discount_codes @order.discount_codes
 	json.shipping_charge (@order.total_price - @order.subtotal_price ) - @order.total_tax
 	json.payment_status @order.financial_status.split('_').map(&:capitalize).join(' ')
-	json.cancel_reason @order.try(:cancelled_at).try(:to_bool).try(:to_s)	
+	json.cancel_reason @order.try(:cancelled_at).try(:to_bool).try(:to_s)
 	json.total_tax @order.total_tax
 	if @order.fulfillment_status.nil? 
-  		json.fulfillment_status  "Unfulfilled" 
+  		json.fulfillment_status  "Unfulfilled"
 	else
   	json.fulfillment_status @order.fulfillment_status.titleize
 	end

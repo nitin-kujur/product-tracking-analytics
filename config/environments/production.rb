@@ -93,13 +93,13 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.default_url_options = { :host => 'https://pepsi-print.herokuapp.com/' }
   config.action_mailer.smtp_settings = {
-    address: 'smtp.office365.com',
+    address: 'smtp.gmail.com',
     port: 587,
-    domain: 'lapineinc',
-    authentication: 'login',
+    domain: 'gmail.com',
+    authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: 'DiamondSeth@LapineInc.com',
-    password: 'dsdsds@123'
+    user_name: 'lapinetest@gmail.com',
+    password: 'pepsiprint'
   }
   config.action_mailer.perform_deliveries = true
 end
