@@ -122,7 +122,7 @@ class Analyticapi::KippController < ApplicationController
           puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       end
       end
-      if params[:start_date].present? && params[:en_date].present?
+      if params[:start_date].present? && params[:end_date].present?
         @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:from_date], params[:to_date])
       end
       @total_orders = @orders.count
