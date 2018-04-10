@@ -213,7 +213,7 @@ class Analyticapi::KippController < ApplicationController
       puts "-------- I am into gt order detail------------"
       puts params[:shopify_order_id]
       puts "-------- I am into gt order detail------------"
-      @order = Order.find_by_shopify_order_id(params[:shopify_order_id])
+      @order = Order.where(:shopify_order_id => params[:shopify_order_id]).first
       puts "-------------------"
       puts @order.count
       puts "-------------------"
