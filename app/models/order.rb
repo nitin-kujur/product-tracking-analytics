@@ -179,7 +179,6 @@ class Order < ApplicationRecord
         :title => l.title,
         :code => l.code,
         :source => l.source,
-        :phone => l.phone,
         :price => l.price,
         :requested_fulfillment_service_id => l.requested_fulfillment_service_id,
         :delivery_category => l.delivery_category,
