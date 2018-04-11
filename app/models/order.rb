@@ -181,7 +181,6 @@ class Order < ApplicationRecord
         :source => l.source,
         :price => l.price,
         :requested_fulfillment_service_id => l.requested_fulfillment_service_id,
-        :delivery_category => l.delivery_category,
         :carrier_identifier => l.carrier_identifier,
         :tax_lines => l.tax_lines.map(&:attributes))
       end
