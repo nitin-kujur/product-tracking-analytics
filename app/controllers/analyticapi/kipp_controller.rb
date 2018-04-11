@@ -220,6 +220,8 @@ class Analyticapi::KippController < ApplicationController
       puts params[:shopify_order_id]
       puts "-------- I am into gt order detail------------"
       @order = Order.where(:shopify_order_id => params[:shopify_order_id]).first
+      @ocr = URI.decode(@order.tags.try(:split, ',').collect(&:strip).select{|x| /Ocr\d*:/ =~ x}.sort.join.gsub(/Ocr\d*:/,""))
+      @ocr = @ocr.present? ? @ocr : nil
       
       if @order.nil?
         respond_to do |format|  
