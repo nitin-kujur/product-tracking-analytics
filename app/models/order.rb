@@ -203,8 +203,8 @@ class Order < ApplicationRecord
     existing_order_numbers = Order.where("shopify_order_id = ? and deleted_at IS NULL",@order.shopify_order_id)
     existing_order_numbers.destroy_all unless existing_order_numbers.first.nil?
     if @order.save(:validate => false)
-      billing_address.order_id = @order.id
-      shipping_address.order_id = @order.id
+      # billing_address.order_id = @order.id
+      # shipping_address.order_id = @order.id
       puts "Order save successfully.........."
     else
       puts "I in not save shopify order block"
