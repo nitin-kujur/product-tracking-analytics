@@ -1,0 +1,2 @@
+class ShippingLine < ApplicationRecord
+end

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  price: 9.99
+  code: MyString
+  source: MyString
+  requested_fulfillment_service_id: MyString
+  carrier_identifier: MyString
+  tax_lines: MyString
+
+two:
+  title: MyString
+  price: 9.99
+  code: MyString
+  source: MyString
+  requested_fulfillment_service_id: MyString
+  carrier_identifier: MyString
+  tax_lines: MyString

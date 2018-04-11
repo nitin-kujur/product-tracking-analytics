@@ -3,13 +3,13 @@ class Order < ApplicationRecord
 	belongs_to :customer, dependent: :destroy
   belongs_to :shop
 	has_many :order_products
+  has_many :shipping_lines
 	has_many :products, through: :order_products, dependent: :destroy
 	has_many :order_order_tags
 	has_many :order_tags, through: :order_order_tags, source: :order_tag, dependent: :destroy
 	belongs_to :billing_address, :class_name => 'Address', :foreign_key => "billing_address_id", dependent: :destroy
   belongs_to :shipping_address, :class_name => 'Address', :foreign_key => "shipping_address_id", dependent: :destroy
   belongs_to :parent_order, :class_name => 'Order', primary_key: :shopify_order_id, foreign_key: :parent_order_id
-  # has_many :child_orders, :class_name => 'Order', primary_key: :child_order_id, foreign_key: :parent_order_id
   accepts_nested_attributes_for :line_items, :billing_address, :shipping_address, :order_products, :order_order_tags, :order_tags
 
   def self.collect_customer_region(tags_str)
@@ -87,6 +87,7 @@ class Order < ApplicationRecord
     @order.discount_codes = shopify_obj.discount_codes
     @order.parent_order_id = parent_id
     @order.cancelled_at = shopify_obj.try(:cancelled_at)
+    @order.tags = shopify_obj.tags
     if shopify_obj.note_attributes.try(:first).try(:name) == "school"
       @order.school = shopify_obj.note_attributes.try(:first).try(:value)
     end
@@ -171,21 +172,37 @@ class Order < ApplicationRecord
         end       
       end
     end  
+
+    if shopify_obj.shipping_lines.present?  
+      shopify_obj.shipping_lines.each do |l|
+        @order.shipping_lines.build(
+        :shopify_shipping_line_id => l.id,
+        :title => l.title,
+        :code => l.code,
+        :source => l.source,
+        :phone => l.phone,
+        :price => l.price,
+        :requested_fulfillment_service_id => l.requested_fulfillment_service_id,
+        :delivery_category => l.delivery_category,
+        :carrier_identifier => l.carrier_identifier,
+        :tax_lines => l.tax_lines.map(&:attributes))
+      end
+    end
           
     if shopify_obj.try(:billing_address).present?  
       billing_address = Address.where(:first_name => shopify_obj.try(:billing_address).try(:first_name), :last_name => shopify_obj.try(:billing_address).try(:last_name), :address1 => shopify_obj.try(:billing_address).try(:address1), :phone => shopify_obj.try(:billing_address).try(:phone), :city => shopify_obj.try(:billing_address).try(:city), :zip => shopify_obj.try(:billing_address).try(:zip), :province => shopify_obj.try(:billing_address).try(:province), :country => shopify_obj.try(:billing_address).try(:country), :address2 => shopify_obj.try(:billing_address).try(:address2), :company => shopify_obj.try(:billing_address).try(:company), :name => shopify_obj.try(:billing_address).try(:name), :country_code => shopify_obj.try(:billing_address).try(:country_code), :province_code => shopify_obj.try(:billing_address).try(:province_code), :address_type => "Billing").first
       if billing_address.try(:first).nil? 
-        billing_address = Address.new(:first_name => shopify_obj.billing_address.first_name, :last_name => shopify_obj.billing_address.last_name, :address1 => shopify_obj.billing_address.address1, :phone => shopify_obj.billing_address.phone, :city => shopify_obj.billing_address.city, :zip => shopify_obj.billing_address.zip, :province => shopify_obj.billing_address.province, :country => shopify_obj.billing_address.country, :address2 => shopify_obj.billing_address.address2, :company => shopify_obj.billing_address.company, :name => shopify_obj.billing_address.name, :country_code => shopify_obj.billing_address.country_code, :province_code => shopify_obj.billing_address.province_code, :address_type => "Billing" )
-        billing_address.save
+        billing_address = @order.biling_address.build(:first_name => shopify_obj.billing_address.first_name, :last_name => shopify_obj.billing_address.last_name, :address1 => shopify_obj.billing_address.address1, :phone => shopify_obj.billing_address.phone, :city => shopify_obj.billing_address.city, :zip => shopify_obj.billing_address.zip, :province => shopify_obj.billing_address.province, :country => shopify_obj.billing_address.country, :address2 => shopify_obj.billing_address.address2, :company => shopify_obj.billing_address.company, :name => shopify_obj.billing_address.name, :country_code => shopify_obj.billing_address.country_code, :province_code => shopify_obj.billing_address.province_code, :address_type => "Billing" )
+        # billing_address.save
       end
     end  
 
     if shopify_obj.try(:shipping_address).present? 
       shipping_address = Address.where(:first_name => shopify_obj.try(:shipping_address).try(:first_name), :last_name => shopify_obj.try(:shipping_address).try(:last_name), :address1 => shopify_obj.try(:shipping_address).try(:address1), :phone => shopify_obj.try(:shipping_address).try(:phone), :city => shopify_obj.try(:shipping_address).try(:city), :zip => shopify_obj.try(:shipping_address).try(:zip), :province => shopify_obj.try(:shipping_address).try(:province), :country => shopify_obj.try(:shipping_address).try(:country), :address2 => shopify_obj.try(:shipping_address).try(:address2), :company => shopify_obj.try(:shipping_address).try(:company), :name => shopify_obj.try(:shipping_address).try(:name), :country_code => shopify_obj.try(:shipping_address).try(:country_code), :province_code => shopify_obj.try(:shipping_address).try(:province_code), :address_type => "Shipping").first
-      shipping_address = Address.create(:first_name => shopify_obj.shipping_address.first_name, :last_name => shopify_obj.shipping_address.last_name, :address1 => shopify_obj.shipping_address.address1, :phone => shopify_obj.shipping_address.phone, :city => shopify_obj.shipping_address.city, :zip => shopify_obj.shipping_address.zip, :province => shopify_obj.shipping_address.province, :country => shopify_obj.shipping_address.country, :address2 => shopify_obj.shipping_address.address2, :company => shopify_obj.shipping_address.company, :name => shopify_obj.shipping_address.name, :country_code => shopify_obj.shipping_address.country_code, :province_code => shopify_obj.shipping_address.province_code, :address_type => "Shipping") if shipping_address.nil?
+      shipping_address = @order.shipping_address.build(:first_name => shopify_obj.shipping_address.first_name, :last_name => shopify_obj.shipping_address.last_name, :address1 => shopify_obj.shipping_address.address1, :phone => shopify_obj.shipping_address.phone, :city => shopify_obj.shipping_address.city, :zip => shopify_obj.shipping_address.zip, :province => shopify_obj.shipping_address.province, :country => shopify_obj.shipping_address.country, :address2 => shopify_obj.shipping_address.address2, :company => shopify_obj.shipping_address.company, :name => shopify_obj.shipping_address.name, :country_code => shopify_obj.shipping_address.country_code, :province_code => shopify_obj.shipping_address.province_code, :address_type => "Shipping") if shipping_address.nil?
     end  
-    @order.billing_address_id = billing_address.try(:id) if shopify_obj.try(:billing_address).present? 
-    @order.shipping_address_id = shipping_address.try(:id) if shopify_obj.try(:shipping_address).present? 
+    # @order.billing_address_id = billing_address.try(:id) if shopify_obj.try(:billing_address).present? 
+    # @order.shipping_address_id = shipping_address.try(:id) if shopify_obj.try(:shipping_address).present? 
     existing_order_numbers = Order.where("shopify_order_id = ? and deleted_at IS NULL",@order.shopify_order_id)
     existing_order_numbers.destroy_all unless existing_order_numbers.first.nil?
     if @order.save(:validate => false)
