@@ -176,7 +176,6 @@ class Order < ApplicationRecord
     if shopify_obj.shipping_lines.present?  
       shopify_obj.shipping_lines.each do |l|
         @order.shipping_lines.build(
-        :shopify_shipping_line_id => l.id,
         :title => l.title,
         :code => l.code,
         :source => l.source,
