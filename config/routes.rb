@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get '/get_order_detail', to: 'kipp#get_order_detail', format: 'json'
     get '/cancel_order', to: 'kipp#cancel_order', format: 'json'
     get '/save_order', to: 'kipp#save_shopify_order', format: 'json'
+    get '/update_order_webhook', to 'kipp#update_order_webhook', format: 'json'
   end
 
   get 'home/index', as: :login
