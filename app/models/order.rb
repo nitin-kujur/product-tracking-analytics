@@ -163,13 +163,15 @@ class Order < ApplicationRecord
         puts shopify_obj.financial_status
         puts "-------- I am into fix mtn dew --------------------"
         if shop.shop_type == "premium" && shopify_obj.financial_status == ("pending" || "paid")
-          unless l.properties.first.empty?
-            puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
-            puts l.properties.map(&:attributes)[0]["value"]
-            puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
-            @order.parent_order_flag = l.properties.map(&:attributes)[0]["value"]
+          unless l.properties.first.nil?
+            unless l.properties.first.empty?
+              puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
+              puts l.properties.map(&:attributes)[0]["value"]
+              puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
+              @order.parent_order_flag = l.properties.map(&:attributes)[0]["value"]
+            end
           end
-        end       
+        end
       end
     end  
 
