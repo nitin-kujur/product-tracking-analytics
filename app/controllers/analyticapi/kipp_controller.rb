@@ -292,6 +292,10 @@ class Analyticapi::KippController < ApplicationController
 
   def update_order_webhook
     db_shopify_updated_at = Order.find_by_shopify_id(params[:id]).shopify_updated_at
+    puts "-----------------------"
+    puts db_shopify_updated_at.strftime("%m/%d/%Y/%s")
+    puts params[:updated_at].strftime("%m/%d/%Y/%s")
+    puts "-----------------------"
     unless db_shopify_updated_at.strftime("%m/%d/%Y/%s") == params[:updated_at].strftime("%m/%d/%Y/%s")
       shop = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
       shopify_obj = params
