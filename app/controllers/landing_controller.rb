@@ -196,7 +196,6 @@ class LandingController < ApplicationController
 
   def update_order_webhook
     puts "-------------------------------------"
-    puts params
     puts db_shopify_updated_at.strftime("%m/%d/%Y/%s") 
     puts params[:updated_at].strftime("%m/%d/%Y/%s")
     puts "-------------------------------------"
