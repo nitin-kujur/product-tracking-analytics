@@ -7,7 +7,7 @@ json.order do
 	json.created_at @order.shopify_created_at.strftime("%m/%d/%Y")
 	json.cancelled_at @order.cancelled_at.try(:strftime, "%m/%d/%Y")
 	json.discount_codes @order.discount_codes
-	json.shipping_charge number_with_precision((@order.total_price - @order.subtotal_price ) - @order.total_tax), :precision => 2)
+	json.shipping_charge number_with_precision(((@order.total_price - @order.subtotal_price ) - @order.total_tax), :precision => 2)
 	json.shipping_ines @order.shipping_lines
 	json.payment_status @order.financial_status.split('_').map(&:capitalize).join(' ')
 	json.cancel_reason @order.cancelled_at ? @ocr || @order.tags.try(:split, ',').collect(&:strip).select{|x| /Ocr:/ =~ x}.first.try(:split, ":").try(:last) || "Other" : ""
