@@ -205,15 +205,18 @@ class LandingController < ApplicationController
     puts params[:updated_at].to_date.strftime("%s")
     puts "-------------------------------------"
     unless db_shopify_updated_at.strftime("%s") == params[:updated_at].to_date.strftime("%s")
-      shop = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
+      shop_name = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
       puts "---------------------" 
-      puts shop.inspect 
+      puts shop_name.inspect 
       puts "---------------------" 
-      shop = Shop.where(:shopify_domain => shop)
+      shop = Shop.where(:shopify_domain => "#{shop_name}")
       puts "==========shop to be printed============"
       Shop.set_session(shop)
       puts "SEssion set"
       order = ShopifyAPI::Order.find(params[:id])
+      puts "------------------------"
+      puts order.inspect
+      puts "------------------------"
       puts "Order get called"
       Order.save_shopify_order(shop, order)
       puts "Order get called 1"
