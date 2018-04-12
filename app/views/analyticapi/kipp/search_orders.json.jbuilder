@@ -13,7 +13,7 @@ json.orders @orders do |order|
   else
     json.fulfillment_status order.fulfillment_status.titleize
   end
-  json.total_price order.total_price
+  json.total_price number_with_precision(order.total_price, :precision => 2)
 end
 json.total_orders @total_orders
 json.per_page @per_page
