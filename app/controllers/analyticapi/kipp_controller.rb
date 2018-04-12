@@ -289,22 +289,4 @@ class Analyticapi::KippController < ApplicationController
     Order.save_shopify_order(shop, @order)
     format.json { render json: {'message' => "ok", :status => "200"} } 
   end
-
-  def update_order_webhook
-    puts "-------------------------------------"
-    puts params
-    puts db_shopify_updated_at.strftime("%m/%d/%Y/%s") 
-    puts params[:updated_at].strftime("%m/%d/%Y/%s")
-    puts "-------------------------------------"
-    db_shopify_updated_at = Order.find_by_shopify_id(params[:id]).shopify_updated_at
-    unless db_shopify_updated_at.strftime("%m/%d/%Y/%s") == params[:updated_at].strftime("%m/%d/%Y/%s")
-      shop = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
-      shopify_obj = params
-      Order.save_shopify_order(shop, shopify_obj)
-    end
-    format.json { render json: {'message' => "ok", :status => "200"} } 
-   
-  end
-
-
 end
