@@ -205,6 +205,9 @@ class LandingController < ApplicationController
     # puts "-------------------------------------"
     # unless db_shopify_updated_at.strftime("%m/%d/%Y/%s") == params[:updated_at].strftime("%m/%d/%Y/%s")
     shop = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
+    puts "---------------------" 
+    puts shop.inspect 
+    puts "---------------------" 
     shopify_obj = params
     # Order.save_shopify_order(shop, shopify_obj)
     # end
