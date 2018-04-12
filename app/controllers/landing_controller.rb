@@ -204,7 +204,7 @@ class LandingController < ApplicationController
     puts params[:updated_at]
     puts params[:updated_at].to_date.strftime("%s")
     puts "-------------------------------------"
-    unless db_shopify_updated_at.strftime("%m/%d/%Y/%s") == params[:updated_at].strftime("%m/%d/%Y/%s")
+    unless db_shopify_updated_at.strftime("%s") == params[:updated_at].to_date.strftime("%s")
       shop = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
       puts "---------------------" 
       puts shop.inspect 
