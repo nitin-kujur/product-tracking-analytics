@@ -7,7 +7,8 @@ json.order do
 	json.created_at @order.shopify_created_at.strftime("%m/%d/%Y")
 	json.cancelled_at @order.cancelled_at.try(:strftime, "%m/%d/%Y")
 	json.discount_codes @order.discount_codes
-	json.shipping_charge (@order.total_price - @order.subtotal_price ) - @order.total_tax
+	json.shipping_charge ((@order.total_price - @order.subtotal_price ) - @order.total_tax).round(2)
+	json.shipping_ines @order.shipping_lines
 	json.payment_status @order.financial_status.split('_').map(&:capitalize).join(' ')
 	json.cancel_reason @order.cancelled_at ? @ocr || @order.tags.try(:split, ',').collect(&:strip).select{|x| /Ocr:/ =~ x}.first.try(:split, ":").try(:last) || "Other" : ""
 	json.total_tax @order.total_tax
@@ -16,8 +17,8 @@ json.order do
 	else
   	json.fulfillment_status @order.fulfillment_status.titleize
 	end
-	json.total_price @order.total_price
-	json.subtotal_price @order.subtotal_price
+	json.total_price @order.total_price.round(2)
+	json.subtotal_price @order.subtotal_price.round(2)
 	json.line_items @order.line_items
 	json.products @order.products
 	json.billing_address @order.billing_address

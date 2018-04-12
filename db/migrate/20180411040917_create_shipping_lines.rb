@@ -8,7 +8,6 @@ class CreateShippingLines < ActiveRecord::Migration[5.1]
       t.string :requested_fulfillment_service_id
       t.string :carrier_identifier
       t.json   :tax_lines, :array => true
-
       t.timestamps
     end
   end
