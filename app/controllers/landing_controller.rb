@@ -1,5 +1,5 @@
 class LandingController < ApplicationController
-  before_action :set_shop
+  before_filter :authenticate_user!, except: :update_order_webhook
   require 'will_paginate/array'
   def index
     puts "***********************************"
@@ -206,12 +206,5 @@ class LandingController < ApplicationController
       Order.save_shopify_order(shop, shopify_obj)
     end
     format.json { render json: {'message' => "ok", :status => "200"} } 
-  end
-
-  private
-
-  def set_shop
-    puts "I am in set_shop"
-    
   end
 end
