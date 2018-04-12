@@ -209,10 +209,14 @@ class LandingController < ApplicationController
       puts "---------------------" 
       puts shop.inspect 
       puts "---------------------" 
-      Shop.where(:shopify_domain => shop)
+      shop = Shop.where(:shopify_domain => shop)
+      puts "==========shop to be printed============"
       Shop.set_session(shop)
+      puts "SEssion set"
       order = ShopifyAPI::Order.find(params[:id])
+      puts "Order get called"
       Order.save_shopify_order(shop, order)
+      puts "Order get called 1"
     end
     format.json { render json: {'message' => "ok", :status => "200"} } 
   end
