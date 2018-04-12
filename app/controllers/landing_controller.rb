@@ -1,5 +1,5 @@
 class LandingController < ApplicationController
-  skip_before_action :authenticate_user!, only: :update_order_webhook
+  # skip_before_action :authenticate_user!, only: :update_order_webhook
   require 'will_paginate/array'
   def index
     puts "***********************************"
