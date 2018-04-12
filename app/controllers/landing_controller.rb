@@ -209,7 +209,9 @@ class LandingController < ApplicationController
       puts "---------------------" 
       puts shop_name.inspect 
       puts "---------------------" 
-      shop = Shop.where(:shopify_domain => "#{shop_name}")
+      shop = Shop.where(:shopify_domain => "#{shop_name}").first
+      puts "---------------------"
+      puts shop.inspect 
       puts "==========shop to be printed============"
       Shop.set_session(shop)
       puts "SEssion set"
