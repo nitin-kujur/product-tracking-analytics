@@ -204,11 +204,10 @@ class LandingController < ApplicationController
     # puts params[:updated_at].strftime("%m/%d/%Y/%s")
     # puts "-------------------------------------"
     # unless db_shopify_updated_at.strftime("%m/%d/%Y/%s") == params[:updated_at].strftime("%m/%d/%Y/%s")
-      shop = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
-      shopify_obj = params
-      Order.save_shopify_order(shop, shopify_obj)
+    shop = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
+    shopify_obj = params
+    # Order.save_shopify_order(shop, shopify_obj)
     # end
     format.json { render json: {'message' => "ok", :status => "200"} } 
-   
   end
 end
