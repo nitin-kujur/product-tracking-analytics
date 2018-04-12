@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   # end
 
   post 'update_order_webhook' => "landing#update_order_webhook"
-  post '/update_order_webhook' => "custom_webhooks#update_order_webhook"
+  post '/update_order_webhook' => "landing#update_order_webhook"
   get 'order_order_tag/index'
 
   get 'product_product_tag/index'
