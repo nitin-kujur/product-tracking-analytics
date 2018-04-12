@@ -204,6 +204,6 @@ class LandingController < ApplicationController
       shopify_obj = params
       Order.save_shopify_order(shop, shopify_obj)
     end
-    render status: :ok
+    format.json { render json: {'message' => "ok", :status => "200"} } 
   end
 end
