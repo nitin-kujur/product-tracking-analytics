@@ -192,35 +192,5 @@ class LandingController < ApplicationController
       @flag = "no_search_result"
     end
   end
-
-  def update_order_webhook
-    # puts "-------------------------------------"
-    # puts params
-    # puts db_shopify_updated_at.strftime("%m/%d/%Y/%s") 
-    # puts params[:updated_at].strftime("%m/%d/%Y/%s")
-    # puts "-------------------------------------"
-    # db_shopify_updated_at = Order.find_by_shopify_id(params[:id]).shopify_updated_at
-    # unless db_shopify_updated_at.strftime("%m/%d/%Y/%s") == params[:updated_at].strftime("%m/%d/%Y/%s")
-    #   shop = request.headers["HTTP_X_SHOPIFY_SHOP_DOMAIN"]
-    #   shopify_obj = params
-    #   Order.save_shopify_order(shop, shopify_obj)
-    # end
-    # format.json { render json: {'message' => "ok", :status => "200"} } 
-    verify_webhook(request)
-
-    # Send back a 200 OK response
-    head :ok
-  end
-
-  def verify_webhook(request)
-    header_hmac = request.headers["HTTP_X_SHOPIFY_HMAC_SHA256"]
-    digest = OpenSSL::Digest.new("sha256")
-    request.body.rewind
-    calculated_hmac = Base64.encode64(OpenSSL::HMAC.digest(digest, SHARED_SECRET, request.body.read)).strip
-
-    puts "header hmac: #{header_hmac}"
-    puts "calculated hmac: #{calculated_hmac}"
-
-    puts "Verified:#{ActiveSupport::SecurityUtils.secure_compare(calculated_hmac, header_hmac)}"
-  end
+  
 end

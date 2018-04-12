@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     get '/get_order_detail', to: 'kipp#get_order_detail', format: 'json'
     get '/cancel_order', to: 'kipp#cancel_order', format: 'json'
     get '/save_order', to: 'kipp#save_shopify_order', format: 'json'
-    # post '/update_order_webhook', to: 'kipp#update_order_webhook', format: 'json'
+    post '/update_order_webhook', to: 'kipp#update_order_webhook', format: 'json'
+    post 'update_order_webhook', to: 'kipp#update_order_webhook', format: 'json'
   end
 
   get 'home/index', as: :login
@@ -25,9 +26,6 @@ Rails.application.routes.draw do
   #   # GET /app_proxy/reviews will now be routed to
   #   # AppProxy::ReviewsController#index, for example
   # end
-
-  post 'update_order_webhook' => "landing#update_order_webhook"
-  post '/update_order_webhook' => "landing#update_order_webhook"
   get 'order_order_tag/index'
 
   get 'product_product_tag/index'
