@@ -148,7 +148,7 @@ class Analyticapi::KippController < ApplicationController
       @per_page = params[:per_page]
     end
 
-    if params[:domain].present? && params[:search_term].present? || params[:school].present?
+    if params[:domain].present? && params[:search_term].present? && params[:school].present?
       shop = Shop.where(:shopify_domain => params[:domain]).first
       @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       if @orders.empty?
@@ -157,10 +157,10 @@ class Analyticapi::KippController < ApplicationController
         @orders.merge(shop.orders.joins(:customer).where("lower(CONCAT_WS(' ', first_name, last_name)) || lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
       end
       @orders = @orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
-    elsif params[:domain].present? && !params[:search_term].present? || params[:school].present?
+    elsif params[:domain].present? && !params[:search_term].present? && params[:school].present?
       shop = Shop.where(:shopify_domain => params[:domain]).first
       @orders = shop.orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
-    elsif params[:domain].present? && params[:search_term].present? || !params[:school].present?
+    elsif params[:domain].present? && params[:search_term].present? && !params[:school].present?
       shop = Shop.where(:shopify_domain => params[:domain]).first
       @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
       if @orders.empty?
@@ -168,7 +168,7 @@ class Analyticapi::KippController < ApplicationController
       else
         @orders.merge(shop.orders.joins(:customer).where("lower(CONCAT_WS(' ', first_name, last_name)) || lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
       end
-    elsif params[:domain].present? && !params[:search_term].present? || !params[:school].present?     
+    elsif params[:domain].present? && !params[:search_term].present? && !params[:school].present?     
       shop = Shop.where(:shopify_domain => params[:domain]).first
       @orders = shop.orders
     end
