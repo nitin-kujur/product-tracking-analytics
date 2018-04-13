@@ -88,6 +88,10 @@ class Analyticapi::KippController < ApplicationController
 
     unless @orders.empty?
       if params[:order].present?
+        puts "==============================="
+        puts "I am in order name params present"
+        puts params[:order]
+        puts "==============================="
       @order = @orders.order(order_number: "#{params[:order]}")
       respond_to do |format|
         format.json
