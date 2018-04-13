@@ -433,7 +433,7 @@ class Analyticapi::KippController < ApplicationController
       if params[:order].present?
         @orders = @orders.order(order_number: "#{params[:order]}")
       elsif params[:order_by].present?
-        @orders = @orders.joins(:customer).order("customers.first_name #{params[:order_by]}")
+        @orders = @orders.joins(:customer).order("customers.first_name #{params[:order_by]}, customers.last_name #{params[:order_by]}")
       elsif params[:date].present?
         @orders = @orders.order(shopify_created_at: "#{params[:date]}")
       elsif params[:school_sort].present?
