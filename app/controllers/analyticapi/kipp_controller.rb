@@ -97,7 +97,7 @@ class Analyticapi::KippController < ApplicationController
           format.json
         end
       elsif params[:order_by].present?
-      @orders = @orders.joins(:customer).order("customer.first_name #{params[:order]}")
+      @orders = @orders.joins(:customer).order("customers.first_name #{params[:order]}")
       respond_to do |format|
         format.json
       end
