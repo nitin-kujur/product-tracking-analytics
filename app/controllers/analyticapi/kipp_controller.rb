@@ -66,7 +66,7 @@ class Analyticapi::KippController < ApplicationController
 
     if params[:start_date].present? && params[:end_date].present?
       if @orders.empty?
-        @orders = Order.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
+        @orders = shop.orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
         @total_orders = @orders.count
       else
         @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
@@ -82,10 +82,56 @@ class Analyticapi::KippController < ApplicationController
         end
       else
         @orders = @orders.paginate(:page => params[:page], :per_page => 50)
-        @total_orders = @orders.count
-        respond_to do |format|
-          format.json
-        end  
+        @total_orders = @orders.count  
+      end
+    end
+
+    unless @orders.empty?
+      if params[:order].present?
+      @order = @orders.order(order_number: "#{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:order_by].present?
+      @order = @orders.joins(:customer).order("customer.first_name #{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:date].present?
+      @order = @orders.order(shopify_created_at: "#{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:school_sort]
+      @order = @orders.order(school: "#{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:payment_status]
+      @order = @orders.order(financial_status: "#{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:order_status]
+      @order = @orders.order(fulfillment_status: "#{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:tracking_id]
+      @order = @orders.order(shopify_tracking_id: "#{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:quantity]
+      @order = @orders.joins(:line_items).order("line_items.quantity #{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:total]
+      @order = @orders.order(total_price: "#{params[:order]}")
+      respond_to do |format|
+        format.json
+      end
       end
     end
   end
