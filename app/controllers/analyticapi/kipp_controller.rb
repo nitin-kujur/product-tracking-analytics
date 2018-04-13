@@ -55,9 +55,6 @@ class Analyticapi::KippController < ApplicationController
       end
       end
       @total_orders = @orders.count
-	 	  respond_to do |format|
-        format.json
-      end
 	  elsif params[:domain].present?
       puts "------------------------------------------"
       puts "Only domain present"
@@ -65,17 +62,32 @@ class Analyticapi::KippController < ApplicationController
   		shop = Shop.where(:shopify_domain => params[:domain]).first
 	 	  @orders = shop.orders.paginate(:page => params[:page], :per_page => 50)
       @total_orders = @orders.count
-	 	  respond_to do |format|
-        format.json
-      end  
-  	else
-      respond_to do |format|  ## Add this
-        puts "++++++++++++++++++++++++++="
-        puts "I am into else"
-        puts "++++++++++++++++++++++++++="
-    		format.json { render json: {'error' => 'No orders found..', :status => "400"} }
-    	end
   	end
+
+    if params[:start_date].present? && params[:end_date].present?
+      if @orders.empty?
+        @orders = Order.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
+        @total_orders = @orders.count
+      else
+        @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
+        @total_orders = @orders.count
+      end
+    else
+      if @orders.empty?
+        respond_to do |format|  ## Add this
+          puts "++++++++++++++++++++++++++="
+          puts "I am into else"
+          puts "++++++++++++++++++++++++++="
+          format.json { render json: {'error' => 'No orders found..', :status => "400"} }
+        end
+      else
+        @orders = @orders.paginate(:page => params[:page], :per_page => 50)
+        @total_orders = @orders.count
+        respond_to do |format|
+          format.json
+        end  
+      end
+    end
   end
 
 
