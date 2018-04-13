@@ -88,51 +88,51 @@ class Analyticapi::KippController < ApplicationController
 
     unless @orders.empty?
       if params[:order].present?
+        @orders = @orders.order(order_number: "#{params[:order]}")
         puts "==============================="
         puts "I am in order name params present"
-        puts params[:order]
+        puts @orders.map(&:order_number)
         puts "==============================="
-      @order = @orders.order(order_number: "#{params[:order]}")
-      respond_to do |format|
-        format.json
-      end
+        respond_to do |format|
+          format.json
+        end
       elsif params[:order_by].present?
-      @order = @orders.joins(:customer).order("customer.first_name #{params[:order]}")
+      @orders = @orders.joins(:customer).order("customer.first_name #{params[:order]}")
       respond_to do |format|
         format.json
       end
       elsif params[:date].present?
-      @order = @orders.order(shopify_created_at: "#{params[:order]}")
+      @orders = @orders.order(shopify_created_at: "#{params[:order]}")
       respond_to do |format|
         format.json
       end
       elsif params[:school_sort]
-      @order = @orders.order(school: "#{params[:order]}")
+      @orders = @orders.order(school: "#{params[:order]}")
       respond_to do |format|
         format.json
       end
       elsif params[:payment_status]
-      @order = @orders.order(financial_status: "#{params[:order]}")
+      @orders = @orders.order(financial_status: "#{params[:order]}")
       respond_to do |format|
         format.json
       end
       elsif params[:order_status]
-      @order = @orders.order(fulfillment_status: "#{params[:order]}")
+      @orders = @orders.order(fulfillment_status: "#{params[:order]}")
       respond_to do |format|
         format.json
       end
       elsif params[:tracking_id]
-      @order = @orders.order(shopify_tracking_id: "#{params[:order]}")
+      @orders = @orders.order(shopify_tracking_id: "#{params[:order]}")
       respond_to do |format|
         format.json
       end
       elsif params[:quantity]
-      @order = @orders.joins(:line_items).order("line_items.quantity #{params[:order]}")
+      @orders = @orders.joins(:line_items).order("line_items.quantity #{params[:order]}")
       respond_to do |format|
         format.json
       end
       elsif params[:total]
-      @order = @orders.order(total_price: "#{params[:order]}")
+      @orders = @orders.order(total_price: "#{params[:order]}")
       respond_to do |format|
         format.json
       end
