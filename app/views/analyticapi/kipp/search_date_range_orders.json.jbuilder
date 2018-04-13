@@ -7,6 +7,8 @@ json.orders @orders do |order|
   json.first_name order.try(:customer).try(:first_name)
   json.last_name order.try(:customer).try(:last_name)
   json.created_at order.shopify_created_at.strftime("%m/%d/%Y")
+  json.shopify_tracking_id order.shopify_tracking_id
+  json.quantity order.line_items.sum(:quantity)
   json.payment_status order.financial_status.split('_').map(&:capitalize).join(' ')
   if order.fulfillment_status.nil? 
     json.fulfillment_status  "Unfulfilled" 
