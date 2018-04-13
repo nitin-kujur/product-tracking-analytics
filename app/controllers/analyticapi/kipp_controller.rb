@@ -89,83 +89,46 @@ class Analyticapi::KippController < ApplicationController
     unless @orders.empty?
       if params[:order].present?
         @orders = @orders.order(order_number: "#{params[:order]}")
-        puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
         respond_to do |format|
           format.json
         end
       elsif params[:order_by].present?
       @orders = @orders.joins(:customer).order("customers.first_name #{params[:order_by]}")
-      puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
       respond_to do |format|
         format.json
       end
       elsif params[:date].present?
       @orders = @orders.order(shopify_created_at: "#{params[:date]}")
-      puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
       respond_to do |format|
         format.json
       end
       elsif params[:school_sort].present?
       @orders = @orders.order(school: "#{params[:school_sort]}")
-      puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
       respond_to do |format|
         format.json
       end
       elsif params[:payment_status].present?
       @orders = @orders.order(financial_status: "#{params[:payment_status]}")
-      puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
       respond_to do |format|
         format.json
       end
       elsif params[:order_status].present?
       @orders = @orders.order(fulfillment_status: "#{params[:order_status]}")
-
-      puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
       respond_to do |format|
         format.json
       end
       elsif params[:tracking_id].present?
       @orders = @orders.order(shopify_tracking_id: "#{params[:tracking_id]}")
-      puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
       respond_to do |format|
         format.json
       end
       elsif params[:quantity].present?
       @orders = @orders.joins(:line_items).order("line_items.quantity #{params[:quantity]}")
-      puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
       respond_to do |format|
         format.json
       end
       elsif params[:total].present?
       @orders = @orders.order(total_price: "#{params[:total]}")
-      puts "==============================="
-        puts "I am in order name params present"
-        puts @orders.map(&:order_number)
-        puts "==============================="
       respond_to do |format|
         format.json
       end
@@ -221,6 +184,54 @@ class Analyticapi::KippController < ApplicationController
         puts "I am into start date end date present parameter"
         @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
       end
+      unless @orders.empty?
+      if params[:order].present?
+        @orders = @orders.order(order_number: "#{params[:order]}")
+        respond_to do |format|
+          format.json
+        end
+      elsif params[:order_by].present?
+      @orders = @orders.joins(:customer).order("customers.first_name #{params[:order_by]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:date].present?
+      @orders = @orders.order(shopify_created_at: "#{params[:date]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:school_sort].present?
+      @orders = @orders.order(school: "#{params[:school_sort]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:payment_status].present?
+      @orders = @orders.order(financial_status: "#{params[:payment_status]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:order_status].present?
+      @orders = @orders.order(fulfillment_status: "#{params[:order_status]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:tracking_id].present?
+      @orders = @orders.order(shopify_tracking_id: "#{params[:tracking_id]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:quantity].present?
+      @orders = @orders.joins(:line_items).order("line_items.quantity #{params[:quantity]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:total].present?
+      @orders = @orders.order(total_price: "#{params[:total]}")
+      respond_to do |format|
+        format.json
+      end
+      end
+    end
       @total_orders = @orders.count
       respond_to do |format|
         format.json
@@ -236,6 +247,54 @@ class Analyticapi::KippController < ApplicationController
         @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
       end
       @total_orders = @orders.count
+      unless @orders.empty?
+      if params[:order].present?
+        @orders = @orders.order(order_number: "#{params[:order]}")
+        respond_to do |format|
+          format.json
+        end
+      elsif params[:order_by].present?
+      @orders = @orders.joins(:customer).order("customers.first_name #{params[:order_by]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:date].present?
+      @orders = @orders.order(shopify_created_at: "#{params[:date]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:school_sort].present?
+      @orders = @orders.order(school: "#{params[:school_sort]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:payment_status].present?
+      @orders = @orders.order(financial_status: "#{params[:payment_status]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:order_status].present?
+      @orders = @orders.order(fulfillment_status: "#{params[:order_status]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:tracking_id].present?
+      @orders = @orders.order(shopify_tracking_id: "#{params[:tracking_id]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:quantity].present?
+      @orders = @orders.joins(:line_items).order("line_items.quantity #{params[:quantity]}")
+      respond_to do |format|
+        format.json
+      end
+      elsif params[:total].present?
+      @orders = @orders.order(total_price: "#{params[:total]}")
+      respond_to do |format|
+        format.json
+      end
+      end
+    end
       respond_to do |format|
         format.json
       end  
