@@ -6,7 +6,7 @@ json.orders @orders do |order|
   json.last_name order.try(:customer).try(:last_name)
   json.cancelled_at order.cancelled_at
   json.school order.school
-  json.shopify_tracking_id order.shopify_tracking_id || (order.tags.includes?("fulfilled_at_school")) ? "Fulfilled at School" : ''
+  json.shopify_tracking_id order.shopify_tracking_id || (order.tags.include?("fulfilled_at_school")) ? "Fulfilled at School" : ''
   json.quantity order.line_items.sum(:quantity)
   json.created_at order.shopify_created_at.strftime("%m/%d/%Y")
   json.payment_status order.financial_status.split('_').map(&:capitalize).join(' ')
