@@ -188,7 +188,7 @@ class Analyticapi::KippController < ApplicationController
      				order_tags << "PaidThrough:#{params[:cid]}"
             puts "======================="
             puts params[:fulfilled_at_school]
-            puts params[:fulfilled_at_school]?
+            puts params[:fulfilled_at_school] == true 
             puts "======================="
             if params[:fulfilled_at_school] == true 
               puts "==================================="
