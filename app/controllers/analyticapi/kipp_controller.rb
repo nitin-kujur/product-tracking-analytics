@@ -2,140 +2,6 @@ class Analyticapi::KippController < ApplicationController
   def index
   end
 
-
-  # Response : {"order":[{"id":"375065706558","name":"LTS1096","email":"nkujur@lapineinc.com","first_name":"Nitin","last_name":"Kujur","date_unix":"03/15/2018","created_at":"March 15, 2018","payment_status":"Pending","fulfillment_status":"Unfulfilled","total_price":"$85.08"}]}
-  # Type : get
-  # Params : params["search_term"], params["school"], params["domain"], params["page"]
-  # def search_orders
-  #   @orders = []
-	 #  puts "=============================="
-	 #  puts params  	
-	 #  puts "=============================="
-  #   if params[:page].present? && params[:per_page].present?
-  #     @page = params[:page]
-  #     @per_page = params[:per_page]
-  #   else
-  #     params[:page] = 1
-  #     params[:per_page] = 10
-  #     @page = params[:page]
-  #     @per_page = params[:per_page]
-  #   end
-
-	 #  if params[:domain].present? && params[:search_term].present? || params[:school].present?
-  #     puts "------------------------------------------"
-  #     puts "domain and search term present"
-  #     puts "------------------------------------------"
-	 # 	  shop = Shop.where(:shopify_domain => params[:domain]).first
-  #     if params[:search_term].present?
-	 # 	   @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
-  #      if @orders.empty?
-  #       @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) || lower(CONCAT_WS(' ', first_name, last_name)) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
-  #     else
-  #       @orders.merge(shop.orders.joins(:customer).where("lower(CONCAT_WS(' ', first_name, last_name)) || lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50))
-  #     end
-  #     end 
-
-  #     if params[:school].present?
-  #       puts "(((((((((((((((((((((((((((((((((((("
-  #         puts "I am into school params present"
-  #           puts "(((((((((((((((((((((((((((((((((((("
-  #       if @orders.empty?
-  #       @orders = shop.orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
-  #       puts "+++++++++++++++++++++++++++"
-  #       puts @orders.inspect
-  #       puts "+++++++++++++++++++++++++++"
-  #     else
-  #       puts "(((((((((((((((((((((((((((((((((((("
-  #         puts "I am into school params else present"
-  #           puts "(((((((((((((((((((((((((((((((((((("
-  #       @orders = @orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
-  #       puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  #       puts @orders.inspect
-  #       puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  #     end
-  #     end
-  #     @total_orders = @orders.count
-	 #  elsif params[:domain].present?
-  #     puts "------------------------------------------"
-  #     puts "Only domain present"
-  #     puts "------------------------------------------"
-  # 		shop = Shop.where(:shopify_domain => params[:domain]).first
-	 # 	  @orders = shop.orders.paginate(:page => params[:page], :per_page => 50)
-  #     @total_orders = @orders.count
-  # 	end
-
-  #   if params[:start_date].present? && params[:end_date].present?
-  #     if @orders.empty?
-  #       @orders = shop.orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
-  #       @total_orders = @orders.count
-  #     else
-  #       @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
-  #       @total_orders = @orders.count
-  #     end
-  #   else
-  #     if @orders.empty?
-  #       respond_to do |format|  ## Add this
-  #         puts "++++++++++++++++++++++++++="
-  #         puts "I am into else"
-  #         puts "++++++++++++++++++++++++++="
-  #         format.json { render json: {'error' => 'No orders found..', :status => "400"} }
-  #       end
-  #     else
-  #       @orders = @orders.paginate(:page => params[:page], :per_page => 50)
-  #       @total_orders = @orders.count  
-  #     end
-  #   end
-
-  #   unless @orders.empty?
-  #     if params[:order].present?
-  #       @orders = @orders.order(order_number: "#{params[:order]}")
-  #       respond_to do |format|
-  #         format.json
-  #       end
-  #     elsif params[:order_by].present?
-  #     @orders = @orders.joins(:customer).order("customers.first_name #{params[:order_by]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:date].present?
-  #     @orders = @orders.order(shopify_created_at: "#{params[:date]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:school_sort].present?
-  #     @orders = @orders.order(school: "#{params[:school_sort]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:payment_status].present?
-  #     @orders = @orders.order(financial_status: "#{params[:payment_status]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:order_status].present?
-  #     @orders = @orders.order(fulfillment_status: "#{params[:order_status]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:tracking_id].present?
-  #     @orders = @orders.order(shopify_tracking_id: "#{params[:tracking_id]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:quantity].present?
-  #     @orders = @orders.joins(:line_items).order("line_items.quantity #{params[:quantity]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:total].present?
-  #     @orders = @orders.order(total_price: "#{params[:total]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     end
-  #   end
-  # end
-
   def search_orders
     @orders = []
     if params[:page].present? && params[:per_page].present?
@@ -214,179 +80,6 @@ class Analyticapi::KippController < ApplicationController
       end
     end
   end
-
-
-  # def search_date_range_orders
-  #   @orders = []
-    
-  #   if params[:page].present? && params[:per_page].present?
-  #     @page = params[:page]
-  #     @per_page = params[:per_page]
-  #   else
-  #     params[:page] = 1
-  #     params[:per_page] = 10
-  #     @page = params[:page]
-  #     @per_page = params[:per_page]
-  #   end
-
-  #   if params[:domain].present? && params[:search_term].present? || params[:school].present?
-  #     shop = Shop.where(:shopify_domain => params[:domain]).first
-  #     if params[:search_term].present?
-  #      @orders = shop.orders.where("lower(order_number) like ?", "%#{params[:search_term].strip.downcase}%" ).where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
-  #       if @orders.empty?
-  #         @orders = shop.orders.joins(:customer).where("lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) || lower(CONCAT_WS(' ', first_name, last_name)) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
-  #       else
-  #         @orders = @orders.joins(:customer).where("lower(CONCAT_WS(' ', first_name, last_name)) || lower(customers.first_name) || lower(customers.last_name) || lower(customers.email) like ?", "%#{params[:search_term].strip.downcase}%").where(:cancelled_at => nil).paginate(:page => params[:page], :per_page => 50)
-  #       end
-  #     end 
-
-  #     if params[:school].present?
-  #       puts "(((((((((((((((((((((((((((((((((((("
-  #         puts "I am into school params present"
-  #           puts "(((((((((((((((((((((((((((((((((((("
-  #       if @orders.empty?
-  #         @orders = shop.orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
-  #         puts "+++++++++++++++++++++++++++"
-  #         puts @orders.inspect
-  #         puts "+++++++++++++++++++++++++++"
-  #     else
-  #         puts "(((((((((((((((((((((((((((((((((((("
-  #         puts "I am into school params else present"
-  #         puts "(((((((((((((((((((((((((((((((((((("
-  #         @orders = @orders.where("lower(school) like ?", "%#{params[:school].strip.downcase}%")
-  #         puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  #         puts @orders.inspect
-  #         puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  #     end
-  #     end
-  #     if params[:start_date].present? && params[:end_date].present?
-  #       puts "I am into start date end date present parameter"
-  #       @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
-  #     end
-  #     unless @orders.empty?
-  #     if params[:order].present?
-  #       @orders = @orders.order(order_number: "#{params[:order]}")
-  #       respond_to do |format|
-  #         format.json
-  #       end
-  #     elsif params[:order_by].present?
-  #     @orders = @orders.joins(:customer).order("customers.first_name #{params[:order_by]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:date].present?
-  #     @orders = @orders.order(shopify_created_at: "#{params[:date]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:school_sort].present?
-  #     @orders = @orders.order(school: "#{params[:school_sort]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:payment_status].present?
-  #     @orders = @orders.order(financial_status: "#{params[:payment_status]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:order_status].present?
-  #     @orders = @orders.order(fulfillment_status: "#{params[:order_status]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:tracking_id].present?
-  #     @orders = @orders.order(shopify_tracking_id: "#{params[:tracking_id]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:quantity].present?
-  #     @orders = @orders.joins(:line_items).order("line_items.quantity #{params[:quantity]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:total].present?
-  #     @orders = @orders.order(total_price: "#{params[:total]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     end
-  #   end
-  #     @total_orders = @orders.count
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #   elsif params[:domain].present?
-  #     puts "------------------------------------------"
-  #     puts "Only domain present"
-  #     puts "------------------------------------------"
-  #     shop = Shop.where(:shopify_domain => params[:domain]).first
-  #     @orders = shop.orders.paginate(:page => params[:page], :per_page => 50)
-  #     if params[:start_date].present? && params[:end_date].present?
-  #       puts "I am into start date end date present parameter"
-  #       @orders = @orders.where("DATE(shopify_created_at) BETWEEN ? AND ?", params[:start_date], params[:end_date])
-  #     end
-  #     @total_orders = @orders.count
-  #     unless @orders.empty?
-  #     if params[:order].present?
-  #       @orders = @orders.order(order_number: "#{params[:order]}")
-  #       respond_to do |format|
-  #         format.json
-  #       end
-  #     elsif params[:order_by].present?
-  #     @orders = @orders.joins(:customer).order("customers.first_name #{params[:order_by]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:date].present?
-  #     @orders = @orders.order(shopify_created_at: "#{params[:date]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:school_sort].present?
-  #     @orders = @orders.order(school: "#{params[:school_sort]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:payment_status].present?
-  #     @orders = @orders.order(financial_status: "#{params[:payment_status]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:order_status].present?
-  #     @orders = @orders.order(fulfillment_status: "#{params[:order_status]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:tracking_id].present?
-  #     @orders = @orders.order(shopify_tracking_id: "#{params[:tracking_id]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:quantity].present?
-  #     @orders = @orders.joins(:line_items).order("line_items.quantity #{params[:quantity]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     elsif params[:total].present?
-  #     @orders = @orders.order(total_price: "#{params[:total]}")
-  #     respond_to do |format|
-  #       format.json
-  #     end
-  #     end
-  #   end
-  #     respond_to do |format|
-  #       format.json
-  #     end  
-  #   else
-  #     respond_to do |format|  ## Add this
-  #       puts "++++++++++++++++++++++++++="
-  #       puts "I am into else"
-  #       puts "++++++++++++++++++++++++++="
-  #       format.json { render json: {'error' => 'No orders found..', :status => "400"} }
-  #     end
-  #   end
-
-  # end
 
   def search_date_range_orders
     @orders = []
@@ -600,5 +293,20 @@ class Analyticapi::KippController < ApplicationController
     @order = ShopifyAPI::Order.find(params[:shopify_order_id])
     Order.save_shopify_order(shop, @order)
     format.json { render json: {'message' => "ok", :status => "200"} } 
+  end
+
+  def product_track
+    puts "---------Number of params present--------"
+    puts params
+    puts "---------Number of params present--------"
+    @product_track_arr = []
+    if params[:domain].present? 
+      @shop.orders.each do |order|
+        order.products.each do |product|
+          product.variants.each do |variant|
+            product_track_arr = {:sku = variant.sku, :product_name = product.title, :unit_sold = order.quantity, :amount = order.total_price, :boh = variant.inventory_quantity, :eoh = variant.inventory_quantity - order.quantity}
+          end
+      end
+    end
   end
 end
