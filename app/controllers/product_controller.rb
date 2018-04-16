@@ -189,7 +189,8 @@ class ProductController < ApplicationController
     puts params
     puts "---------Number of params present--------"
     @product_track_arr = []
-    @orders.each do |order|
+    unless @orders.nil?
+      @orders.each do |order|
         order.products.each do |product|
           product.variants.each do |variant|
             @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => variant.inventory_quantity - order.line_items.sum(:quantity)}
@@ -204,5 +205,5 @@ class ProductController < ApplicationController
       format.csv { send_data @products.to_csv }
       format.xls # { send_data @products.to_csv(col_sep: "\t") }
     end
-  
+  end
 end
