@@ -174,20 +174,14 @@ class ProductController < ApplicationController
       @sales = @orders.where(:order_type => "Child").sum(:total_price)
       @orders_to_csv = @orders
       @orders = @orders.paginate(:page => params[:page], :per_page => 50)
-      respond_to do |format|
-        format.html
-        format.csv { send_data Order.to_csv(@orders_to_csv) }
-      end
+      
     else
       @orders_for_count = Order.where(:order_type => "Child").where(:cancelled_at => nil).where(:order_type => "Child")
       @orders_count = @orders_for_count.count
       @orders_quantity = @orders_for_count.joins(:line_items).sum(:quantity)
       @shops = Shop.all
       @sales = @orders_for_count.sum(:total_price)
-      respond_to do |format|
-        format.html
-        format.csv { render text: Order.to_csv(@orders_for_count) }
-      end
+      
       @flag = "no_search_result"
     end
   	
@@ -212,5 +206,4 @@ class ProductController < ApplicationController
       format.xls # { send_data @products.to_csv(col_sep: "\t") }
     end
   end
-
 end
