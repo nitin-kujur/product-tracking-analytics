@@ -1,7 +1,7 @@
 namespace :order do
   desc 'Shopify sync missing orders'
   task sync_shopify_order: :environment do
-    Shop.where(:shopify_domain => "gatoradeplus.myshopify.com").each do |shop|
+    Shop.all.each do |shop|
       Shop.set_session(shop)
       order_count = 2500
       pages = order_count / 250 + (order_count % 250 == 0 ? 0 : 1)
