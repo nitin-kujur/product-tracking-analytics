@@ -305,7 +305,7 @@ class Analyticapi::KippController < ApplicationController
       @shop.orders.each do |order|
         order.products.each do |product|
           product.variants.each do |variant|
-            product_track_arr = {:sku = variant.sku, :product_name = product.title, :unit_sold = order.quantity, :amount = order.total_price, :boh = variant.inventory_quantity, :eoh = variant.inventory_quantity - order.quantity}
+            product_track_arr = {:sku => variant.sku, :product_name => product.title, :unit_sold => order.quantity, :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => variant.inventory_quantity - order.quantity}
           end
       end
     end
