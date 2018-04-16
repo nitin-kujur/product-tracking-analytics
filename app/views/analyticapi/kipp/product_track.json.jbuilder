@@ -1,8 +1,8 @@
 json.products @product_track_arr do |product|
-  json.sku product.sku
-  json.product_name product.title 
-  json.unit_sold  product.quantity
-  json.amount product.total_price
-  json.boh product.inventory_quantity
-  json.eoh product.eoh 
+  json.sku product["sku"]
+  json.product_name product["product_name"]
+  json.unit_sold  product["unit_sold"]
+  json.amount product[amount]
+  json.boh product["boh"]
+  json.eoh product["eoh"]
 end
