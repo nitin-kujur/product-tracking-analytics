@@ -186,6 +186,10 @@ class Analyticapi::KippController < ApplicationController
      				order_tags = @order.tags.split(',')
      				order_tags << "PaidAt:#{params[:school]}"
      				order_tags << "PaidThrough:#{params[:cid]}"
+            puts "======================="
+            puts params[:fulfilled_at_school]
+            puts params[:fulfilled_at_school]?
+            puts "======================="
             if params[:fulfilled_at_school] == true 
               puts "==================================="
               puts "I am into fulfilled_at_school"
