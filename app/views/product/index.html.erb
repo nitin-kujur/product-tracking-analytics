@@ -1,6 +1,237 @@
 <div class="row">
     <div class="col-lg-12">
-        <img src="/assets/comming-soon.png">
+        <h1 class="page-header" style="margin: 100px 0 20px;">Tracking View</h1>
+
     </div>
     <!-- /.col-lg-12 -->
 </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            The Parent orders are excluded from the total count
+        </div>    
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="huge"> <%= number_with_delimiter(@orders_count, :delimiter => ',')%></div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Total Orders</span>
+                    <span class="pull-right"><i class="fa fa-shopping-cart fa-2x"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="huge"><%= number_with_delimiter(@orders_quantity, :delimiter => ',')%></div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Total Quantity</span>
+                    <span class="pull-right"><i class="fa fa-stack-overflow fa-2x"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="samll" style="height:57px;font-size: 30px;"><%= number_to_currency(@sales.to_i, :unit => "$", strip_insignificant_zeros: true) %></div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Total Sales</span>
+                    <span class="pull-right"><i class="fa fa-dollar fa-2x"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="huge"><%= @shops.count %> </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Total Shops</span>
+                    <span class="pull-right"><i class="fa fa-home fa-2x"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <%= form_tag(landing_index_path, { method: 'get' , id: 'select_type_form', class: 'form-inline'}) do %>
+                    <div class="form-group">
+                        <label for="shop_id">
+                            Select Webstore:
+                        </label>
+                        <%= select_tag :shop_id, "<option value='all'>All</option>" +options_from_collection_for_select(Shop.all, 'id', 'shop_name', params[:shop_id].to_i), onchange: "$('#select_type_form').submit();", class: "form-control", prompt: "--Select Shop--" %>
+
+                    </div>
+                    <div class="form-group">
+                            <label for="form_date"> From:</label>
+                            <%= text_field_tag 'form_date', value="", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @form_date , data:{ provide:'datepicker' } %>
+
+                            <%#= date_select :form_date, "form_date", {:class => 'form-control' }  %>
+                            
+
+                    </div>
+                    <div class="form-group">
+                        <label for="to_date"> To:</label>
+                        <%= text_field_tag 'to_date', value= "", class: "form-control", type: "input", placeholder: "mm-dd-yy", value: @to_date, data:{ provide:'datepicker' }%>
+                        <%#= date_select :to_date , "form_date", {:class => 'form-control'}  %>
+                    </div>
+                    <div class="form-group">
+                        <%= submit_tag 'Submit', class: "btn btn-primary", id: "sbt-report"%>
+                    </div>
+                <% end %>
+                <div class="col-lg-8 col-md-12">
+                    <%= form_tag(landing_index_path,{method: 'get'}) do %>
+                        <%= hidden_field_tag :reset, params[:reset] %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <%= form_tag landing_index_path, :method => 'get' do %>
+                    <div class="col-lg-3 col-md-6">
+                        <p>     
+                            <%= text_field_tag :billed_to_search, params[:billed_to_search], placeholder: "Billed To", class: "form-control" %>
+                            <%= hidden_field_tag :shop_id, @shop_id, class: "shop_id_hidden_tag" %>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date, @to_date, class: "to_date_hidden_tag" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :shipped_to_search, params[:shipped_to_search], placeholder: "Shipped To", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :item_search, params[:item_search], placeholder: "Item Name", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :tracking_number, params[:tracking_number], placeholder: "Tracking Number", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :sku_search, params[:sku_search], placeholder: "SKU", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :order_name_search, params[:order_name_search], placeholder: "Order Id", class: "form-control" %>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <p>
+                            <%= text_field_tag :free_text_search, params[:free_text_search], placeholder: "Free Text Search", class: "form-control"%>
+                        </p>
+                    </div>
+                
+                    <div class="col-lg-3 col-md-6">
+                        <%= submit_tag "Search", :name => nil, class: "btn btn-primary"%>
+                    </div>
+                <% end %>
+
+                    <div class="col-lg-12 col-md-24">
+                        <%= form_tag(landing_index_path, {:method => 'get', class: "form-link"} )do %>
+                            <%= hidden_field_tag 'fulfilled', "fulfilled" %>
+                            <%= hidden_field_tag :shop_id, @shop_id , class: "shop_id_hidden_tag"%>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date, @to_date, class: "to_date_hidden_tag" %>
+                            <%= submit_tag 'Fulfilled', :class => "hidden", :id => 'form_submit_button_fullfilled' %>
+                            <%= content_tag(:a, 'Fulfilled', :name => 'submit', :id => 'fullfilled_submit_link') %>
+                        <% end %>
+
+                        <%= form_tag(landing_index_path,{:method => 'get', class: "form-link"}) do%>
+                            <%= hidden_field_tag 'unfulfilled', "unfulfilled" %>
+                            <%= hidden_field_tag :shop_id, @shop_id , class: "shop_id_hidden_tag"%>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date, @to_date, class: "to_date_hidden_tag" %>
+                            <%= submit_tag 'Unfulfilled', :class => "hidden", :id => 'form_submit_button_unfullfilled' %>
+                            <%= content_tag(:a, 'Unfulfilled', :name => 'submit', :id => 'unfullfilled_submit_link') %>
+                            <% end %>
+
+                        <%= form_tag(landing_index_path, {:method => 'get', class: "form-link"})do %>
+                            <%= hidden_field_tag 'cancelled', "cancelled" %>
+                            <%= hidden_field_tag :shop_id, @shop_id , class: "shop_id_hidden_tag"%>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date, @to_date, class: "to_date_hidden_tag" %>
+                            <%= submit_tag 'Cancelled', :class => "hidden", :id => 'form_submit_button_cancelled' %>
+                            <%= content_tag(:a, 'Cancelled', :name => 'submit', :id => 'cancelled_submit_link') %>
+                        <% end %>
+
+                        <%= form_tag(landing_index_path, {:method => 'get', class: "form-link"})do %>
+                            <%= hidden_field_tag 'archived', "archived" %>
+                            <%= hidden_field_tag :shop_id, @shop_id, class: "shop_id_hidden_tag" %>
+                            <%= hidden_field_tag :form_date, @form_date, class: "form_date_hidden_tag" %>
+                            <%= hidden_field_tag :to_date,  @to_date, class: "to_date_hidden_tag" %>
+                            <%= submit_tag 'Archived', :class => "hidden", :id => 'form_submit_button_archived' %>
+                            <%= content_tag(:a, 'Archived', :name => 'submit', :id => 'archived_submit_link') %>
+                        <% end %>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% if @orders.present? %>
+<% if @flag == "search_result" %>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                The default list displays the order for life time
+            </div>    
+        </div>
+    </div>
+<% end %>
