@@ -190,7 +190,7 @@ class Analyticapi::KippController < ApplicationController
             puts params[:fulfilled_at_school]
             puts params[:fulfilled_at_school] == true 
             puts "======================="
-            if params[:fulfilled_at_school] == true 
+            if params[:fulfilled_at_school]
               puts "==================================="
               puts "I am into fulfilled_at_school"
               order_tags << "fulfilled_at_school"
