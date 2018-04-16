@@ -220,7 +220,12 @@ class LandingController < ApplicationController
       puts order.inspect
       puts "------------------------"
       puts "Order get called"
-      Order.save_shopify_order(shop, order)
+      sleep(1)
+      begin
+        Order.save_shopify_order(shop, order)
+      rescue
+        UserMailer.order_update_fail_email(order, shop).deliver
+      end
       puts "Order get called 1"
     end
     format.json { render json: {'message' => "ok", :status => "200"} } 

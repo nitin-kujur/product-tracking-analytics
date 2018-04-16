@@ -8,4 +8,9 @@ class UserMailer < ApplicationMailer
 		@order = order_local
 		mail(to: "NKujur@LapineInc.com, PChaudhari@LapineInc.com", subject: "Order cancelled successfully.")
 	end
+
+	def order_update_fail_email(order, shop)
+		@order = order.id
+		mail(to: "NKujur@LapineInc.com, PChaudhari@LapineInc.com", subject: "Order #{params[:id]} marked as Paid")
+	end
 end
