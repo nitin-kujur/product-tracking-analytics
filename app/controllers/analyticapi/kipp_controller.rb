@@ -309,7 +309,8 @@ class Analyticapi::KippController < ApplicationController
           end
         end
       end
-      puts @product_track_arr.inspect
+      puts @product_track_arr.first.inspect
+      puts @product_track_arr.first[:sku]
     end
   end
 end
