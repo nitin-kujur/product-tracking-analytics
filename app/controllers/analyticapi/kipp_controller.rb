@@ -204,7 +204,7 @@ class Analyticapi::KippController < ApplicationController
               local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
               local_order.tags << "PaidAt:#{params[:school]}"
               local_order.tags << "PaidThrough:#{params[:cid]}"
-              if params[:fulfilled_at_school] == true
+              if params[:fulfilled_at_school]
                 puts "==================================="
                 puts "I am into fulfilled_at_school"
                 local_order.order_tags.build(name: "FulfilledAtSchool", value: params[:fulfilled_at_school])
