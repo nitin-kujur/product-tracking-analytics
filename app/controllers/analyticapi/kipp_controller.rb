@@ -301,6 +301,7 @@ class Analyticapi::KippController < ApplicationController
     puts "---------Number of params present--------"
     @product_track_arr = []
     if params[:domain].present? 
+      @shop = Shop.find_by_shopify_domain(params[:domain])
       @shop.orders.each do |order|
         order.products.each do |product|
           product.variants.each do |variant|
