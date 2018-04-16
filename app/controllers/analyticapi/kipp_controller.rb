@@ -184,19 +184,29 @@ class Analyticapi::KippController < ApplicationController
     			# if transaction.save
             puts "Transaction saved"
      				order_tags = @order.tags.split(',')
-     				order_tags << "PaidAt:#{params[:school_id]}"
+     				order_tags << "PaidAt:#{params[:school]}"
      				order_tags << "PaidThrough:#{params[:cid]}"
-            if params[:fulfilled_at_school] == true
+            if params[:fulfilled_at_school] == true 
+              puts "==================================="
+              puts "I am into fulfilled_at_school"
               order_tags << "fulfilled_at_school"
+              puts "==================================="
             end
      				@order.tags = order_tags.join(",")
      				if @order.save
               puts "Order saved"
       				local_order = Order.where(:shopify_order_id => params[:id]).first
+              local_order.order_tags.build(name: "PaidAt", value: params[:school])
+              local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
+              local_order.tags << "PaidAt:#{params[:school]}"
+              local_order.tags << "PaidThrough:#{params[:cid]}"
               if params[:fulfilled_at_school] == true
-                local_order.order_tags.build(name: "PaidAt", value: params[:school])
-                local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
+                puts "==================================="
+                puts "I am into fulfilled_at_school"
                 local_order.order_tags.build(name: "FulfilledAtSchool", value: params[:fulfilled_at_school])
+                local_order.tags << "fulfilled_at_school"
+                puts "==================================="
+              puts "I am into fulfilled_at_school"
               end
               local_order.order_tags.build(name: "PaidAt", value: params[:school])
               local_order.order_tags.build(name: "PaidThrough", value: params[:cid])
