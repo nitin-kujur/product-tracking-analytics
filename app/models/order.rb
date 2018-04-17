@@ -134,16 +134,18 @@ class Order < ApplicationRecord
           end
 
           unless shopify_product.nil? 
-            product = @order.products.build(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
+            product = Product.create(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
+            order_product = @order.order_products.build(:product_id => product.id)
             shopify_product.variants.each do |variant|
-              puts "I am into variants....."
-              puts variant.id
-              puts variant.sku
-              puts "I am into variants....."
-              sleep 1
-              shopify_variant = ShopifyAPI::Variant.find(variant.id)
-              variant = Variant.where(:shopify_variant_id => variant.id).first
-              product.variants.build(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id) if variant.nil?
+              if l.variant_id == variant.id
+                puts "I am into variants....."
+                puts variant.id
+                puts variant.sku
+                puts "I am into variants....."
+                shopify_variant = ShopifyAPI::Variant.find(variant.id)
+                variant = Variant.where(:shopify_variant_id => variant.id).first
+                product.variants.create(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id) if variant.nil?
+              end  
             end
             
             shopify_product.tags.first.split(",").each do |p_t|
