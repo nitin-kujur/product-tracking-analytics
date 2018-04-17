@@ -201,7 +201,7 @@ class ProductController < ApplicationController
               else
                 puts "hash1 present.........."
                 unit_sold = hash1.map {|s| s[:unit_sold]}.reduce(0, :+) + order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity).to_i
-                order_names = hash1.map {|s| s[:order_names]} + order.order_number
+                order_names = hash1.map {|s| s[:order_names]}.first + order.order_number
                 eoh = variant.inventory_quantity.to_i - unit_sold.to_i
                 puts "lllllllllllllllllllllllllllll"
                 puts hash1.inspect
