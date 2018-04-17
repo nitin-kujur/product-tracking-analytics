@@ -146,7 +146,7 @@ class Order < ApplicationRecord
                 puts variant.sku
                 puts "I am into variants....."
                 shopify_variant = ShopifyAPI::Variant.find(variant.id)
-                var = Variant.where(:shopify_variant_id => variant.id)
+                var = Variant.where(:shopify_variant_id => variant.id, :product_id => product.id)
                 puts "------------"
                 puts var.count == 0
                 puts var.first.inspect
