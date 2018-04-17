@@ -198,7 +198,7 @@ class ProductController < ApplicationController
               puts "lllllllllllllllllllllllllllll"
               puts hash1.inspect
               puts "lllllllllllllllllllllllllllll"
-              if hash1.nil?
+              if hash1.empty?
                 puts "hash1 not present.........."
                 @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity))}
               else
