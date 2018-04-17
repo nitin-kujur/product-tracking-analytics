@@ -25,9 +25,6 @@ class Order < ApplicationRecord
   def self.save_shopify_order(shop, shopify_obj)
     unless shopify_obj.try(:customer).nil?
       @customer = Customer.where(:email => shopify_obj.try(:customer).try(:email), :shop_id => shop.id, :shopify_customer_id => shopify_obj.try(:customer).try(:id)).first
-      puts "====================================="
-      puts @customer.nil?
-      puts "====================================="
       if @customer.nil?
         @customer = Customer.new(:shop_id => shop.id, :first_name => shopify_obj.try(:customer).try(:first_name), :last_name => shopify_obj.try(:customer).try(:last_name), :shopify_customer_id => shopify_obj.try(:customer).try(:id), :email => shopify_obj.try(:customer).try(:email))
         @customer.save
@@ -37,11 +34,6 @@ class Order < ApplicationRecord
           customer_tag = CustomerTag.where(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[1].try(:strip)).first
           if customer_tag.nil?
             unless c_t.split(":")[0].try(:strip).nil? && c_t.split(":")[1].try(:strip).nil?
-              puts "================="
-              puts @customer.inspect
-              puts @customer.customer_tags
-              puts @customer.customer_tags.first
-              puts "-----------------"
               customer_t = @customer.customer_tags.build(:name => c_t.split(":")[0].try(:strip), :value => c_t.split(":")[0].try(:strip))
               customer_t.save
             end
@@ -125,16 +117,13 @@ class Order < ApplicationRecord
       shopify_obj.line_items.each do |l|
         product = Product.where(:shopify_product_id => l.product_id).last
         if product.nil?
-          puts "I am into product nillll"
           if l.product_id.nil?
             shopify_product = nil 
           else
-            puts "product id is not nil........"
             shopify_product = ShopifyAPI::Product.find(l.product_id)
           end
 
           unless shopify_product.nil? 
-            puts "shopify_product not nul..."
             product = Product.create(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
             order_product = @order.order_products.build(:product_id => product.id)
             shopify_product.variants.each do |variant|
@@ -147,10 +136,6 @@ class Order < ApplicationRecord
                 puts "I am into variants....."
                 shopify_variant = ShopifyAPI::Variant.find(variant.id)
                 var = Variant.where(:shopify_variant_id => variant.id, :product_id => product.id)
-                puts "------------"
-                puts var.count == 0
-                puts var.first.inspect
-                puts "------------"
                 v = Variant.new(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id, :product_id => product.id) if var.count == 0
                 v.save(:validate => false) if var.count == 0
               end  
@@ -172,16 +157,9 @@ class Order < ApplicationRecord
           @order.order_products.build(:product_id => product.id)
         end
         @order.line_items.build(:shopify_line_item_id => l.id, :variant_title => l.variant_title, :variant_id => l.variant_id, :title => l.title,:quantity => l.quantity, :price => l.price, :sku => l.sku, :fulfillment_service => l.fulfillment_service, :requires_shipping => l.requires_shipping, :properties => l.properties.map(&:attributes), :fulfillable_quantity => l.fulfillable_quantity, :total_discount => l.total_discount, :fulfillment_status => l.fulfillment_status, :destination_location => l.try(:destination_location).try(:attributes), :origin_location => l.try(:origin_location).try(:attributes), :shopify_product_id => l.product_id)
-        puts "-------- I am into fix mtn dew --------------------"
-        puts shop.shop_type == "premium" 
-        puts shopify_obj.financial_status
-        puts "-------- I am into fix mtn dew --------------------"
         if shop.shop_type == "premium" && shopify_obj.financial_status == ("pending" || "paid")
           unless l.properties.first.nil?
             unless l.properties.first.empty?
-              puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
-              puts l.properties.map(&:attributes)[0]["value"]
-              puts "{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{"
               @order.parent_order_flag = l.properties.map(&:attributes)[0]["value"]
             end
           end
@@ -221,14 +199,9 @@ class Order < ApplicationRecord
     if @order.save(:validate => false)
       # billing_address.order_id = @order.id
       # shipping_address.order_id = @order.id
-      puts "Order save successfully.........."
     else
       puts "I in not save shopify order block"
-      puts "============================"
-      puts @order.order_number
-      puts @order.line_items.first.inspect
       puts @order.errors.first.full_messages
-      puts "============================"
     end
   end
 
