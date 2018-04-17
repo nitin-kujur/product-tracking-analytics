@@ -148,11 +148,10 @@ class Order < ApplicationRecord
                 shopify_variant = ShopifyAPI::Variant.find(variant.id)
                 var = Variant.where(:shopify_variant_id => variant.id).first
                 puts "------------"
-                puts var.nil?
-                puts var
+                puts var.count == 0
                 puts "------------"
-                v = Variant.new(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id, :product_id => product.id) if var.nil?
-                v.save(:validate => false) if var.nil?
+                v = Variant.new(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id, :product_id => product.id) if var.count == 0
+                v.save(:validate => false) if var.count == 0
               end  
             end
             
