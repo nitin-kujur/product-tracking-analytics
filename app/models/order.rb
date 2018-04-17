@@ -134,9 +134,12 @@ class Order < ApplicationRecord
           end
 
           unless shopify_product.nil? 
+            puts "shopify_product not nul..."
             product = Product.create(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
             order_product = @order.order_products.build(:product_id => product.id)
             shopify_product.variants.each do |variant|
+              puts variant.id
+              puts l.variant_id
               if l.variant_id == variant.id
                 puts "I am into variants....."
                 puts variant.id
