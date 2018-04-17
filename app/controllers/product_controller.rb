@@ -195,16 +195,21 @@ class ProductController < ApplicationController
           product.variants.each do |variant|
             if order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
               hash1 = @product_track_arr.select { |h| h[:sku] == variant.sku } rescue nil
-              puts "lllllllllllllllllllllllllllll"
-              puts hash1.inspect
-              puts "lllllllllllllllllllllllllllll"
               if hash1.empty?
                 puts "hash1 not present.........."
                 @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity))}
               else
                 puts "hash1 present.........."
                 unit_sold = hash1.map {|s| s[:unit_sold]}.reduce(0, :+)
-                @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - unit_sold)}
+                eoh = variant.inventory_quantity.to_i - unit_sold.to_i
+                puts "lllllllllllllllllllllllllllll"
+                puts hash1.inspect
+                puts "lllllllllllllllllllllllllllll"
+                puts "-----------------"
+                puts unit_sold
+                puts eoh
+                puts "-----------------"
+                @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => unit_sold, :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => eoh}
                 @product_track_arr = @product_track_arr - hash1
               end
             end
