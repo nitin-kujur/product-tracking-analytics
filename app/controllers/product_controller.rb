@@ -195,7 +195,7 @@ class ProductController < ApplicationController
           product.variants.each do |variant|
             puts "********* line item quantity **************"
             puts variant.id
-            puts order.line_items.map(&:shopify_vaiant_id)
+            puts order.line_items.inspect
             puts "********* line item quantity **************"
             @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - order.line_items.where(:shopify_vaiant_id => variant.id).sum(:quantity))}
           end
