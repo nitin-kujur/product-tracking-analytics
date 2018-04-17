@@ -217,7 +217,8 @@ class ProductController < ApplicationController
           end
         end
       end
-      puts @product_track_arr.inspect
+      # puts @product_track_arr.inspect
+      puts @product_track_arr.group_by {|item| item[:sku]}
     end
     respond_to do |format|
       format.html
