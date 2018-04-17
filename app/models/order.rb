@@ -129,12 +129,17 @@ class Order < ApplicationRecord
           if l.product_id.nil?
             shopify_product = nil 
           else
+            puts "product id is not nil........"
             shopify_product = ShopifyAPI::Product.find(l.product_id)
           end
 
           unless shopify_product.nil? 
             product = @order.products.build(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
             shopify_product.variants.each do |variant|
+              puts "I am into variants....."
+              puts variant.id
+              puts variant.sku
+              puts "I am into variants....."
               sleep 1
               shopify_variant = ShopifyAPI::Variant.find(variant.id)
               variant = Variant.where(:shopify_variant_id => variant.id).first
@@ -156,7 +161,7 @@ class Order < ApplicationRecord
           puts "I am into product not nillll"
           @order.order_products.build(:product_id => product.id)
         end
-        @order.line_items.build(:shopify_line_item_id => l.id, :variant_title => l.variant_title, :variant_id => l.variant_id, :title => l.title,:quantity => l.quantity, :price => l.price, :sku => l.sku, :fulfillment_service => l.fulfillment_service, :product_id => l.product_id, :requires_shipping => l.requires_shipping, :properties => l.properties.map(&:attributes), :fulfillable_quantity => l.fulfillable_quantity, :total_discount => l.total_discount, :fulfillment_status => l.fulfillment_status, :destination_location => l.try(:destination_location).try(:attributes), :origin_location => l.try(:origin_location).try(:attributes), :shopify_product_id => l.product_id)
+        @order.line_items.build(:shopify_line_item_id => l.id, :variant_title => l.variant_title, :variant_id => l.variant_id, :title => l.title,:quantity => l.quantity, :price => l.price, :sku => l.sku, :fulfillment_service => l.fulfillment_service, :requires_shipping => l.requires_shipping, :properties => l.properties.map(&:attributes), :fulfillable_quantity => l.fulfillable_quantity, :total_discount => l.total_discount, :fulfillment_status => l.fulfillment_status, :destination_location => l.try(:destination_location).try(:attributes), :origin_location => l.try(:origin_location).try(:attributes), :shopify_product_id => l.product_id)
         puts "-------- I am into fix mtn dew --------------------"
         puts shop.shop_type == "premium" 
         puts shopify_obj.financial_status
