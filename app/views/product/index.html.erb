@@ -259,40 +259,42 @@
               <td>
                 <%= product[1].map {|s| s[:product_name]}.first %>
               </td>
-              <td>
+              <td class="text-right">
                 <%= product[1].map {|s| s[:unit_sold]}.reduce(0, :+) %>
               </td>
-              <td class="text-left">
+              <td class="text-right">
                 <%= product[1].map {|s| s[:amount]}.reduce(0, :+) %>
               </td>
-              <td>
+              <td class="text-right">
                 <%= product[1].first[:boh] %>
               </td>
-              <td>
+              <td class="text-right">
                 <%= product[1].first[:boh] - product[1].map {|s| s[:unit_sold]}.reduce(0, :+) %>
               </td>
             </tr>
-
+            
+            <tbody class="collapse" id="collapseContent<%= index %>" aria-expanded="true">
             <% product[1].each do |child_product| %>
-                <tr class="collapse" id="collapseContent<%= index %>" aria-expanded="true">
+                <tr>
                     <td></td>
                     <td>
                         <%= child_product[:sku] %>
                     </td>
-                    <td>
+                    <td class="text-right">
                         <%= child_product[:unit_sold] %>
                     </td>
-                    <td class="text-left">
+                    <td class="text-right">
                         <%= child_product[:amount] %>
                     </td>
-                    <td>
+                    <td class="text-left" title="<%= child_product[:order_names] %>">
                         <%= child_product[:order_names] %>
                     </td>
-                    <td>
+                    <td class="text-right">
                         <%= child_product[:eoh] %>
                     </td>
                 </tr>
             <% end %>
+            </tbody>
           <% end %>
         </tbody>
       </table>
@@ -316,17 +318,17 @@
 </div>
 
 <script type="text/javascript">
-  //   $('.collapse').on('show.bs.collapse', function () {
-  // var groupId = $('#expander').attr('data-group-id');
-  // if (groupId) {
-  //   $('#grandparentIcon').html('v');
-  // }
-  //   });
+$('.collapse').on('show.bs.collapse', function () {
+  var groupId = $('#expander').attr('data-group-id');
+  if (groupId || true) {
+    $('td[data-target="#'+this.id+'"]').html('<i class="fa fa-caret-down"></i>');
+  }
+});
 
 $('.collapse').on('hide.bs.collapse', function () {
   var groupId = $('#expander').attr('data-group-id');
-  if (groupId) {
-    $('#' + groupId + 'Icon').html('>');
+  if (groupId || true) {
+    $('td[data-target="#'+this.id+'"]').html('<i class="fa fa-caret-right"></i>');
   }
 });
 
