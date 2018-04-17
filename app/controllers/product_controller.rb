@@ -197,18 +197,19 @@ class ProductController < ApplicationController
             puts order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
             puts "********* line item quantity **************"
             if order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
-              # hash1 = @product_track_arr.find { |h| h[:sku] == variant.sku } rescue nil
-              # puts "===================="
-              # puts hash1.inspect
-              # puts "===================="
-              # # if hash1.nil?
-              #   puts "hash1 not present.........."
+              hash1 = @product_track_arr.select { |h| h[:sku] == variant.sku } rescue nil
+              puts "===================="
+              puts hash1.inspect
+              puts "===================="
+              if hash1.nil?
+                puts "hash1 not present.........."
                 @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity))}
-              # else
-              #   puts "hash1 present.........."
-              #   hash1[:unit_sold] = hash1[:unit_sold] + order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity)
-              #   hash1[:eoh] = hash1[:eoh] - variant.inventory_quantity
-              # end
+              else
+                puts "hash1 present.........."
+                unit_sold = hash1.map {|s| s[:unit_sold]}.reduce(0, :+)
+                @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - unit_sold)}
+                @product_track_arr = @product_track_arr - hash1
+              end
             end
           end
         end
