@@ -273,20 +273,20 @@
                 <%= product[0] %>
               </td>
               <td>
-                <%= product.map {|s| s[:unit_sold]}.reduce(0, :+) %>
+                <%= product[1].map {|s| s[:unit_sold]}.reduce(0, :+) %>
               </td>
               <td class="text-left">
-                <%= product.map {|s| s[:amount]}.reduce(0, :+) %>
+                <%= product[1].map {|s| s[:amount]}.reduce(0, :+) %>
               </td>
               <td>
-                <%= product.first[:boh] %>
+                <%= product[1].first[:boh] %>
               </td>
               <td>
-                <%= product.first[:boh] - product.map {|s| s[:unit_sold]}.reduce(0, :+) %>
+                <%= product[1].first[:boh] - product.map {|s| s[:unit_sold]}.reduce(0, :+) %>
               </td>
             </tr>
 
-            <%= product.each do |child_product| %>
+            <%= product[1].each do |child_product| %>
                 <tr class="collapse" id="collapseContent<%= index %>" aria-expanded="true">
                     <td></td>
                     <td>
