@@ -197,9 +197,9 @@ class ProductController < ApplicationController
             puts variant.shopify_variant_id
             puts order.line_items.inspect
             puts "********* line item quantity **************"
-            if order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
+            # if order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
               @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity))}
-            end  
+            # end  
           end
         end
       end
