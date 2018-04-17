@@ -236,7 +236,14 @@
 <% end %>
 <% end %>
 
-<div class="list-group-item" id="grandparent">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+        <!-- /.panel-heading -->
+            <div class="panel-body">
+                <%#= link_to "Export", product_index_path({:format => :csv }.merge(params.to_hash.except("controller", "action", "utf8").symbolize_keys! )), :class=>"btn btn-primary" %>
+                <div class="table-responsive">
+                    <div class="list-group-item" id="grandparent">
     <div id="expander" data-target="#grandparentContent" data-toggle="collapse" data-group-id="grandparent" data-role="expander">
         <ul class="list-inline">
             <li id="grandparentIcon">&gt;</li>
@@ -294,5 +301,20 @@
       </table>
     </div>
 </div>
-
+                </div>
+                <!-- /.table-responsive -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                            
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
 
