@@ -135,7 +135,9 @@ class Order < ApplicationRecord
           unless shopify_product.nil? 
             product = @order.products.build(:shopify_product_id => shopify_product.id, :shop_id => shop.id, :title => shopify_product.title, :product_type => shopify_product.product_type, :vendor => shopify_product.vendor, :handle => shopify_product.handle)
             shopify_product.variants.each do |variant|
+              sleep(2)
               shopify_variant = ShopifyAPI::Variant.find(variant.id)
+              sleep(2)
               variant = Variant.where(:shopify_variant_id => variant.id).first
               product.variants.build(:shopify_product_id => shopify_product.id, :title => shopify_variant.title, :sku => shopify_variant.sku, :inventory_policy => shopify_variant.inventory_policy, :position => shopify_variant.position, :inventory_quantity => shopify_variant.inventory_quantity, :source => nil, :shopify_variant_id => shopify_variant.id) if variant.nil?
             end
