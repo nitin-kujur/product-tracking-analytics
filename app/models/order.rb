@@ -2,10 +2,10 @@ class Order < ApplicationRecord
 	has_many :line_items, dependent: :destroy
 	belongs_to :customer, dependent: :destroy
   belongs_to :shop
-	has_many :order_products
-  has_many :shipping_lines
+	has_many :order_products, dependent: :destroy
+  has_many :shipping_lines, dependent: :destroy
 	has_many :products, through: :order_products, dependent: :destroy
-	has_many :order_order_tags
+	has_many :order_order_tags, dependent: :destroy
 	has_many :order_tags, through: :order_order_tags, source: :order_tag, dependent: :destroy
 	belongs_to :billing_address, :class_name => 'Address', :foreign_key => "billing_address_id", dependent: :destroy
   belongs_to :shipping_address, :class_name => 'Address', :foreign_key => "shipping_address_id", dependent: :destroy
