@@ -282,7 +282,7 @@
                 <%= product[1].first[:boh] %>
               </td>
               <td>
-                <%= product[1].first[:boh] - product.map {|s| s[:unit_sold]}.reduce(0, :+) %>
+                <%= product[1].first[:boh] - product[1].map {|s| s[:unit_sold]}.reduce(0, :+) %>
               </td>
             </tr>
 
