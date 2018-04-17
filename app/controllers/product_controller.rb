@@ -217,7 +217,7 @@ class ProductController < ApplicationController
           end
         end
       end
-      puts @product_track_arr.inspect
+      puts @product_track_arr.group_by &:sku
     end
     respond_to do |format|
       format.html
