@@ -206,11 +206,9 @@ class ProductController < ApplicationController
                 @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity))}
               else
                 puts "hash1 present.........."
-                hash1.each do |h|
-                  h[:unit_sold] = h[:unit_sold].to_i + order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity).to_i
-                  h[:eoh] = h[:eoh].to_i - variant.inventory_quantity.to_i
-                end
-              end  
+                hash1[:unit_sold] = hash1[:unit_sold] + order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity)
+                hash1[:eoh] = hash1[:eoh] - variant.inventory_quantity
+              end
             end
           end
         end
