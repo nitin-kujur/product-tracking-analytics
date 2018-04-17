@@ -244,12 +244,12 @@
                 <%#= link_to "Export", product_index_path({:format => :csv }.merge(params.to_hash.except("controller", "action", "utf8").symbolize_keys! )), :class=>"btn btn-primary" %>
                 <div class="table-responsive">
                     <div class="list-group-item" id="grandparent">
-    <div id="expander" data-target="#grandparentContent" data-toggle="collapse" data-group-id="grandparent" data-role="expander">
+    <!-- <div id="expander" data-target="#grandparentContent" data-toggle="collapse" data-group-id="grandparent" data-role="expander">
         <ul class="list-inline">
             <li id="grandparentIcon">&gt;</li>
             <li>Products</li>
         </ul>
-    </div>
+    </div> -->
 
     <div class="collapse" id="grandparentContent" aria-expanded="true">
       <table class="table">
@@ -329,12 +329,12 @@
 </div>
 
 <script type="text/javascript">
-    $('.collapse').on('show.bs.collapse', function () {
-  var groupId = $('#expander').attr('data-group-id');
-  if (groupId) {
-    $('#grandparentIcon').html('v');
-  }
-    });
+  //   $('.collapse').on('show.bs.collapse', function () {
+  // var groupId = $('#expander').attr('data-group-id');
+  // if (groupId) {
+  //   $('#grandparentIcon').html('v');
+  // }
+  //   });
 
 $('.collapse').on('hide.bs.collapse', function () {
   var groupId = $('#expander').attr('data-group-id');
