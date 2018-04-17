@@ -197,7 +197,7 @@ class ProductController < ApplicationController
             puts order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
             puts "********* line item quantity **************"
             if order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
-              hash1 = @product_track_arr.find { |h| h['sku'] == variant.sku } rescue nil
+              hash1 = @product_track_arr.find { |h| h[:sku] == variant.sku } rescue nil
               puts "===================="
               puts hash1.inspect
               puts "===================="
