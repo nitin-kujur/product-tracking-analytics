@@ -266,46 +266,28 @@
 
         <tbody>
           <% @product_track_arr.group_by {|item| item[:product_name]}.each_with_index do |product, index| %>
-            <tr data-toggle="collapse">
-              <td data-target="#collapseContent<%= index %>" data-toggle="collapse" data-group-id="grandparent" data-role="expander"><div>&gt;</div>
-              </td>
-              <td>
-                <%#= product[1].map {|s| s[:product_name]}.first %>
-              </td>
-              <td>
-                <%= product[1].map {|s| s[:unit_sold]}.reduce(0, :+) %>
-              </td>
-              <td class="text-left">
-                <%= product[1].map {|s| s[:amount]}.reduce(0, :+) %>
-              </td>
-              <td>
-                <%= product[1].first[:boh] %>
-              </td>
-              <td>
-                <%= product[1].first[:boh] - product[1].map {|s| s[:unit_sold]}.reduce(0, :+) %>
-              </td>
-            </tr>
+            
 
             <%= product[1].each do |child_product| %>
                 <tr class="collapse" id="collapseContent<%= index %>" aria-expanded="true">
-                        <td></td>
-                        <td>
-                            <%= child_product[:sku] %>
-                        </td>
-                        <td>
-                            <%= child_product[:unit_sold] %>
-                        </td>
-                        <td class="text-left">
-                            <%= child_product[:amount] %>
-                        </td>
-                        <td>
-                            <%= child_product[:order_names] %>
-                        </td>
-                        <td>
-                            <%= child_product[:eoh] %>
-                        </td>
+                    <td></td>
+                    <td>
+                        <%= child_product[:sku] %>
+                    </td>
+                    <td>
+                        <%= child_product[:unit_sold] %>
+                    </td>
+                    <td class="text-left">
+                        <%= child_product[:amount] %>
+                    </td>
+                    <td>
+                        <%= child_product[:order_names] %>
+                    </td>
+                    <td>
+                        <%= child_product[:eoh] %>
+                    </td>
                 </tr>
-                <% end %>
+            <% end %>
           <% end %>
         </tbody>
       </table>
