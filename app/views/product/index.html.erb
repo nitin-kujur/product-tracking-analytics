@@ -286,9 +286,8 @@
               </td>
             </tr>
 
-            
+            <%= product[1].each do |child_product| %>
                 <tr class="collapse" id="collapseContent<%= index %>" aria-expanded="true">
-                    <%= product[1].each do |child_product| %>
                         <td></td>
                         <td>
                             <%= child_product[:sku] %>
@@ -305,8 +304,8 @@
                         <td>
                             <%= child_product[:eoh] %>
                         </td>
-                    <% end %>
                 </tr>
+                <% end %>
           <% end %>
         </tbody>
       </table>
