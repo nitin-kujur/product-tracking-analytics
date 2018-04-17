@@ -265,30 +265,7 @@
         </thead>
 
         <tbody>
-          <% @product_track_arr.group_by {|item| item[:product_name]}.each_with_index do |product, index| %>
-            
-
-            <%= product[1].each do |child_product| %>
-                <tr class="collapse" id="collapseContent<%= index %>" aria-expanded="true">
-                    <td></td>
-                    <td>
-                        <%= child_product[:sku] %>
-                    </td>
-                    <td>
-                        <%= child_product[:unit_sold] %>
-                    </td>
-                    <td class="text-left">
-                        <%= child_product[:amount] %>
-                    </td>
-                    <td>
-                        <%= child_product[:order_names] %>
-                    </td>
-                    <td>
-                        <%= child_product[:eoh] %>
-                    </td>
-                </tr>
-            <% end %>
-          <% end %>
+          
         </tbody>
       </table>
     </div>
