@@ -204,7 +204,6 @@ class ProductController < ApplicationController
         end
       end
       puts @product_track_arr.first.inspect
-      puts @product_track_arr.first[:sku]
     end
     respond_to do |format|
       format.html
