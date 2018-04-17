@@ -218,7 +218,7 @@ class ProductController < ApplicationController
         end
       end
       # puts @product_track_arr.inspect
-      puts @product_track_arr.group_by {|item| item[:product_name]}.last
+      puts @product_track_arr.group_by {|item| item[:product_name]}
     end
     respond_to do |format|
       format.html
