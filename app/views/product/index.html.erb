@@ -256,47 +256,55 @@
         <thead>
           <tr>
             <th></th>
-            <th>Name</th>
-            <th>Created On</th>
-            <th>Last Modified</th>
+            <th>Product Name</th>
+            <th>Unit Sold</th>
+            <th>Amount</th>
+            <th>BOH</th>
+            <th>EOH</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr data-toggle="collapse">
-            <td data-target="#collapseContent1" data-toggle="collapse" data-group-id="grandparent" data-role="expander"><div>&gt;</div></td>
-            <td>Parent 1</td>
-            <td>04/02/2017</td>
-            <td>04/04/2017</td>
-          </tr>
+          <% @product_track_arr.each do |product| %>
+            <tr data-toggle="collapse">
+              <td data-target="#collapseContent1" data-toggle="collapse" data-group-id="grandparent" data-role="expander"><div>&gt;</div>
+              </td>
+              <td>
+                <%= product[:product_name] %>
+              </td>
+              <td>
+                <%= product[:unit_sold] %>
+              </td>
+              <td class="text-left">
+                <%= product[:amount] %>
+              </td>
+              <td>
+                <%= product[:boh] %>
+              </td>
+              <td>
+                <%= product[:eoh] %>
+              </td>
+            </tr>
 
-          <tr class="collapse" id="collapseContent1" aria-expanded="true">
-            <td></td>
-            <td>Child A</td>
-            <td>04/01/2017</td>
-            <td>04/05/2017</td>
-          </tr>
-          
-          <tr class="collapse">
-            <td></td>
-            <td>Child B</td>
-            <td>04/03/2017</td>
-            <td>04/04/2017</td>
-          </tr>          
-          
-          <tr data-toggle="collapse">
-            <td><div>&gt;</div></td>
-            <td>Parent 2</td>
-            <td>04/03/2017</td>
-            <td>04/10/2017</td>
-          </tr>
-
-          <tr class="collapse">
-            <td></td>
-            <td>Child X</td>
-            <td>04/10/2017</td>
-            <td>04/11/2017</td>
-          </tr>          
+            <tr class="collapse" id="collapseContent1" aria-expanded="true">
+              <td></td>
+              <td>
+                <%= product[:sku] %>
+              </td>
+              <td>
+                <%= product[:unit_sold] %>
+              </td>
+              <td class="text-left">
+                <%= product[:amount] %>
+              </td>
+              <td>
+                <%= product[:boh] %>
+              </td>
+              <td>
+                <%= product[:eoh] %>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
