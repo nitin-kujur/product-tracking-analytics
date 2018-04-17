@@ -210,6 +210,7 @@ class ProductController < ApplicationController
               #   hash1[:eoh] = hash1[:eoh] - variant.inventory_quantity
               # end
             end
+            puts @product_track_arr
           end
         end
       end
