@@ -193,14 +193,11 @@ class ProductController < ApplicationController
       @orders.each do |order|
         order.products.each do |product|
           product.variants.each do |variant|
-            puts "********* line item quantity **************"
-            puts order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
-            puts "********* line item quantity **************"
             if order.line_items.where(:variant_id => variant.shopify_variant_id).count >= 1
               hash1 = @product_track_arr.select { |h| h[:sku] == variant.sku } rescue nil
-              puts "===================="
+              puts "lllllllllllllllllllllllllllll"
               puts hash1.inspect
-              puts "===================="
+              puts "lllllllllllllllllllllllllllll"
               if hash1.nil?
                 puts "hash1 not present.........."
                 @product_track_arr << {:sku => variant.sku, :product_name => product.title, :unit_sold => order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity), :amount => order.total_price, :boh => variant.inventory_quantity, :eoh => (variant.inventory_quantity - order.line_items.where(:variant_id => variant.shopify_variant_id).sum(:quantity))}
